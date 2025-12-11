@@ -20,6 +20,11 @@
     overflow-y: auto;
 }
 
+/* TOC Toggle Button - hidden on desktop */
+.docs-toc-toggle {
+    display: none;
+}
+
 .docs-nav h4 {
     font-size: 0.75rem;
     font-weight: 600;
@@ -273,7 +278,7 @@
 @media (max-width: 968px) {
     .docs-layout {
         grid-template-columns: 1fr;
-        gap: 32px;
+        gap: 24px;
     }
 
     .docs-sidebar {
@@ -281,37 +286,73 @@
         top: 0;
         max-height: none;
         background-color: var(--color-background-alt);
-        padding: 20px;
+        padding: 0;
         border-radius: var(--radius-lg);
+        border: 1px solid var(--color-border);
+        overflow: hidden;
+    }
+
+    /* TOC Toggle Button - visible on mobile */
+    .docs-toc-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        padding: 14px 16px;
+        background: none;
+        border: none;
+        font-size: 0.9375rem;
+        font-weight: 600;
+        color: var(--color-text);
+        cursor: pointer;
+        text-align: left;
+    }
+
+    .docs-toc-toggle .toc-icon {
+        width: 20px;
+        height: 20px;
+        transition: transform 0.2s ease;
+    }
+
+    .docs-toc-toggle[aria-expanded="true"] .toc-icon {
+        transform: rotate(180deg);
     }
 
     .docs-nav {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
+        display: none;
+        padding: 0 16px 16px;
+        border-top: 1px solid var(--color-border);
+    }
+
+    .docs-nav.expanded {
+        display: block;
     }
 
     .docs-nav h4 {
-        width: 100%;
-        margin: 16px 0 8px;
+        margin: 16px 0 10px;
+        font-size: 0.7rem;
     }
 
     .docs-nav h4:first-child {
-        margin-top: 0;
+        margin-top: 12px;
     }
 
     .docs-nav ul {
         display: flex;
         flex-wrap: wrap;
-        gap: 4px;
-        width: 100%;
+        gap: 6px;
     }
 
     .docs-nav a {
-        padding: 6px 10px;
+        padding: 8px 12px;
         font-size: 0.8125rem;
         background-color: var(--color-background);
         border: 1px solid var(--color-border);
+        white-space: nowrap;
+    }
+
+    .docs-content section {
+        margin-bottom: 36px;
     }
 }
 
@@ -320,8 +361,18 @@
         padding: 80px 0 40px;
     }
 
+    .docs-header {
+        margin-bottom: 32px;
+        padding-bottom: 24px;
+    }
+
     .docs-content h1 {
         font-size: 1.75rem;
+        line-height: 1.2;
+    }
+
+    .docs-subtitle {
+        font-size: 1rem;
     }
 
     .docs-content h2 {
@@ -337,30 +388,147 @@
         justify-content: center;
     }
 
+    /* Code blocks - better mobile handling */
+    .code-block {
+        margin-left: -16px;
+        margin-right: -16px;
+        border-radius: 0;
+    }
+
     .code-block pre {
         padding: 16px;
     }
 
     .code-block code {
-        font-size: 0.8125rem;
+        font-size: 0.75rem;
+        line-height: 1.5;
+        white-space: pre;
+        display: block;
+    }
+
+    /* Parameters table - stack on mobile */
+    .params-table table,
+    .params-table tbody,
+    .params-table tr,
+    .params-table td {
+        display: block;
+        width: 100%;
+    }
+
+    .params-table tr {
+        margin-bottom: 12px;
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius);
+        overflow: hidden;
+    }
+
+    .params-table td {
+        border: none;
+        border-bottom: 1px solid var(--color-border);
     }
 
     .params-table td:first-child {
-        width: auto;
+        width: 100%;
+        font-weight: 600;
+    }
+
+    .params-table td:last-child {
+        border-bottom: none;
     }
 
     .taxonomy-grid {
         grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .taxonomy-item {
+        padding: 14px;
+    }
+
+    .taxonomy-item h4 {
+        font-size: 0.8125rem;
+    }
+
+    .taxonomy-item p {
+        font-size: 0.75rem;
+    }
+
+    .use-cases-list li {
+        padding: 10px 0 10px 24px;
+        font-size: 0.875rem;
     }
 
     .docs-cta {
-        padding: 24px;
+        padding: 20px;
+        margin-left: -16px;
+        margin-right: -16px;
+        border-radius: 0;
+    }
+
+    .docs-cta h2 {
+        font-size: 1.125rem;
+    }
+
+    .docs-cta p {
+        font-size: 0.875rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .docs-main {
+        padding: 72px 0 32px;
+    }
+
+    .docs-sidebar {
+        padding: 12px;
+    }
+
+    .docs-nav h4 {
+        font-size: 0.65rem;
+        margin: 16px 0 8px;
+    }
+
+    .docs-nav a {
+        padding: 6px 10px;
+        font-size: 0.75rem;
+    }
+
+    .docs-content h1 {
+        font-size: 1.5rem;
+    }
+
+    .docs-content h2 {
+        font-size: 1.125rem;
+    }
+
+    .docs-content p {
+        font-size: 0.875rem;
+    }
+
+    .code-block pre {
+        padding: 12px;
+    }
+
+    .code-block code {
+        font-size: 0.6875rem;
     }
 }
 
 @media (max-width: 375px) {
+    .docs-nav ul {
+        gap: 4px;
+    }
+
     .docs-nav a {
-        font-size: 0.75rem;
-        padding: 4px 8px;
+        font-size: 0.6875rem;
+        padding: 5px 8px;
+    }
+
+    .docs-content h1 {
+        font-size: 1.375rem;
+    }
+
+    .taxonomy-item {
+        padding: 12px;
     }
 }

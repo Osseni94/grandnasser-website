@@ -41,6 +41,12 @@
             <div class="docs-layout">
                 <!-- Sidebar -->
                 <aside class="docs-sidebar">
+                    <button class="docs-toc-toggle" aria-expanded="false">
+                        <span>Table of Contents</span>
+                        <svg class="toc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </button>
                     <nav class="docs-nav">
                         <h4>Getting Started</h4>
                         <ul>
@@ -387,6 +393,18 @@ kn = KeyNeg()
             mobileMenuBtn.classList.toggle('active');
         });
 
+        // TOC toggle for mobile
+        const tocToggle = document.querySelector('.docs-toc-toggle');
+        const docsNav = document.querySelector('.docs-nav');
+
+        if (tocToggle) {
+            tocToggle.addEventListener('click', () => {
+                const isExpanded = tocToggle.getAttribute('aria-expanded') === 'true';
+                tocToggle.setAttribute('aria-expanded', !isExpanded);
+                docsNav.classList.toggle('expanded');
+            });
+        }
+
         // Smooth scroll for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
@@ -396,6 +414,11 @@ kn = KeyNeg()
                     target.scrollIntoView({ behavior: 'smooth', block: 'start' });
                     navLinks.classList.remove('active');
                     mobileMenuBtn.classList.remove('active');
+                    // Collapse TOC on mobile after clicking a link
+                    if (window.innerWidth <= 968) {
+                        tocToggle.setAttribute('aria-expanded', 'false');
+                        docsNav.classList.remove('expanded');
+                    }
                 }
             });
         });
