@@ -1,0 +1,366 @@
+/* Documentation Styles */
+
+.docs-main {
+    padding: 100px 0 60px;
+    min-height: 100vh;
+}
+
+.docs-layout {
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    gap: 48px;
+    align-items: start;
+}
+
+/* Sidebar */
+.docs-sidebar {
+    position: sticky;
+    top: 96px;
+    max-height: calc(100vh - 120px);
+    overflow-y: auto;
+}
+
+.docs-nav h4 {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--color-text-light);
+    margin: 24px 0 12px;
+}
+
+.docs-nav h4:first-child {
+    margin-top: 0;
+}
+
+.docs-nav ul {
+    list-style: none;
+}
+
+.docs-nav a {
+    display: block;
+    padding: 6px 12px;
+    color: var(--color-text-light);
+    text-decoration: none;
+    font-size: 0.875rem;
+    border-radius: var(--radius);
+    transition: var(--transition);
+}
+
+.docs-nav a:hover {
+    color: var(--color-primary);
+    background-color: var(--color-background-alt);
+}
+
+.docs-nav a.active {
+    color: var(--color-primary);
+    background-color: rgba(37, 99, 235, 0.1);
+    font-weight: 500;
+}
+
+/* Content */
+.docs-content {
+    max-width: 800px;
+}
+
+.docs-header {
+    margin-bottom: 48px;
+    padding-bottom: 32px;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.docs-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-radius: 100px;
+    margin-bottom: 16px;
+    background-color: rgba(16, 185, 129, 0.1);
+    color: var(--color-success);
+}
+
+.docs-content h1 {
+    font-size: 2.5rem;
+    margin-bottom: 12px;
+}
+
+.docs-subtitle {
+    font-size: 1.125rem;
+    color: var(--color-text-light);
+    margin-bottom: 24px;
+}
+
+.docs-links {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.docs-content section {
+    margin-bottom: 48px;
+    scroll-margin-top: 100px;
+}
+
+.docs-content h2 {
+    font-size: 1.5rem;
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.docs-content p {
+    color: var(--color-text-light);
+    margin-bottom: 16px;
+    line-height: 1.7;
+}
+
+/* Code blocks */
+.code-block {
+    background-color: #1e1e1e;
+    border-radius: var(--radius);
+    margin-bottom: 24px;
+    overflow-x: auto;
+}
+
+.code-block pre {
+    padding: 20px;
+    margin: 0;
+}
+
+.code-block code {
+    font-family: 'JetBrains Mono', 'SF Mono', Monaco, Consolas, monospace;
+    font-size: 0.875rem;
+    line-height: 1.6;
+    color: #d4d4d4;
+}
+
+.code-block .comment {
+    color: #6a9955;
+}
+
+.code-block .keyword {
+    color: #569cd6;
+}
+
+.code-block .string {
+    color: #ce9178;
+}
+
+.code-block .number {
+    color: #b5cea8;
+}
+
+.code-block .function {
+    color: #dcdcaa;
+}
+
+.code-block .decorator {
+    color: #dcdcaa;
+}
+
+/* Parameters table */
+.params-table {
+    margin-bottom: 24px;
+}
+
+.params-table h4 {
+    font-size: 0.875rem;
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+
+.params-table table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.params-table td {
+    padding: 10px 12px;
+    border: 1px solid var(--color-border);
+    font-size: 0.875rem;
+}
+
+.params-table td:first-child {
+    width: 180px;
+    background-color: var(--color-background-alt);
+}
+
+.params-table code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8125rem;
+    color: var(--color-primary);
+    background-color: rgba(37, 99, 235, 0.1);
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+/* Taxonomy grid */
+.taxonomy-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+}
+
+.taxonomy-item {
+    background-color: var(--color-background-alt);
+    padding: 16px;
+    border-radius: var(--radius);
+    border: 1px solid var(--color-border);
+}
+
+.taxonomy-item h4 {
+    font-size: 0.875rem;
+    margin-bottom: 8px;
+    color: var(--color-text);
+}
+
+.taxonomy-item p {
+    font-size: 0.8125rem;
+    color: var(--color-text-light);
+    margin: 0;
+}
+
+/* Use cases list */
+.use-cases-list {
+    list-style: none;
+}
+
+.use-cases-list li {
+    position: relative;
+    padding: 12px 0 12px 32px;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.use-cases-list li:last-child {
+    border-bottom: none;
+}
+
+.use-cases-list li::before {
+    content: "→";
+    position: absolute;
+    left: 0;
+    color: var(--color-primary);
+    font-weight: 600;
+}
+
+.use-cases-list strong {
+    color: var(--color-text);
+}
+
+/* CTA section */
+.docs-cta {
+    background: linear-gradient(135deg, rgba(124, 58, 237, 0.05) 0%, rgba(124, 58, 237, 0.1) 100%);
+    padding: 32px;
+    border-radius: var(--radius-lg);
+    border: 1px solid rgba(124, 58, 237, 0.2);
+    text-align: center;
+}
+
+.docs-cta h2 {
+    border: none;
+    padding: 0;
+    margin-bottom: 12px;
+}
+
+.docs-cta p {
+    margin-bottom: 20px;
+}
+
+/* Mobile Responsive */
+@media (max-width: 968px) {
+    .docs-layout {
+        grid-template-columns: 1fr;
+        gap: 32px;
+    }
+
+    .docs-sidebar {
+        position: relative;
+        top: 0;
+        max-height: none;
+        background-color: var(--color-background-alt);
+        padding: 20px;
+        border-radius: var(--radius-lg);
+    }
+
+    .docs-nav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .docs-nav h4 {
+        width: 100%;
+        margin: 16px 0 8px;
+    }
+
+    .docs-nav h4:first-child {
+        margin-top: 0;
+    }
+
+    .docs-nav ul {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px;
+        width: 100%;
+    }
+
+    .docs-nav a {
+        padding: 6px 10px;
+        font-size: 0.8125rem;
+        background-color: var(--color-background);
+        border: 1px solid var(--color-border);
+    }
+}
+
+@media (max-width: 768px) {
+    .docs-main {
+        padding: 80px 0 40px;
+    }
+
+    .docs-content h1 {
+        font-size: 1.75rem;
+    }
+
+    .docs-content h2 {
+        font-size: 1.25rem;
+    }
+
+    .docs-links {
+        flex-direction: column;
+    }
+
+    .docs-links .btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .code-block pre {
+        padding: 16px;
+    }
+
+    .code-block code {
+        font-size: 0.8125rem;
+    }
+
+    .params-table td:first-child {
+        width: auto;
+    }
+
+    .taxonomy-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .docs-cta {
+        padding: 24px;
+    }
+}
+
+@media (max-width: 375px) {
+    .docs-nav a {
+        font-size: 0.75rem;
+        padding: 4px 8px;
+    }
+}

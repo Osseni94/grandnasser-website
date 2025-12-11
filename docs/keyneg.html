@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KeyNeg Documentation | Grand Nasser Enterprises</title>
+    <meta name="description" content="KeyNeg - A KeyBERT-style Negative Sentiment and Keyword Extractor for Workforce Intelligence">
+    <meta name="robots" content="index, follow">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="KeyNeg Documentation">
+    <meta property="og:description" content="Extract negative sentiment and keywords from text. Perfect for analyzing employee feedback, reviews, and customer complaints.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="docs.css">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>G</text></svg>">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="../index.html" class="logo">Grand Nasser Enterprises</a>
+            <ul class="nav-links">
+                <li><a href="../index.html#products">Products</a></li>
+                <li><a href="keyneg.html" class="active">Docs</a></li>
+                <li><a href="../index.html#about">About</a></li>
+                <li><a href="../index.html#contact">Contact</a></li>
+            </ul>
+            <button class="mobile-menu-btn" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Documentation Content -->
+    <main class="docs-main">
+        <div class="container">
+            <div class="docs-layout">
+                <!-- Sidebar -->
+                <aside class="docs-sidebar">
+                    <nav class="docs-nav">
+                        <h4>Getting Started</h4>
+                        <ul>
+                            <li><a href="#installation">Installation</a></li>
+                            <li><a href="#quick-start">Quick Start</a></li>
+                        </ul>
+                        <h4>Core Features</h4>
+                        <ul>
+                            <li><a href="#sentiment-extraction">Sentiment Extraction</a></li>
+                            <li><a href="#keyword-extraction">Keyword Extraction</a></li>
+                            <li><a href="#batch-processing">Batch Processing</a></li>
+                        </ul>
+                        <h4>Special Detectors</h4>
+                        <ul>
+                            <li><a href="#departure-intent">Departure Intent</a></li>
+                            <li><a href="#escalation-risk">Escalation Risk</a></li>
+                            <li><a href="#intensity-analysis">Intensity Analysis</a></li>
+                        </ul>
+                        <h4>Customization</h4>
+                        <ul>
+                            <li><a href="#custom-labels">Custom Labels</a></li>
+                            <li><a href="#custom-keywords">Custom Keywords</a></li>
+                            <li><a href="#custom-model">Custom Model</a></li>
+                        </ul>
+                        <h4>Reference</h4>
+                        <ul>
+                            <li><a href="#taxonomy">Taxonomy Categories</a></li>
+                            <li><a href="#utilities">Utility Functions</a></li>
+                            <li><a href="#api-integration">API Integration</a></li>
+                        </ul>
+                    </nav>
+                </aside>
+
+                <!-- Main Content -->
+                <article class="docs-content">
+                    <header class="docs-header">
+                        <div class="docs-badge badge-opensource">Open Source</div>
+                        <h1>KeyNeg</h1>
+                        <p class="docs-subtitle">A KeyBERT-style Negative Sentiment and Keyword Extractor for Workforce Intelligence</p>
+                        <div class="docs-links">
+                            <a href="https://github.com/Osseni94/keyneg" class="btn btn-outline" target="_blank">
+                                <svg class="icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                                GitHub
+                            </a>
+                            <a href="https://pypi.org/project/keyneg/" class="btn btn-outline" target="_blank">
+                                <svg class="icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0L1.5 6v12L12 24l10.5-6V6L12 0zm0 2.25l7.5 4.5v9l-7.5 4.5-7.5-4.5v-9l7.5-4.5z"/></svg>
+                                PyPI
+                            </a>
+                        </div>
+                    </header>
+
+                    <section id="installation">
+                        <h2>Installation</h2>
+                        <p>Install KeyNeg from PyPI using pip:</p>
+                        <div class="code-block">
+                            <pre><code><span class="comment"># Install from PyPI</span>
+pip install keyneg
+
+<span class="comment"># With Streamlit app</span>
+pip install keyneg[app]
+
+<span class="comment"># Full installation (includes zero-shot classification)</span>
+pip install keyneg[all]</code></pre>
+                        </div>
+                    </section>
+
+                    <section id="quick-start">
+                        <h2>Quick Start</h2>
+                        <p>Get started with KeyNeg in just a few lines of code:</p>
+                        <div class="code-block">
+                            <pre><code><span class="keyword">from</span> keyneg <span class="keyword">import</span> KeyNeg
+
+<span class="comment"># Initialize (uses all-mpnet-base-v2 by default)</span>
+kn = KeyNeg()
+
+<span class="comment"># Extract negative sentiments</span>
+sentiments = kn.extract_sentiments(
+    <span class="string">"I'm frustrated with the constant micromanagement and lack of recognition"</span>
+)
+<span class="keyword">print</span>(sentiments)
+<span class="comment"># [('micromanagement', 0.72), ('frustration', 0.68), ('lack of recognition', 0.65), ...]</span>
+
+<span class="comment"># Extract negative keywords</span>
+keywords = kn.extract_keywords(
+    <span class="string">"The toxic culture and burnout is unbearable"</span>
+)
+<span class="keyword">print</span>(keywords)
+<span class="comment"># [('toxic culture', 0.81), ('burnout', 0.75), ('unbearable', 0.62), ...]</span>
+
+<span class="comment"># Full analysis</span>
+result = kn.analyze(<span class="string">"My manager never listens and I'm thinking of quitting"</span>)
+<span class="keyword">print</span>(result)
+<span class="comment"># {
+#     'keywords': [...],
+#     'sentiments': [...],
+#     'top_sentiment': 'poor leadership',
+#     'negativity_score': 0.65,
+#     'categories': ['work_environment_culture', 'job_satisfaction']
+# }</span></code></pre>
+                        </div>
+                    </section>
+
+                    <section id="sentiment-extraction">
+                        <h2>Sentiment Extraction</h2>
+                        <p>Extract predefined negative sentiment categories from text:</p>
+                        <div class="code-block">
+                            <pre><code>sentiments = kn.extract_sentiments(
+    text,
+    top_n=<span class="number">5</span>,           <span class="comment"># Number of results</span>
+    threshold=<span class="number">0.3</span>,     <span class="comment"># Minimum similarity score</span>
+    diversity=<span class="number">0.0</span>      <span class="comment"># MMR diversity (0-1)</span>
+)</code></pre>
+                        </div>
+                        <div class="params-table">
+                            <h4>Parameters</h4>
+                            <table>
+                                <tr><td><code>top_n</code></td><td>Number of sentiment results to return</td></tr>
+                                <tr><td><code>threshold</code></td><td>Minimum similarity score (0-1) for inclusion</td></tr>
+                                <tr><td><code>diversity</code></td><td>MMR diversity factor for varied results</td></tr>
+                            </table>
+                        </div>
+                    </section>
+
+                    <section id="keyword-extraction">
+                        <h2>Keyword Extraction</h2>
+                        <p>Extract negative keywords from both taxonomy and document:</p>
+                        <div class="code-block">
+                            <pre><code>keywords = kn.extract_keywords(
+    text,
+    top_n=<span class="number">10</span>,
+    threshold=<span class="number">0.25</span>,
+    keyphrase_ngram_range=(<span class="number">1</span>, <span class="number">2</span>),
+    use_taxonomy=<span class="keyword">True</span>,
+    diversity=<span class="number">0.0</span>
+)</code></pre>
+                        </div>
+                        <div class="params-table">
+                            <h4>Parameters</h4>
+                            <table>
+                                <tr><td><code>keyphrase_ngram_range</code></td><td>Tuple specifying min/max n-gram length</td></tr>
+                                <tr><td><code>use_taxonomy</code></td><td>Whether to include taxonomy keywords</td></tr>
+                            </table>
+                        </div>
+                    </section>
+
+                    <section id="batch-processing">
+                        <h2>Batch Processing</h2>
+                        <p>Efficiently process multiple documents:</p>
+                        <div class="code-block">
+                            <pre><code>docs = [<span class="string">"Comment 1..."</span>, <span class="string">"Comment 2..."</span>, <span class="string">"Comment 3..."</span>]
+
+<span class="comment"># Batch analysis</span>
+results = kn.analyze_batch(docs, show_progress=<span class="keyword">True</span>)
+
+<span class="comment"># Or individually</span>
+keywords_batch = kn.extract_keywords_batch(docs)
+sentiments_batch = kn.extract_sentiments_batch(docs)</code></pre>
+                        </div>
+                    </section>
+
+                    <section id="departure-intent">
+                        <h2>Departure Intent Detection</h2>
+                        <p>Detect signals that an employee may be considering leaving:</p>
+                        <div class="code-block">
+                            <pre><code>result = kn.detect_departure_intent(<span class="string">"I'm updating my resume and interviewing"</span>)
+<span class="comment"># {'detected': True, 'confidence': 0.67, 'signals': ['updating resume', 'interviewing']}</span></code></pre>
+                        </div>
+                    </section>
+
+                    <section id="escalation-risk">
+                        <h2>Escalation Risk Detection</h2>
+                        <p>Identify text that indicates potential escalation or legal concerns:</p>
+                        <div class="code-block">
+                            <pre><code>result = kn.detect_escalation_risk(<span class="string">"I'm going to contact my lawyer"</span>)
+<span class="comment"># {'detected': True, 'risk_level': 'high', 'signals': ['contact my lawyer']}</span></code></pre>
+                        </div>
+                    </section>
+
+                    <section id="intensity-analysis">
+                        <h2>Intensity Analysis</h2>
+                        <p>Measure the emotional intensity of negative sentiment:</p>
+                        <div class="code-block">
+                            <pre><code>result = kn.get_intensity(<span class="string">"I'm absolutely furious about this"</span>)
+<span class="comment"># {'level': 3, 'label': 'strong', 'indicators': ['furious']}</span></code></pre>
+                        </div>
+                    </section>
+
+                    <section id="custom-labels">
+                        <h2>Custom Labels</h2>
+                        <p>Add your own sentiment labels to the analysis:</p>
+                        <div class="code-block">
+                            <pre><code>kn.add_custom_labels([<span class="string">"impostor syndrome"</span>, <span class="string">"quiet firing"</span>])</code></pre>
+                        </div>
+                    </section>
+
+                    <section id="custom-keywords">
+                        <h2>Custom Keywords</h2>
+                        <p>Add industry-specific or domain-specific keywords:</p>
+                        <div class="code-block">
+                            <pre><code>kn.add_custom_keywords(<span class="string">"tech_specific"</span>, [
+    <span class="string">"pager duty"</span>, <span class="string">"on-call nightmare"</span>, <span class="string">"technical debt"</span>
+])</code></pre>
+                        </div>
+                    </section>
+
+                    <section id="custom-model">
+                        <h2>Custom Model</h2>
+                        <p>Use a different sentence transformer model:</p>
+                        <div class="code-block">
+                            <pre><code><span class="comment"># Faster, slightly less accurate</span>
+kn = KeyNeg(model=<span class="string">"all-MiniLM-L6-v2"</span>)</code></pre>
+                        </div>
+                    </section>
+
+                    <section id="taxonomy">
+                        <h2>Taxonomy Categories</h2>
+                        <p>KeyNeg includes a comprehensive taxonomy covering:</p>
+                        <div class="taxonomy-grid">
+                            <div class="taxonomy-item">
+                                <h4>Work Environment & Culture</h4>
+                                <p>toxic culture, harassment, discrimination, favoritism</p>
+                            </div>
+                            <div class="taxonomy-item">
+                                <h4>Management Issues</h4>
+                                <p>micromanagement, poor leadership, lack of direction</p>
+                            </div>
+                            <div class="taxonomy-item">
+                                <h4>Recognition & Value</h4>
+                                <p>undervalued, unappreciated, credit stolen</p>
+                            </div>
+                            <div class="taxonomy-item">
+                                <h4>Workload & Burnout</h4>
+                                <p>exhaustion, overwhelmed, unrealistic deadlines</p>
+                            </div>
+                            <div class="taxonomy-item">
+                                <h4>Compensation</h4>
+                                <p>underpaid, pay disparity, poor benefits</p>
+                            </div>
+                            <div class="taxonomy-item">
+                                <h4>Career Development</h4>
+                                <p>no growth, dead end job, glass ceiling</p>
+                            </div>
+                            <div class="taxonomy-item">
+                                <h4>Work-Life Balance</h4>
+                                <p>excessive hours, no flexibility</p>
+                            </div>
+                            <div class="taxonomy-item">
+                                <h4>Team Dynamics</h4>
+                                <p>conflict, poor collaboration, isolation</p>
+                            </div>
+                            <div class="taxonomy-item">
+                                <h4>Job Satisfaction</h4>
+                                <p>low morale, frustration, disengagement</p>
+                            </div>
+                            <div class="taxonomy-item">
+                                <h4>Customer/Product Issues</h4>
+                                <p>poor quality, bad service, overpriced</p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section id="utilities">
+                        <h2>Utility Functions</h2>
+                        <p>Helper functions for common operations:</p>
+                        <div class="code-block">
+                            <pre><code><span class="keyword">from</span> keyneg.utils <span class="keyword">import</span> (
+    highlight_keywords,      <span class="comment"># Highlight detected keywords in text</span>
+    score_to_severity,       <span class="comment"># Convert score to severity label</span>
+    aggregate_batch_results, <span class="comment"># Aggregate batch statistics</span>
+    export_to_json,          <span class="comment"># Export results to JSON</span>
+    export_batch_to_csv,     <span class="comment"># Export batch to CSV</span>
+    preprocess_text,         <span class="comment"># Clean/preprocess text</span>
+    chunk_text,              <span class="comment"># Split long text into chunks</span>
+)
+
+<span class="comment"># Highlight keywords in HTML</span>
+highlighted = highlight_keywords(text, keywords, format=<span class="string">"html"</span>)
+
+<span class="comment"># Get severity</span>
+severity = score_to_severity(<span class="number">0.75</span>)  <span class="comment"># "critical"</span>
+
+<span class="comment"># Aggregate batch results</span>
+summary = aggregate_batch_results(results)
+<span class="keyword">print</span>(summary[<span class="string">'top_sentiments'</span>])
+<span class="keyword">print</span>(summary[<span class="string">'avg_negativity_score'</span>])</code></pre>
+                        </div>
+                    </section>
+
+                    <section id="api-integration">
+                        <h2>API Integration</h2>
+                        <p>Example FastAPI integration:</p>
+                        <div class="code-block">
+                            <pre><code><span class="keyword">from</span> fastapi <span class="keyword">import</span> FastAPI
+<span class="keyword">from</span> keyneg <span class="keyword">import</span> KeyNeg
+
+app = FastAPI()
+kn = KeyNeg()
+
+<span class="decorator">@app.post</span>(<span class="string">"/analyze"</span>)
+<span class="keyword">def</span> <span class="function">analyze</span>(text: str):
+    <span class="keyword">return</span> kn.analyze(text)
+
+<span class="decorator">@app.post</span>(<span class="string">"/analyze_batch"</span>)
+<span class="keyword">def</span> <span class="function">analyze_batch</span>(texts: list):
+    <span class="keyword">return</span> kn.analyze_batch(texts)</code></pre>
+                        </div>
+                    </section>
+
+                    <section id="use-cases">
+                        <h2>Use Cases</h2>
+                        <ul class="use-cases-list">
+                            <li><strong>Employee Survey Analysis</strong> - Identify patterns of dissatisfaction across responses</li>
+                            <li><strong>Exit Interview Processing</strong> - Extract reasons for departure at scale</li>
+                            <li><strong>Forum Monitoring</strong> - Track sentiment on workforce forums (e.g., TheLayoffRadar.com, Blind)</li>
+                            <li><strong>Customer Feedback</strong> - Analyze product reviews and support tickets</li>
+                            <li><strong>Social Media Monitoring</strong> - Track brand sentiment and complaints</li>
+                        </ul>
+                    </section>
+
+                    <section class="docs-cta">
+                        <h2>Need Enterprise Features?</h2>
+                        <p>KeyNeg Enterprise offers air-gapped deployment, custom taxonomies, and dedicated support.</p>
+                        <a href="../index.html#contact" class="btn btn-primary">Contact for Pricing</a>
+                    </section>
+                </article>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Grand Nasser Enterprises. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileMenuBtn.classList.toggle('active');
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    navLinks.classList.remove('active');
+                    mobileMenuBtn.classList.remove('active');
+                }
+            });
+        });
+
+        // Navbar background on scroll
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Highlight active sidebar link on scroll
+        const sections = document.querySelectorAll('section[id]');
+        const sidebarLinks = document.querySelectorAll('.docs-nav a');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (scrollY >= sectionTop - 100) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            sidebarLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
