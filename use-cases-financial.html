@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financial 10K Analysis | KeyNeg - Grand Nasser Enterprises</title>
+    <meta name="description" content="See KeyNeg analyzing SEC 10K filings - Extract risk indicators and compliance concerns from financial documents">
+    <meta name="robots" content="index, follow">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="KeyNeg Financial Analysis">
+    <meta property="og:description" content="Sentiment analysis on 7,000 SEC 10K filing contexts from 69 companies">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="use-cases.css">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>G</text></svg>">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <img src="logo.png" alt="Grand Nasser Enterprises" class="logo-img">
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html#products">Products</a></li>
+                <li><a href="docs/keyneg.html">Docs</a></li>
+                <li><a href="use-cases.html" class="active">Use Cases</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+            <button class="mobile-menu-btn" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <header class="usecase-hero">
+        <div class="container">
+            <h1>SEC 10K Filing Analysis</h1>
+            <p class="hero-subtitle">Extract risk indicators and compliance concerns from financial documents using KeyNeg</p>
+        </div>
+    </header>
+
+    <!-- Tutorial Section -->
+    <section class="case-study">
+        <div class="container">
+            <div class="case-header">
+                <span class="case-badge">Tutorial</span>
+                <h2>Financial Q&A 10K Dataset Analysis</h2>
+                <p>Learn how to identify negative language patterns in SEC 10K filings from 69 publicly traded companies</p>
+            </div>
+
+            <!-- Step 1: The Dataset -->
+            <div class="tutorial-step">
+                <div class="step-header">
+                    <span class="step-number">1</span>
+                    <h3>The Dataset</h3>
+                </div>
+                <p class="step-desc">We're using the Financial Q&A 10K dataset from Kaggle, containing 7,000 question-answer pairs extracted from SEC 10K filings of 69 companies including NVIDIA, Apple, Amazon, Goldman Sachs, and more.</p>
+
+                <div class="data-sample">
+                    <div class="sample-header">
+                        <span class="sample-badge">Sample Data</span>
+                        <span class="sample-file">Financial-QA-10k.csv</span>
+                    </div>
+                    <div class="sample-table-wrapper">
+                        <table class="sample-table">
+                            <thead>
+                                <tr>
+                                    <th>ticker</th>
+                                    <th>filing</th>
+                                    <th>question</th>
+                                    <th>context</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>NVDA</td>
+                                    <td>2023_10K</td>
+                                    <td>What area did NVIDIA initially focus on?</td>
+                                    <td>Since our original focus on PC graphics, we have expanded to several other large and important computationally intensive fields...</td>
+                                </tr>
+                                <tr>
+                                    <td>BAC</td>
+                                    <td>2023_10K</td>
+                                    <td>What regulatory requirements affect operations?</td>
+                                    <td>We are subject to extensive regulation and supervision under federal and state banking laws...</td>
+                                </tr>
+                                <tr>
+                                    <td>AMZN</td>
+                                    <td>2023_10K</td>
+                                    <td>What are key risk factors?</td>
+                                    <td>Our expansion places a significant strain on management, operational, financial and other resources...</td>
+                                </tr>
+                                <tr>
+                                    <td>JNJ</td>
+                                    <td>2023_10K</td>
+                                    <td>What legal proceedings are disclosed?</td>
+                                    <td>The Company and certain of its subsidiaries are involved in various lawsuits and claims...</td>
+                                </tr>
+                                <tr>
+                                    <td>GS</td>
+                                    <td>2023_10K</td>
+                                    <td>How does market volatility affect business?</td>
+                                    <td>Our businesses may be adversely affected by conditions in global financial markets...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Dataset Stats -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <span class="stat-value">7,000</span>
+                        <span class="stat-label">Q&A Pairs</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-value">69</span>
+                        <span class="stat-label">Companies</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-value">500</span>
+                        <span class="stat-label">Contexts Analyzed</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-value">30%</span>
+                        <span class="stat-label">With Negative Sentiment</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2: Load and Prepare Data -->
+            <div class="tutorial-step">
+                <div class="step-header">
+                    <span class="step-number">2</span>
+                    <h3>Load the Financial Data</h3>
+                </div>
+                <p class="step-desc">Download the dataset from Kaggle and load it using pandas. The "context" column contains the actual 10K filing text we'll analyze:</p>
+
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-lang">Python</span>
+                        <span class="code-file">load_financial_data.py</span>
+                    </div>
+                    <pre><code><span class="keyword">import</span> kagglehub
+<span class="keyword">import</span> pandas <span class="keyword">as</span> pd
+
+<span class="comment"># Download the Financial Q&A 10K dataset</span>
+path = kagglehub.dataset_download(<span class="string">'yousefsaeedian/financial-q-and-a-10k'</span>)
+
+<span class="comment"># Load the CSV file</span>
+df = pd.read_csv(f<span class="string">'{path}/Financial-QA-10k.csv'</span>)
+
+<span class="comment"># View the dataset structure</span>
+<span class="keyword">print</span>(<span class="string">f"Dataset shape: {df.shape}"</span>)
+<span class="keyword">print</span>(<span class="string">f"Columns: {df.columns.tolist()}"</span>)
+<span class="keyword">print</span>(<span class="string">f"Unique companies: {df['ticker'].nunique()}"</span>)</code></pre>
+                </div>
+
+                <div class="output-block">
+                    <div class="output-header">Output</div>
+                    <pre>Dataset shape: (7000, 5)
+Columns: ['question', 'answer', 'context', 'ticker', 'filing']
+Unique companies: 69</pre>
+                </div>
+            </div>
+
+            <!-- Step 3: Initialize KeyNeg -->
+            <div class="tutorial-step">
+                <div class="step-header">
+                    <span class="step-number">3</span>
+                    <h3>Initialize KeyNeg for Financial Analysis</h3>
+                </div>
+                <p class="step-desc">KeyNeg's sentiment labels include financial-relevant categories like compliance issues, technical debt, lack of transparency, and more:</p>
+
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-lang">Python</span>
+                        <span class="code-file">initialize_keyneg.py</span>
+                    </div>
+                    <pre><code><span class="keyword">from</span> keyneg <span class="keyword">import</span> KeyNeg
+
+<span class="comment"># Initialize the analyzer</span>
+kn = KeyNeg()
+
+<span class="comment"># KeyNeg includes financial-relevant sentiment labels:</span>
+<span class="comment"># - compliance issues</span>
+<span class="comment"># - technical debt</span>
+<span class="comment"># - lack of transparency</span>
+<span class="comment"># - safety concerns</span>
+<span class="comment"># - ethical violations</span>
+<span class="comment"># - downsizing</span>
+<span class="comment"># - bureaucracy</span>
+<span class="comment"># - and 90+ more...</span>
+
+<span class="keyword">print</span>(<span class="string">"KeyNeg initialized for financial document analysis"</span>)</code></pre>
+                </div>
+
+                <div class="output-block">
+                    <div class="output-header">Output</div>
+                    <pre>KeyNeg initialized for financial document analysis</pre>
+                </div>
+            </div>
+
+            <!-- Step 4: Analyze Single Filing -->
+            <div class="tutorial-step">
+                <div class="step-header">
+                    <span class="step-number">4</span>
+                    <h3>Analyze a Single 10K Context</h3>
+                </div>
+                <p class="step-desc">Let's analyze a single context from a 10K filing to understand the output:</p>
+
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-lang">Python</span>
+                        <span class="code-file">single_analysis.py</span>
+                    </div>
+                    <pre><code><span class="comment"># Sample context from a bank's 10K filing</span>
+context = <span class="string">"""We are subject to extensive regulation and supervision
+under federal and state banking laws. Failure to comply with
+applicable regulatory requirements could result in significant
+penalties, restrictions on business activities, and reputational harm."""</span>
+
+<span class="comment"># Analyze the context</span>
+result = kn.analyze(context)
+
+<span class="comment"># View the results</span>
+<span class="keyword">print</span>(<span class="string">"Top Sentiment:"</span>, result[<span class="string">'top_sentiment'</span>])
+<span class="keyword">print</span>(<span class="string">"Negativity Score:"</span>, result[<span class="string">'negativity_score'</span>])
+<span class="keyword">print</span>(<span class="string">"All Sentiments:"</span>, [s[<span class="number">0</span>] <span class="keyword">for</span> s <span class="keyword">in</span> result[<span class="string">'sentiments'</span>]])
+<span class="keyword">print</span>(<span class="string">"Categories:"</span>, result[<span class="string">'categories'</span>])</code></pre>
+                </div>
+
+                <div class="output-block">
+                    <div class="output-header">Output</div>
+                    <pre>Top Sentiment: compliance issues
+Negativity Score: 0.38
+All Sentiments: ['compliance issues', 'lack of transparency']
+Categories: ['policy_systemic_issues', 'customer_market_discontent']</pre>
+                </div>
+            </div>
+
+            <!-- Step 5: Batch Analysis -->
+            <div class="tutorial-step">
+                <div class="step-header">
+                    <span class="step-number">5</span>
+                    <h3>Batch Analysis of 500 Contexts</h3>
+                </div>
+                <p class="step-desc">Analyze a sample of 500 10K contexts to identify common negative language patterns across companies:</p>
+
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-lang">Python</span>
+                        <span class="code-file">batch_analysis.py</span>
+                    </div>
+                    <pre><code><span class="keyword">from</span> collections <span class="keyword">import</span> Counter
+
+<span class="comment"># Sample 500 contexts for analysis</span>
+sample_df = df.sample(n=<span class="number">500</span>, random_state=<span class="number">42</span>)
+contexts = sample_df[<span class="string">'context'</span>].tolist()
+
+<span class="comment"># Analyze all contexts in batch</span>
+results = kn.analyze_batch(contexts)
+
+<span class="comment"># Count contexts with negative sentiment</span>
+negative_contexts = [r <span class="keyword">for</span> r <span class="keyword">in</span> results <span class="keyword">if</span> r[<span class="string">'sentiments'</span>]]
+<span class="keyword">print</span>(<span class="string">f"Contexts with negative sentiment: {len(negative_contexts)}/500"</span>)
+
+<span class="comment"># Aggregate all sentiments</span>
+all_sentiments = []
+<span class="keyword">for</span> r <span class="keyword">in</span> results:
+    <span class="keyword">if</span> r[<span class="string">'sentiments'</span>]:
+        sentiment_names = [s[<span class="number">0</span>] <span class="keyword">for</span> s <span class="keyword">in</span> r[<span class="string">'sentiments'</span>]]
+        all_sentiments.extend(sentiment_names)
+
+<span class="comment"># Display top sentiments</span>
+sentiment_counts = Counter(all_sentiments)
+<span class="keyword">print</span>(<span class="string">"\\nTop 10 Negative Sentiments in 10K Filings:"</span>)
+<span class="keyword">for</span> sentiment, count <span class="keyword">in</span> sentiment_counts.most_common(<span class="number">10</span>):
+    <span class="keyword">print</span>(<span class="string">f"  {sentiment}: {count}"</span>)</code></pre>
+                </div>
+
+                <div class="output-block">
+                    <div class="output-header">Output</div>
+                    <pre>Contexts with negative sentiment: 148/500
+
+Top 10 Negative Sentiments in 10K Filings:
+  technical debt: 46
+  compliance issues: 40
+  lack of transparency: 14
+  no growth opportunities: 14
+  safety concerns: 12
+  undervalued: 11
+  bureaucracy: 9
+  false advertising: 8
+  downsizing: 7
+  unfair compensation: 6</pre>
+                </div>
+            </div>
+
+            <!-- Step 6: Company Comparison -->
+            <div class="tutorial-step">
+                <div class="step-header">
+                    <span class="step-number">6</span>
+                    <h3>Compare Companies by Negativity</h3>
+                </div>
+                <p class="step-desc">Group results by ticker symbol to identify which companies have the most negative language in their 10K filings:</p>
+
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-lang">Python</span>
+                        <span class="code-file">company_comparison.py</span>
+                    </div>
+                    <pre><code><span class="comment"># Track negativity by company</span>
+tickers = sample_df[<span class="string">'ticker'</span>].tolist()
+company_data = {}
+
+<span class="keyword">for</span> i, r <span class="keyword">in</span> enumerate(results):
+    ticker = tickers[i]
+    <span class="keyword">if</span> r[<span class="string">'sentiments'</span>]:
+        <span class="keyword">if</span> ticker <span class="keyword">not in</span> company_data:
+            company_data[ticker] = {<span class="string">'count'</span>: <span class="number">0</span>, <span class="string">'sentiments'</span>: [], <span class="string">'total_neg'</span>: <span class="number">0</span>}
+
+        company_data[ticker][<span class="string">'count'</span>] += <span class="number">1</span>
+        company_data[ticker][<span class="string">'total_neg'</span>] += r[<span class="string">'negativity_score'</span>]
+        sentiment_names = [s[<span class="number">0</span>] <span class="keyword">for</span> s <span class="keyword">in</span> r[<span class="string">'sentiments'</span>]]
+        company_data[ticker][<span class="string">'sentiments'</span>].extend(sentiment_names)
+
+<span class="comment"># Calculate average negativity and sort</span>
+company_scores = []
+<span class="keyword">for</span> ticker, data <span class="keyword">in</span> company_data.items():
+    <span class="keyword">if</span> data[<span class="string">'count'</span>] >= <span class="number">3</span>:
+        avg_neg = data[<span class="string">'total_neg'</span>] / data[<span class="string">'count'</span>]
+        top_issues = Counter(data[<span class="string">'sentiments'</span>]).most_common(<span class="number">3</span>)
+        company_scores.append((ticker, avg_neg, data[<span class="string">'count'</span>], top_issues))
+
+company_scores.sort(key=<span class="keyword">lambda</span> x: x[<span class="number">1</span>], reverse=<span class="keyword">True</span>)
+
+<span class="comment"># Display top companies</span>
+<span class="keyword">print</span>(<span class="string">"Companies with Most Negative 10K Language:"</span>)
+<span class="keyword">for</span> ticker, avg_neg, count, top_issues <span class="keyword">in</span> company_scores[:<span class="number">10</span>]:
+    issues = <span class="string">', '</span>.join([f<span class="string">'{i[0]}({i[1]})'</span> <span class="keyword">for</span> i <span class="keyword">in</span> top_issues])
+    <span class="keyword">print</span>(<span class="string">f"  {ticker}: {avg_neg:.2f} ({count} contexts) - {issues}"</span>)</code></pre>
+                </div>
+
+                <div class="output-block">
+                    <div class="output-header">Output</div>
+                    <pre>Companies with Most Negative 10K Language:
+  BAC: 0.37 (3 contexts) - compliance issues(1), technical debt(1), lack of transparency(1)
+  AXP: 0.36 (4 contexts) - technical debt(3), undervalued(1), unfair compensation(1)
+  EFX: 0.36 (4 contexts) - technical debt(3), compliance issues(1), bureaucracy(1)
+  LVS: 0.36 (3 contexts) - technical debt(1), unrealistic deadlines(1), compliance issues(1)
+  V: 0.36 (5 contexts) - compliance issues(4), bureaucracy(1), technical debt(1)
+  GS: 0.35 (4 contexts) - undervalued(2), technical debt(2), compliance issues(1)
+  AMZN: 0.35 (3 contexts) - no growth opportunities(2), technical debt(1)
+  LLY: 0.35 (5 contexts) - compliance issues(2), technical debt(1), false advertising(1)
+  JNJ: 0.35 (4 contexts) - technical debt(2), disengagement(1), skills obsolescence(1)
+  GILD: 0.35 (4 contexts) - safety concerns(2), compliance issues(2), false advertising(1)</pre>
+                </div>
+            </div>
+
+            <!-- Results Visualization -->
+            <div class="results-section">
+                <h3>Results Visualization</h3>
+                <p class="section-desc">Top negative sentiments found in SEC 10K filings:</p>
+
+                <div class="sentiment-chart">
+                    <div class="sentiment-bar">
+                        <span class="sentiment-label">Technical Debt</span>
+                        <div class="bar-container">
+                            <div class="bar" style="width: 92%"></div>
+                            <span class="bar-value">46</span>
+                        </div>
+                    </div>
+                    <div class="sentiment-bar">
+                        <span class="sentiment-label">Compliance Issues</span>
+                        <div class="bar-container">
+                            <div class="bar" style="width: 80%"></div>
+                            <span class="bar-value">40</span>
+                        </div>
+                    </div>
+                    <div class="sentiment-bar">
+                        <span class="sentiment-label">Lack of Transparency</span>
+                        <div class="bar-container">
+                            <div class="bar" style="width: 28%"></div>
+                            <span class="bar-value">14</span>
+                        </div>
+                    </div>
+                    <div class="sentiment-bar">
+                        <span class="sentiment-label">No Growth Opportunities</span>
+                        <div class="bar-container">
+                            <div class="bar" style="width: 28%"></div>
+                            <span class="bar-value">14</span>
+                        </div>
+                    </div>
+                    <div class="sentiment-bar">
+                        <span class="sentiment-label">Safety Concerns</span>
+                        <div class="bar-container">
+                            <div class="bar" style="width: 24%"></div>
+                            <span class="bar-value">12</span>
+                        </div>
+                    </div>
+                    <div class="sentiment-bar">
+                        <span class="sentiment-label">Undervalued</span>
+                        <div class="bar-container">
+                            <div class="bar" style="width: 22%"></div>
+                            <span class="bar-value">11</span>
+                        </div>
+                    </div>
+                    <div class="sentiment-bar">
+                        <span class="sentiment-label">Bureaucracy</span>
+                        <div class="bar-container">
+                            <div class="bar" style="width: 18%"></div>
+                            <span class="bar-value">9</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Company Analysis -->
+            <div class="results-section">
+                <h3>Company Analysis</h3>
+                <p class="section-desc">Companies with the highest negativity scores in their 10K filings:</p>
+
+                <div class="company-grid">
+                    <div class="company-card">
+                        <h4>BAC (Bank of America)</h4>
+                        <div class="company-stats">
+                            <span class="reviews-count">3 contexts</span>
+                            <span class="negativity-score">Negativity: 0.37</span>
+                        </div>
+                        <div class="top-issues">
+                            <span class="issue-tag">Compliance Issues</span>
+                            <span class="issue-tag">Technical Debt</span>
+                            <span class="issue-tag">Lack of Transparency</span>
+                        </div>
+                    </div>
+
+                    <div class="company-card">
+                        <h4>V (Visa)</h4>
+                        <div class="company-stats">
+                            <span class="reviews-count">5 contexts</span>
+                            <span class="negativity-score">Negativity: 0.36</span>
+                        </div>
+                        <div class="top-issues">
+                            <span class="issue-tag">Compliance Issues (4)</span>
+                            <span class="issue-tag">Bureaucracy</span>
+                            <span class="issue-tag">Technical Debt</span>
+                        </div>
+                    </div>
+
+                    <div class="company-card">
+                        <h4>GS (Goldman Sachs)</h4>
+                        <div class="company-stats">
+                            <span class="reviews-count">4 contexts</span>
+                            <span class="negativity-score">Negativity: 0.35</span>
+                        </div>
+                        <div class="top-issues">
+                            <span class="issue-tag">Undervalued (2)</span>
+                            <span class="issue-tag">Technical Debt (2)</span>
+                            <span class="issue-tag">Compliance Issues</span>
+                        </div>
+                    </div>
+
+                    <div class="company-card">
+                        <h4>GILD (Gilead Sciences)</h4>
+                        <div class="company-stats">
+                            <span class="reviews-count">4 contexts</span>
+                            <span class="negativity-score">Negativity: 0.35</span>
+                        </div>
+                        <div class="top-issues">
+                            <span class="issue-tag">Safety Concerns (2)</span>
+                            <span class="issue-tag">Compliance Issues (2)</span>
+                            <span class="issue-tag">False Advertising</span>
+                        </div>
+                    </div>
+
+                    <div class="company-card">
+                        <h4>JNJ (Johnson & Johnson)</h4>
+                        <div class="company-stats">
+                            <span class="reviews-count">4 contexts</span>
+                            <span class="negativity-score">Negativity: 0.35</span>
+                        </div>
+                        <div class="top-issues">
+                            <span class="issue-tag">Technical Debt (2)</span>
+                            <span class="issue-tag">Disengagement</span>
+                            <span class="issue-tag">Skills Obsolescence</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Key Insights -->
+            <div class="insights-section">
+                <h3>Key Insights</h3>
+                <div class="insights-grid">
+                    <div class="insight-card">
+                        <div class="insight-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                        </div>
+                        <h4>Compliance Dominates</h4>
+                        <p>Financial services companies (BAC, V, GS) show high compliance-related language, reflecting the heavily regulated nature of the industry.</p>
+                    </div>
+                    <div class="insight-card">
+                        <div class="insight-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
+                            </svg>
+                        </div>
+                        <h4>Technical Debt Everywhere</h4>
+                        <p>"Technical debt" appeared in 46 contexts - companies frequently disclose technology infrastructure challenges and legacy system issues.</p>
+                    </div>
+                    <div class="insight-card">
+                        <div class="insight-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+                            </svg>
+                        </div>
+                        <h4>Healthcare Safety Focus</h4>
+                        <p>Pharmaceutical companies (GILD, LLY, JNJ) show "safety concerns" as a top issue - expected given FDA oversight and product liability.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Use Cases -->
+            <div class="results-section">
+                <h3>Financial Analysis Use Cases</h3>
+                <p class="section-desc">KeyNeg can help with various financial document analysis tasks:</p>
+
+                <div class="company-grid">
+                    <div class="company-card">
+                        <h4>Risk Assessment</h4>
+                        <p style="color: var(--color-text-light); font-size: 0.875rem; margin: 0;">Identify potential risks and red flags in 10K filings before they become material issues.</p>
+                    </div>
+                    <div class="company-card">
+                        <h4>Due Diligence</h4>
+                        <p style="color: var(--color-text-light); font-size: 0.875rem; margin: 0;">Screen companies for negative language patterns during M&A or investment analysis.</p>
+                    </div>
+                    <div class="company-card">
+                        <h4>Regulatory Compliance</h4>
+                        <p style="color: var(--color-text-light); font-size: 0.875rem; margin: 0;">Monitor disclosure language for compliance concerns across your portfolio.</p>
+                    </div>
+                    <div class="company-card">
+                        <h4>Competitive Analysis</h4>
+                        <p style="color: var(--color-text-light); font-size: 0.875rem; margin: 0;">Compare negative sentiment patterns across competitors in the same industry.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CTA -->
+            <div class="case-cta">
+                <h3>Analyze Your Financial Documents</h3>
+                <p>Use KeyNeg to extract risk indicators and compliance concerns from SEC filings, earnings calls, and financial reports.</p>
+                <div class="cta-buttons">
+                    <a href="https://github.com/Osseni94/keyneg" class="btn btn-primary" target="_blank">Get Started (Free)</a>
+                    <a href="index.html#contact" class="btn btn-secondary">Enterprise Inquiry</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Other Use Cases -->
+    <section class="attribution" style="padding: 40px 0;">
+        <div class="container">
+            <p style="margin-bottom: 16px;"><strong>More Use Cases:</strong></p>
+            <p><a href="use-cases.html">Employee Reviews Analysis (Glassdoor)</a> | <a href="use-cases-financial.html" style="font-weight: 600;">Financial 10K Analysis</a></p>
+            <p style="margin-top: 16px;">Dataset: <a href="https://www.kaggle.com/datasets/yousefsaeedian/financial-q-and-a-10k" target="_blank">Financial Q&A 10K</a> by Yousef Saeedian on Kaggle (7,000 Q&A pairs)</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Grand Nasser Enterprises. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileMenuBtn.classList.toggle('active');
+        });
+
+        // Navbar background on scroll
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+    </script>
+</body>
+</html>

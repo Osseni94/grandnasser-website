@@ -1,0 +1,245 @@
+{
+  "total_contexts": 500,
+  "contexts_with_negativity": 148,
+  "unique_tickers": 69,
+  "top_sentiments": [
+    [
+      "technical debt",
+      46
+    ],
+    [
+      "compliance issues",
+      40
+    ],
+    [
+      "lack of transparency",
+      14
+    ],
+    [
+      "no growth opportunities",
+      14
+    ],
+    [
+      "safety concerns",
+      12
+    ],
+    [
+      "undervalued",
+      11
+    ],
+    [
+      "bureaucracy",
+      9
+    ],
+    [
+      "false advertising",
+      8
+    ],
+    [
+      "downsizing",
+      7
+    ],
+    [
+      "unfair compensation",
+      6
+    ],
+    [
+      "nepotism",
+      6
+    ],
+    [
+      "lack of accountability",
+      6
+    ],
+    [
+      "information silos",
+      5
+    ],
+    [
+      "ethical violations",
+      5
+    ],
+    [
+      "incompetent management",
+      5
+    ]
+  ],
+  "companies": {
+    "BAC": {
+      "count": 3,
+      "avg_negativity": 0.37,
+      "top_issues": [
+        [
+          "compliance issues",
+          1
+        ],
+        [
+          "technical debt",
+          1
+        ],
+        [
+          "lack of transparency",
+          1
+        ]
+      ]
+    },
+    "AXP": {
+      "count": 4,
+      "avg_negativity": 0.36,
+      "top_issues": [
+        [
+          "technical debt",
+          3
+        ],
+        [
+          "undervalued",
+          1
+        ],
+        [
+          "unfair compensation",
+          1
+        ]
+      ]
+    },
+    "EFX": {
+      "count": 4,
+      "avg_negativity": 0.36,
+      "top_issues": [
+        [
+          "technical debt",
+          3
+        ],
+        [
+          "compliance issues",
+          1
+        ],
+        [
+          "bureaucracy",
+          1
+        ]
+      ]
+    },
+    "LVS": {
+      "count": 3,
+      "avg_negativity": 0.36,
+      "top_issues": [
+        [
+          "technical debt",
+          1
+        ],
+        [
+          "unrealistic deadlines",
+          1
+        ],
+        [
+          "compliance issues",
+          1
+        ]
+      ]
+    },
+    "V": {
+      "count": 5,
+      "avg_negativity": 0.36,
+      "top_issues": [
+        [
+          "compliance issues",
+          4
+        ],
+        [
+          "bureaucracy",
+          1
+        ],
+        [
+          "technical debt",
+          1
+        ]
+      ]
+    },
+    "GS": {
+      "count": 4,
+      "avg_negativity": 0.35,
+      "top_issues": [
+        [
+          "undervalued",
+          2
+        ],
+        [
+          "technical debt",
+          2
+        ],
+        [
+          "compliance issues",
+          1
+        ]
+      ]
+    },
+    "AMZN": {
+      "count": 3,
+      "avg_negativity": 0.35,
+      "top_issues": [
+        [
+          "no growth opportunities",
+          2
+        ],
+        [
+          "technical debt",
+          1
+        ]
+      ]
+    },
+    "LLY": {
+      "count": 5,
+      "avg_negativity": 0.35,
+      "top_issues": [
+        [
+          "compliance issues",
+          2
+        ],
+        [
+          "technical debt",
+          1
+        ],
+        [
+          "false advertising",
+          1
+        ]
+      ]
+    },
+    "JNJ": {
+      "count": 4,
+      "avg_negativity": 0.35,
+      "top_issues": [
+        [
+          "technical debt",
+          2
+        ],
+        [
+          "disengagement",
+          1
+        ],
+        [
+          "skills obsolescence",
+          1
+        ]
+      ]
+    },
+    "GILD": {
+      "count": 4,
+      "avg_negativity": 0.35,
+      "top_issues": [
+        [
+          "safety concerns",
+          2
+        ],
+        [
+          "compliance issues",
+          2
+        ],
+        [
+          "false advertising",
+          1
+        ]
+      ]
+    }
+  }
+}
