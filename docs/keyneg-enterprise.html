@@ -63,6 +63,11 @@
                             <li><a href="#analysis">Full Analysis</a></li>
                             <li><a href="#batch">Batch Processing</a></li>
                         </ul>
+                        <h4>Industry Taxonomies</h4>
+                        <ul>
+                            <li><a href="#industries">Industry Presets</a></li>
+                            <li><a href="#industry-list">Available Industries</a></li>
+                        </ul>
                         <h4>Customization</h4>
                         <ul>
                             <li><a href="#taxonomies">Custom Taxonomies</a></li>
@@ -113,8 +118,8 @@
                                         <line x1="16" y1="17" x2="8" y2="17"/>
                                     </svg>
                                 </div>
-                                <h4>Custom Taxonomies</h4>
-                                <p>Load YAML or JSON taxonomies for your industry-specific needs.</p>
+                                <h4>24 Industry Taxonomies</h4>
+                                <p>Pre-built taxonomies for Finance, Healthcare, Tech, ESG, and 20+ more industries.</p>
                             </div>
                             <div class="feature-item">
                                 <div class="feature-icon">
@@ -245,6 +250,108 @@ results = kn.analyze_batch(documents)
 <span class="keyword">for</span> i, result <span class="keyword">in</span> enumerate(results):
     <span class="keyword">print</span>(f<span class="string">"Doc {i+1}: {result['top_sentiment']} ({result['negativity_score']:.2f})"</span>)</code></pre>
                         </div>
+                    </section>
+
+                    <section id="industries">
+                        <h2>Industry Taxonomies</h2>
+                        <p>KeyNeg Enterprise includes <strong>24 pre-built industry taxonomies</strong> with 65 aliases. Use the <code>industry</code> parameter to instantly load industry-specific keywords and categories.</p>
+
+                        <h3>Single Industry</h3>
+                        <div class="code-block">
+                            <pre><code><span class="keyword">from</span> keyneg_enterprise <span class="keyword">import</span> KeyNeg
+
+<span class="comment"># Load finance-specific taxonomy</span>
+kn = KeyNeg(industry=<span class="string">"finance"</span>)
+
+<span class="comment"># Healthcare/Pharma</span>
+kn = KeyNeg(industry=<span class="string">"healthcare"</span>)
+
+<span class="comment"># Technology/SaaS</span>
+kn = KeyNeg(industry=<span class="string">"tech"</span>)
+
+<span class="comment"># ESG & Climate</span>
+kn = KeyNeg(industry=<span class="string">"esg"</span>)</code></pre>
+                        </div>
+
+                        <h3>Multiple Industries</h3>
+                        <div class="code-block">
+                            <pre><code><span class="comment"># Combine multiple industry taxonomies</span>
+kn = KeyNeg(industry=[<span class="string">"finance"</span>, <span class="string">"regulatory"</span>, <span class="string">"esg"</span>])
+
+<span class="comment"># Financial services with compliance focus</span>
+kn = KeyNeg(industry=[<span class="string">"banking"</span>, <span class="string">"compliance"</span>, <span class="string">"ratings"</span>])</code></pre>
+                        </div>
+
+                        <h3>List Available Industries</h3>
+                        <div class="code-block">
+                            <pre><code><span class="keyword">from</span> keyneg_enterprise <span class="keyword">import</span> list_industries
+
+<span class="keyword">print</span>(list_industries())
+<span class="comment"># ['airline', 'alternatives', 'aml', 'auto', 'automotive', 'banking', ...]</span></code></pre>
+                        </div>
+
+                        <h3>Extend vs Replace Default</h3>
+                        <div class="code-block">
+                            <pre><code><span class="comment"># Extend default taxonomy (default)</span>
+kn = KeyNeg(industry=<span class="string">"finance"</span>, extend_default=<span class="keyword">True</span>)
+
+<span class="comment"># Replace default taxonomy with industry-only</span>
+kn = KeyNeg(industry=<span class="string">"finance"</span>, extend_default=<span class="keyword">False</span>)</code></pre>
+                        </div>
+                    </section>
+
+                    <section id="industry-list">
+                        <h2>Available Industries</h2>
+
+                        <h3>General Industries</h3>
+                        <table class="industry-table">
+                            <thead>
+                                <tr>
+                                    <th>Industry</th>
+                                    <th>Aliases</th>
+                                    <th>Categories</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>Financial Services</td><td><code>finance</code>, <code>banking</code></td><td>Banking, investment, insurance</td></tr>
+                                <tr><td>Healthcare</td><td><code>healthcare</code>, <code>pharma</code></td><td>Patient experience, billing, pharmaceuticals</td></tr>
+                                <tr><td>Telecommunications</td><td><code>telecom</code></td><td>Connectivity, billing, customer service</td></tr>
+                                <tr><td>Technology</td><td><code>tech</code>, <code>saas</code></td><td>Software, subscriptions, cloud services</td></tr>
+                                <tr><td>Retail</td><td><code>retail</code>, <code>ecommerce</code></td><td>Shipping, products, returns</td></tr>
+                                <tr><td>Hospitality</td><td><code>travel</code>, <code>airline</code>, <code>hotel</code></td><td>Hotel, airline complaints</td></tr>
+                                <tr><td>Gig Economy</td><td><code>gig</code>, <code>rideshare</code></td><td>Driver/rider, platform issues</td></tr>
+                                <tr><td>Education</td><td><code>education</code>, <code>edtech</code></td><td>Course content, technical, financial</td></tr>
+                                <tr><td>Real Estate</td><td><code>property</code></td><td>Tenant, buyer/seller issues</td></tr>
+                                <tr><td>Legal</td><td><code>legal</code>, <code>law</code></td><td>Client, firm internal</td></tr>
+                                <tr><td>Government</td><td><code>public_sector</code></td><td>Processing, service quality, benefits</td></tr>
+                                <tr><td>Automotive</td><td><code>auto</code></td><td>Vehicle, dealer issues</td></tr>
+                                <tr><td>Manufacturing</td><td><code>supply_chain</code></td><td>Quality, supply chain</td></tr>
+                                <tr><td>Energy</td><td><code>utilities</code></td><td>Service, renewable energy</td></tr>
+                                <tr><td>Media</td><td><code>entertainment</code>, <code>gaming</code>, <code>streaming</code></td><td>Streaming, gaming</td></tr>
+                            </tbody>
+                        </table>
+
+                        <h3>Specialized Financial Bundles</h3>
+                        <table class="industry-table">
+                            <thead>
+                                <tr>
+                                    <th>Industry</th>
+                                    <th>Aliases</th>
+                                    <th>Categories</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>Financial Intelligence</td><td><code>ratings</code>, <code>credit_ratings</code></td><td>Credit ratings, market data, research</td></tr>
+                                <tr><td>Regulatory</td><td><code>compliance</code>, <code>aml</code>, <code>kyc</code></td><td>AML/KYC, reporting, regulatory change</td></tr>
+                                <tr><td>ESG</td><td><code>sustainable</code>, <code>climate</code>, <code>green_finance</code></td><td>Green investing, climate finance</td></tr>
+                                <tr><td>Capital Markets</td><td><code>investment_banking</code></td><td>Investment banking, trading, risk</td></tr>
+                                <tr><td>Corporate Intelligence</td><td><code>governance</code></td><td>Supply chain risk, governance</td></tr>
+                                <tr><td>Sovereign Risk</td><td><code>country_risk</code>, <code>geopolitical</code></td><td>Country ratings, geopolitical risk</td></tr>
+                                <tr><td>Private Equity</td><td><code>pe</code>, <code>hedge_funds</code>, <code>alternatives</code></td><td>Private markets, hedge funds</td></tr>
+                                <tr><td>Real Estate Finance</td><td><code>cmbs</code>, <code>rmbs</code>, <code>mortgage</code></td><td>CMBS/RMBS, commercial real estate</td></tr>
+                                <tr><td>Data Services</td><td><code>fintech</code></td><td>Trading platforms, analytics, data</td></tr>
+                            </tbody>
+                        </table>
                     </section>
 
                     <section id="taxonomies">
