@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enterprise Employee Analysis | KeyNeg - Grand Nasser Enterprises</title>
+    <meta name="description" content="KeyNeg Enterprise with industry taxonomies - Extract tech-specific workplace insights from Glassdoor reviews">
+    <meta name="robots" content="index, follow">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="KeyNeg Enterprise Employee Analysis">
+    <meta property="og:description" content="Industry-specific sentiment analysis on 800K+ Glassdoor reviews with tech and SaaS taxonomies">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="use-cases.css">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>G</text></svg>">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <img src="logo.png" alt="Grand Nasser Enterprises" class="logo-img">
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html#products">Products</a></li>
+                <li><a href="docs/keyneg.html">Docs</a></li>
+                <li><a href="use-cases.html" class="active">Use Cases</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+            <button class="mobile-menu-btn" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <header class="usecase-hero">
+        <div class="container">
+            <span class="enterprise-badge">Enterprise</span>
+            <h1>Tech Industry Employee Analysis</h1>
+            <p class="hero-subtitle">Extract tech-specific workplace insights using KeyNeg Enterprise with industry taxonomies</p>
+            <!-- Use Case Navigation -->
+            <div class="usecase-nav">
+                <a href="use-cases.html" class="usecase-nav-link">Employee Reviews</a>
+                <a href="use-cases-enterprise.html" class="usecase-nav-link active">Enterprise Reviews</a>
+                <a href="use-cases-financial.html" class="usecase-nav-link">Financial 10K</a>
+                <a href="use-cases-financial-enterprise.html" class="usecase-nav-link">Enterprise 10K</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Tutorial Section -->
+    <section class="case-study">
+        <div class="container">
+            <div class="case-header">
+                <span class="case-badge badge-enterprise">Enterprise Tutorial</span>
+                <h2>Glassdoor Analysis with Tech Taxonomies</h2>
+                <p>See how KeyNeg Enterprise detects tech-specific workplace issues that generic sentiment analysis misses</p>
+            </div>
+
+            <!-- Comparison Highlight -->
+            <div class="comparison-highlight">
+                <h3>Open Source vs Enterprise Results</h3>
+                <p>Same 500 tech company reviews - Enterprise adds <strong>industry-specific keyword detection</strong></p>
+                <div class="comparison-grid">
+                    <div class="comparison-card">
+                        <span class="comparison-label">Open Source</span>
+                        <div class="comparison-stat">864</div>
+                        <span class="comparison-desc">Keywords loaded</span>
+                    </div>
+                    <div class="comparison-card highlight">
+                        <span class="comparison-label">Enterprise</span>
+                        <div class="comparison-stat">905</div>
+                        <span class="comparison-desc">Keywords loaded (+5%)</span>
+                    </div>
+                    <div class="comparison-card">
+                        <span class="comparison-label">Industries</span>
+                        <div class="comparison-stat">3</div>
+                        <span class="comparison-desc">tech + saas + gig</span>
+                    </div>
+                    <div class="comparison-card">
+                        <span class="comparison-label">Detection Rate</span>
+                        <div class="comparison-stat">89.6%</div>
+                        <span class="comparison-desc">448/500 reviews</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 1: Initialize with Industries -->
+            <div class="tutorial-step">
+                <div class="step-header">
+                    <span class="step-number">1</span>
+                    <h3>Initialize with Tech Industry Taxonomies</h3>
+                </div>
+                <p class="step-desc">For analyzing tech company employee reviews, combine the tech, SaaS, and gig economy taxonomies:</p>
+
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-lang">Python</span>
+                        <span class="code-file">enterprise_tech_init.py</span>
+                    </div>
+                    <pre><code><span class="keyword">from</span> keyneg_enterprise <span class="keyword">import</span> KeyNeg, list_industries, __version__
+
+<span class="keyword">print</span>(<span class="string">f"Version: {__version__}"</span>)
+
+<span class="comment"># Initialize with tech industry taxonomies</span>
+kn = KeyNeg(industry=[<span class="string">'tech'</span>, <span class="string">'saas'</span>, <span class="string">'gig'</span>])
+
+<span class="keyword">print</span>(<span class="string">f"Keywords loaded: {len(kn.all_keywords)}"</span>)</code></pre>
+                </div>
+
+                <div class="output-block">
+                    <div class="output-header">Output</div>
+                    <pre>Version: 1.1.0
+[KeyNeg] Loaded industry taxonomies: tech, saas, gig
+Keywords loaded: 905</pre>
+                </div>
+
+                <div class="info-box">
+                    <strong>Industry Taxonomies Used:</strong>
+                    <p><strong>tech</strong> - Software bugs, system crashes, compatibility issues, updates<br>
+                    <strong>saas</strong> - Subscription fatigue, feature gating, difficult cancellation<br>
+                    <strong>gig</strong> - Low pay rates, account deactivation, algorithm changes, platform issues</p>
+                </div>
+            </div>
+
+            <!-- Step 2: Load Tech Company Reviews -->
+            <div class="tutorial-step">
+                <div class="step-header">
+                    <span class="step-number">2</span>
+                    <h3>Load Tech Company Reviews</h3>
+                </div>
+                <p class="step-desc">Filter the Glassdoor dataset to major tech companies:</p>
+
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-lang">Python</span>
+                        <span class="code-file">load_tech_reviews.py</span>
+                    </div>
+                    <pre><code><span class="keyword">import</span> kagglehub
+<span class="keyword">import</span> pandas <span class="keyword">as</span> pd
+
+<span class="comment"># Download Glassdoor dataset</span>
+path = kagglehub.dataset_download(<span class="string">'davidgauthier/glassdoor-job-reviews'</span>)
+df = pd.read_csv(f<span class="string">'{path}/glassdoor_reviews.csv'</span>)
+
+<span class="comment"># Filter to major tech companies</span>
+tech_companies = [<span class="string">'google'</span>, <span class="string">'amazon'</span>, <span class="string">'apple'</span>, <span class="string">'microsoft'</span>, <span class="string">'facebook'</span>, <span class="string">'netflix'</span>]
+df_tech = df[df[<span class="string">'firm'</span>].str.lower().isin(tech_companies)]
+
+<span class="keyword">print</span>(<span class="string">f"Total reviews: {len(df)}"</span>)
+<span class="keyword">print</span>(<span class="string">f"Tech company reviews: {len(df_tech)}"</span>)</code></pre>
+                </div>
+
+                <div class="output-block">
+                    <div class="output-header">Output</div>
+                    <pre>Total reviews: 838,566
+Tech company reviews: 63,821</pre>
+                </div>
+            </div>
+
+            <!-- Step 3: Batch Analysis -->
+            <div class="tutorial-step">
+                <div class="step-header">
+                    <span class="step-number">3</span>
+                    <h3>Batch Analysis with Industry Keywords</h3>
+                </div>
+                <p class="step-desc">Analyze 500 employee reviews to detect both sentiments and industry-specific keywords:</p>
+
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-lang">Python</span>
+                        <span class="code-file">enterprise_analysis.py</span>
+                    </div>
+                    <pre><code><span class="keyword">from</span> collections <span class="keyword">import</span> Counter
+
+<span class="comment"># Sample 500 reviews from the "cons" column</span>
+sample_df = df_tech.sample(n=<span class="number">500</span>, random_state=<span class="number">42</span>)
+reviews = sample_df[<span class="string">'cons'</span>].dropna().tolist()
+
+<span class="comment"># Analyze with Enterprise</span>
+results = kn.analyze_batch(reviews)
+
+<span class="comment"># Count negative reviews</span>
+negative = [r <span class="keyword">for</span> r <span class="keyword">in</span> results <span class="keyword">if</span> r[<span class="string">'sentiments'</span>]]
+<span class="keyword">print</span>(<span class="string">f"Reviews with negative sentiment: {len(negative)}/500"</span>)
+
+<span class="comment"># Aggregate keywords (Enterprise-specific!)</span>
+all_keywords = []
+<span class="keyword">for</span> r <span class="keyword">in</span> results:
+    <span class="keyword">if</span> r[<span class="string">'keywords'</span>]:
+        all_keywords.extend([k[<span class="number">0</span>] <span class="keyword">for</span> k <span class="keyword">in</span> r[<span class="string">'keywords'</span>]])
+
+keyword_counts = Counter(all_keywords)
+<span class="keyword">print</span>(<span class="string">"\\nTop Tech-Specific Keywords Detected:"</span>)
+<span class="keyword">for</span> kw, count <span class="keyword">in</span> keyword_counts.most_common(<span class="number">10</span>):
+    <span class="keyword">print</span>(<span class="string">f"  {kw}: {count}"</span>)</code></pre>
+                </div>
+
+                <div class="output-block">
+                    <div class="output-header">Output</div>
+                    <pre>Reviews with negative sentiment: 448/500 (89.6%)
+
+Top Tech-Specific Keywords Detected:
+  dysfunctional organization: 136
+  terrible employer: 102
+  worst place to work: 102
+  low pay rates: 88
+  horrible company: 84
+  no work life balance: 77
+  avoid this company: 75
+  leadership turnover: 72
+  poor salary structure: 71
+  no advancement opportunities: 70</pre>
+                </div>
+            </div>
+
+            <!-- Enterprise Keywords Detected -->
+            <div class="results-section">
+                <h3>Enterprise-Specific Keywords Detected</h3>
+                <p class="section-desc">These workplace-specific keywords provide actionable insights for HR and management:</p>
+
+                <div class="sentiment-chart">
+                    <div class="sentiment-bar">
+                        <span class="sentiment-label">Dysfunctional Organization</span>
+                        <div class="bar-container">
+                            <div class="bar enterprise" style="width: 100%"></div>
+                            <span class="bar-value">136</span>
+                        </div>
+                    </div>
+                    <div class="sentiment-bar">
+                        <span class="sentiment-label">Terrible Employer</span>
+                        <div class="bar-container">
+                            <div class="bar enterprise" style="width: 75%"></div>
+                            <span class="bar-value">102</span>
+                        </div>
+                    </div>
+                    <div class="sentiment-bar">
+                        <span class="sentiment-label">Low Pay Rates</span>
+                        <div class="bar-container">
+                            <div class="bar enterprise" style="width: 65%"></div>
+                            <span class="bar-value">88</span>
+                        </div>
+                    </div>
+                    <div class="sentiment-bar">
+                        <span class="sentiment-label">Leadership Turnover</span>
+                        <div class="bar-container">
+                            <div class="bar enterprise" style="width: 53%"></div>
+                            <span class="bar-value">72</span>
+                        </div>
+                    </div>
+                    <div class="sentiment-bar">
+                        <span class="sentiment-label">Career Uncertainty</span>
+                        <div class="bar-container">
+                            <div class="bar enterprise" style="width: 49%"></div>
+                            <span class="bar-value">66</span>
+                        </div>
+                    </div>
+                    <div class="sentiment-bar">
+                        <span class="sentiment-label">Toxic Workplace</span>
+                        <div class="bar-container">
+                            <div class="bar enterprise" style="width: 45%"></div>
+                            <span class="bar-value">61</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Company Analysis -->
+            <div class="results-section">
+                <h3>Company Analysis with Industry Keywords</h3>
+                <p class="section-desc">Enterprise provides company-specific insights with both sentiments AND keywords:</p>
+
+                <div class="company-grid">
+                    <div class="company-card enterprise">
+                        <h4>Microsoft</h4>
+                        <div class="company-stats">
+                            <span class="reviews-count">183 reviews</span>
+                            <span class="negativity-score">Negativity: 0.41</span>
+                        </div>
+                        <div class="top-issues">
+                            <span class="issue-tag">Organizational Instability (74)</span>
+                            <span class="issue-tag">Incompetent Management (70)</span>
+                            <span class="issue-tag">Dismissive Management (50)</span>
+                        </div>
+                        <div class="keyword-section">
+                            <span class="keyword-label">Keywords:</span>
+                            <span class="keyword-tag">dysfunctional organization</span>
+                            <span class="keyword-tag">horrible company</span>
+                            <span class="keyword-tag">low pay rates</span>
+                        </div>
+                    </div>
+
+                    <div class="company-card enterprise">
+                        <h4>Google</h4>
+                        <div class="company-stats">
+                            <span class="reviews-count">110 reviews</span>
+                            <span class="negativity-score">Negativity: 0.40</span>
+                        </div>
+                        <div class="top-issues">
+                            <span class="issue-tag">Organizational Instability (33)</span>
+                            <span class="issue-tag">Incompetent Management (27)</span>
+                            <span class="issue-tag">Dismissive Management (27)</span>
+                        </div>
+                        <div class="keyword-section">
+                            <span class="keyword-label">Keywords:</span>
+                            <span class="keyword-tag">dysfunctional organization</span>
+                            <span class="keyword-tag">leadership turnover</span>
+                            <span class="keyword-tag">terrible employer</span>
+                        </div>
+                    </div>
+
+                    <div class="company-card enterprise">
+                        <h4>Apple</h4>
+                        <div class="company-stats">
+                            <span class="reviews-count">152 reviews</span>
+                            <span class="negativity-score">Negativity: 0.39</span>
+                        </div>
+                        <div class="top-issues">
+                            <span class="issue-tag">Excessive Hours (44)</span>
+                            <span class="issue-tag">Work Life Imbalance (41)</span>
+                            <span class="issue-tag">Incompetent Management (37)</span>
+                        </div>
+                        <div class="keyword-section">
+                            <span class="keyword-label">Keywords:</span>
+                            <span class="keyword-tag">long hours</span>
+                            <span class="keyword-tag">worst place to work</span>
+                            <span class="keyword-tag">terrible employer</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Key Insights -->
+            <div class="insights-section">
+                <h3>Key Insights by Company</h3>
+                <div class="insights-grid">
+                    <div class="insight-card">
+                        <div class="insight-icon enterprise">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
+                                <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+                            </svg>
+                        </div>
+                        <h4>Microsoft: Org Instability</h4>
+                        <p>Highest negativity score (0.41). "Organizational instability" and "dysfunctional organization" are top concerns - suggesting restructuring or strategy changes affecting employees.</p>
+                    </div>
+                    <div class="insight-card">
+                        <div class="insight-icon enterprise">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M8 14s1.5 2 4 2 4-2 4-2"/>
+                                <line x1="9" y1="9" x2="9.01" y2="9"/>
+                                <line x1="15" y1="9" x2="15.01" y2="9"/>
+                            </svg>
+                        </div>
+                        <h4>Google: Leadership Turnover</h4>
+                        <p>"Leadership turnover" is a unique keyword for Google - indicating management changes and direction shifts that frustrate employees.</p>
+                    </div>
+                    <div class="insight-card">
+                        <div class="insight-icon enterprise">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <polyline points="12 6 12 12 16 14"/>
+                            </svg>
+                        </div>
+                        <h4>Apple: Work-Life Balance</h4>
+                        <p>"Excessive hours" and "long hours" dominate Apple feedback. The "worst place to work" keyword appears frequently despite Apple's brand reputation.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Available Industries -->
+            <div class="results-section">
+                <h3>Other Industry Taxonomies Available</h3>
+                <p class="section-desc">KeyNeg Enterprise includes 24 pre-built taxonomies. Choose the right ones for your analysis:</p>
+
+                <div class="industry-pills">
+                    <span class="industry-pill">finance</span>
+                    <span class="industry-pill">banking</span>
+                    <span class="industry-pill">healthcare</span>
+                    <span class="industry-pill">pharma</span>
+                    <span class="industry-pill">tech</span>
+                    <span class="industry-pill">saas</span>
+                    <span class="industry-pill">esg</span>
+                    <span class="industry-pill">regulatory</span>
+                    <span class="industry-pill">retail</span>
+                    <span class="industry-pill">hospitality</span>
+                    <span class="industry-pill">automotive</span>
+                    <span class="industry-pill">manufacturing</span>
+                    <span class="industry-pill">energy</span>
+                    <span class="industry-pill">media</span>
+                    <span class="industry-pill">legal</span>
+                    <span class="industry-pill">+50 more</span>
+                </div>
+            </div>
+
+            <!-- CTA -->
+            <div class="case-cta enterprise">
+                <h3>Get Industry-Specific Employee Insights</h3>
+                <p>KeyNeg Enterprise provides the domain-specific keyword detection that HR teams need for employee feedback analysis, engagement surveys, and workplace culture assessments.</p>
+                <div class="cta-buttons">
+                    <a href="index.html#contact" class="btn btn-enterprise">Request Enterprise Trial</a>
+                    <a href="docs/keyneg-enterprise.html" class="btn btn-secondary">View Documentation</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dataset Attribution -->
+    <section class="attribution">
+        <div class="container">
+            <p>Dataset: <a href="https://www.kaggle.com/datasets/davidgauthier/glassdoor-job-reviews" target="_blank">Glassdoor Job Reviews</a> by David Gauthier on Kaggle (838K+ reviews)</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Grand Nasser Enterprises. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileMenuBtn.classList.toggle('active');
+        });
+
+        // Navbar background on scroll
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+    </script>
+</body>
+</html>
