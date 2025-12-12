@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enterprise Financial Analysis | KeyNeg - Grand Nasser Enterprises</title>
+    <meta name="description" content="KeyNeg Enterprise with industry taxonomies - Extract finance-specific risk indicators from SEC 10K filings">
+    <meta name="robots" content="index, follow">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="KeyNeg Enterprise Financial Analysis">
+    <meta property="og:description" content="Industry-specific sentiment analysis on SEC 10K filings with finance, regulatory, and ESG taxonomies">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="use-cases.css">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>G</text></svg>">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <img src="logo.png" alt="Grand Nasser Enterprises" class="logo-img">
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html#products">Products</a></li>
+                <li><a href="docs/keyneg.html">Docs</a></li>
+                <li><a href="use-cases.html" class="active">Use Cases</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+            <button class="mobile-menu-btn" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <header class="usecase-hero">
+        <div class="container">
+            <span class="enterprise-badge">Enterprise</span>
+            <h1>Industry-Specific Financial Analysis</h1>
+            <p class="hero-subtitle">Extract finance-specific risk indicators using KeyNeg Enterprise with industry taxonomies</p>
+            <!-- Use Case Navigation -->
+            <div class="usecase-nav">
+                <a href="use-cases.html" class="usecase-nav-link">Employee Reviews</a>
+                <a href="use-cases-financial.html" class="usecase-nav-link">Financial 10K</a>
+                <a href="use-cases-financial-enterprise.html" class="usecase-nav-link active">Enterprise 10K</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Tutorial Section -->
+    <section class="case-study">
+        <div class="container">
+            <div class="case-header">
+                <span class="case-badge badge-enterprise">Enterprise Tutorial</span>
+                <h2>Financial Analysis with Industry Taxonomies</h2>
+                <p>See how KeyNeg Enterprise detects finance-specific keywords and compliance terms that the open source version misses</p>
+            </div>
+
+            <!-- Comparison Highlight -->
+            <div class="comparison-highlight">
+                <h3>Open Source vs Enterprise Results</h3>
+                <p>Same dataset, same 500 contexts - but Enterprise detects <strong>industry-specific terminology</strong></p>
+                <div class="comparison-grid">
+                    <div class="comparison-card">
+                        <span class="comparison-label">Open Source</span>
+                        <div class="comparison-stat">~800</div>
+                        <span class="comparison-desc">Keywords loaded</span>
+                    </div>
+                    <div class="comparison-card highlight">
+                        <span class="comparison-label">Enterprise</span>
+                        <div class="comparison-stat">963</div>
+                        <span class="comparison-desc">Keywords loaded (+20%)</span>
+                    </div>
+                    <div class="comparison-card">
+                        <span class="comparison-label">Industries</span>
+                        <div class="comparison-stat">3</div>
+                        <span class="comparison-desc">finance + regulatory + esg</span>
+                    </div>
+                    <div class="comparison-card">
+                        <span class="comparison-label">Detection Rate</span>
+                        <div class="comparison-stat">29.6%</div>
+                        <span class="comparison-desc">Same sentiment detection</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 1: Initialize with Industries -->
+            <div class="tutorial-step">
+                <div class="step-header">
+                    <span class="step-number">1</span>
+                    <h3>Initialize with Industry Taxonomies</h3>
+                </div>
+                <p class="step-desc">KeyNeg Enterprise includes 24 pre-built industry taxonomies. For financial analysis, combine finance, regulatory, and ESG:</p>
+
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-lang">Python</span>
+                        <span class="code-file">enterprise_init.py</span>
+                    </div>
+                    <pre><code><span class="keyword">from</span> keyneg_enterprise <span class="keyword">import</span> KeyNeg, list_industries, __version__
+
+<span class="comment"># Check available industries</span>
+<span class="keyword">print</span>(<span class="string">f"Version: {__version__}"</span>)
+<span class="keyword">print</span>(<span class="string">f"Available industries: {len(list_industries())}"</span>)
+
+<span class="comment"># Initialize with multiple financial industry taxonomies</span>
+kn = KeyNeg(industry=[<span class="string">'finance'</span>, <span class="string">'regulatory'</span>, <span class="string">'esg'</span>])
+
+<span class="keyword">print</span>(<span class="string">f"Keywords loaded: {len(kn.all_keywords)}"</span>)</code></pre>
+                </div>
+
+                <div class="output-block">
+                    <div class="output-header">Output</div>
+                    <pre>Version: 1.1.0
+Available industries: 65
+[KeyNeg] Loaded industry taxonomies: finance, regulatory, esg
+Keywords loaded: 963</pre>
+                </div>
+
+                <div class="info-box">
+                    <strong>Industry Taxonomies Used:</strong>
+                    <p><strong>finance</strong> - Banking complaints, investment issues, insurance claims, trading platforms<br>
+                    <strong>regulatory</strong> - AML/KYC compliance, reporting issues, regulatory change<br>
+                    <strong>esg</strong> - Green investing, climate finance, ESG ratings, sustainability</p>
+                </div>
+            </div>
+
+            <!-- Step 2: Analyze Batch -->
+            <div class="tutorial-step">
+                <div class="step-header">
+                    <span class="step-number">2</span>
+                    <h3>Batch Analysis with Industry Keywords</h3>
+                </div>
+                <p class="step-desc">Run the same 500 10K contexts through Enterprise to detect finance-specific terminology:</p>
+
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-lang">Python</span>
+                        <span class="code-file">enterprise_analysis.py</span>
+                    </div>
+                    <pre><code><span class="keyword">import</span> kagglehub
+<span class="keyword">import</span> pandas <span class="keyword">as</span> pd
+<span class="keyword">from</span> collections <span class="keyword">import</span> Counter
+
+<span class="comment"># Load the same dataset</span>
+path = kagglehub.dataset_download(<span class="string">'yousefsaeedian/financial-q-and-a-10k'</span>)
+df = pd.read_csv(f<span class="string">'{path}/Financial-QA-10k.csv'</span>)
+
+<span class="comment"># Sample same 500 contexts</span>
+sample_df = df.sample(n=<span class="number">500</span>, random_state=<span class="number">42</span>)
+contexts = sample_df[<span class="string">'context'</span>].tolist()
+
+<span class="comment"># Analyze with Enterprise</span>
+results = kn.analyze_batch(contexts)
+
+<span class="comment"># Count negative contexts</span>
+negative = [r <span class="keyword">for</span> r <span class="keyword">in</span> results <span class="keyword">if</span> r[<span class="string">'sentiments'</span>]]
+<span class="keyword">print</span>(<span class="string">f"Contexts with negative sentiment: {len(negative)}/500"</span>)
+
+<span class="comment"># Aggregate keywords (Enterprise-specific!)</span>
+all_keywords = []
+<span class="keyword">for</span> r <span class="keyword">in</span> results:
+    <span class="keyword">if</span> r[<span class="string">'keywords'</span>]:
+        all_keywords.extend([k[<span class="number">0</span>] <span class="keyword">for</span> k <span class="keyword">in</span> r[<span class="string">'keywords'</span>]])
+
+keyword_counts = Counter(all_keywords)
+<span class="keyword">print</span>(<span class="string">"\\nTop Finance-Specific Keywords Detected:"</span>)
+<span class="keyword">for</span> kw, count <span class="keyword">in</span> keyword_counts.most_common(<span class="number">10</span>):
+    <span class="keyword">print</span>(<span class="string">f"  {kw}: {count}"</span>)</code></pre>
+                </div>
+
+                <div class="output-block">
+                    <div class="output-header">Output</div>
+                    <pre>Contexts with negative sentiment: 148/500 (29.6%)
+
+Top Finance-Specific Keywords Detected:
+  transition finance: 117
+  disclosure violations: 72
+  monthly maintenance fees: 65
+  use of proceeds: 64
+  premium increase: 64
+  capital adequacy models: 61
+  cost cutting: 61
+  impact reporting gaps: 54
+  regulatory reporting errors: 48
+  billing targets: 43</pre>
+                </div>
+            </div>
+
+            <!-- Step 3: Company Deep Dive -->
+            <div class="tutorial-step">
+                <div class="step-header">
+                    <span class="step-number">3</span>
+                    <h3>Company Analysis with Industry Keywords</h3>
+                </div>
+                <p class="step-desc">Enterprise provides both sentiments AND industry-specific keywords per company:</p>
+
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-lang">Python</span>
+                        <span class="code-file">company_keywords.py</span>
+                    </div>
+                    <pre><code><span class="comment"># Analyze Goldman Sachs context</span>
+gs_context = <span class="string">"""Our businesses may be adversely affected by conditions
+in global financial markets. Capital adequacy requirements and
+regulatory capital rules may limit our ability to return capital
+to shareholders through dividends and share repurchases."""</span>
+
+result = kn.analyze(gs_context)
+
+<span class="keyword">print</span>(<span class="string">"Sentiments:"</span>, [s[<span class="number">0</span>] <span class="keyword">for</span> s <span class="keyword">in</span> result[<span class="string">'sentiments'</span>]])
+<span class="keyword">print</span>(<span class="string">"Keywords:"</span>, [k[<span class="number">0</span>] <span class="keyword">for</span> k <span class="keyword">in</span> result[<span class="string">'keywords'</span>][:<span class="number">5</span>]])
+<span class="keyword">print</span>(<span class="string">"Categories:"</span>, result[<span class="string">'categories'</span>])</code></pre>
+                </div>
+
+                <div class="output-block">
+                    <div class="output-header">Output</div>
+                    <pre>Sentiments: ['undervalued', 'technical debt']
+Keywords: ['capital adequacy models', 'regulatory capital', 'transition finance']
+Categories: ['compensation_career_issues', 'operational_resource_issues']</pre>
+                </div>
+            </div>
+
+            <!-- Enterprise Keywords Detected -->
+            <div class="results-section">
+                <h3>Enterprise-Specific Keywords Detected</h3>
+                <p class="section-desc">These finance-specific keywords were detected by Enterprise but NOT by the open source version:</p>
+
+                <div class="sentiment-chart">
+                    <div class="sentiment-bar">
+                        <span class="sentiment-label">Transition Finance</span>
+                        <div class="bar-container">
+                            <div class="bar enterprise" style="width: 100%"></div>
+                            <span class="bar-value">117</span>
+                        </div>
+                    </div>
+                    <div class="sentiment-bar">
+                        <span class="sentiment-label">Disclosure Violations</span>
+                        <div class="bar-container">
+                            <div class="bar enterprise" style="width: 61%"></div>
+                            <span class="bar-value">72</span>
+                        </div>
+                    </div>
+                    <div class="sentiment-bar">
+                        <span class="sentiment-label">Capital Adequacy Models</span>
+                        <div class="bar-container">
+                            <div class="bar enterprise" style="width: 52%"></div>
+                            <span class="bar-value">61</span>
+                        </div>
+                    </div>
+                    <div class="sentiment-bar">
+                        <span class="sentiment-label">Impact Reporting Gaps</span>
+                        <div class="bar-container">
+                            <div class="bar enterprise" style="width: 46%"></div>
+                            <span class="bar-value">54</span>
+                        </div>
+                    </div>
+                    <div class="sentiment-bar">
+                        <span class="sentiment-label">Regulatory Reporting Errors</span>
+                        <div class="bar-container">
+                            <div class="bar enterprise" style="width: 41%"></div>
+                            <span class="bar-value">48</span>
+                        </div>
+                    </div>
+                    <div class="sentiment-bar">
+                        <span class="sentiment-label">Jurisdictional Conflicts</span>
+                        <div class="bar-container">
+                            <div class="bar enterprise" style="width: 36%"></div>
+                            <span class="bar-value">42</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Company Analysis with Keywords -->
+            <div class="results-section">
+                <h3>Company Analysis with Industry Keywords</h3>
+                <p class="section-desc">Enterprise provides actionable finance-specific insights per company:</p>
+
+                <div class="company-grid">
+                    <div class="company-card enterprise">
+                        <h4>BAC (Bank of America)</h4>
+                        <div class="company-stats">
+                            <span class="reviews-count">3 contexts</span>
+                            <span class="negativity-score">Negativity: 0.37</span>
+                        </div>
+                        <div class="top-issues">
+                            <span class="issue-tag">Compliance Issues</span>
+                            <span class="issue-tag">Technical Debt</span>
+                        </div>
+                        <div class="keyword-section">
+                            <span class="keyword-label">Keywords:</span>
+                            <span class="keyword-tag">disclosure violations</span>
+                            <span class="keyword-tag">regulatory reporting errors</span>
+                            <span class="keyword-tag">jurisdictional conflicts</span>
+                        </div>
+                    </div>
+
+                    <div class="company-card enterprise">
+                        <h4>V (Visa)</h4>
+                        <div class="company-stats">
+                            <span class="reviews-count">5 contexts</span>
+                            <span class="negativity-score">Negativity: 0.36</span>
+                        </div>
+                        <div class="top-issues">
+                            <span class="issue-tag">Compliance Issues (4)</span>
+                            <span class="issue-tag">Bureaucracy</span>
+                        </div>
+                        <div class="keyword-section">
+                            <span class="keyword-label">Keywords:</span>
+                            <span class="keyword-tag">jurisdictional conflicts</span>
+                            <span class="keyword-tag">disclosure violations</span>
+                        </div>
+                    </div>
+
+                    <div class="company-card enterprise">
+                        <h4>GS (Goldman Sachs)</h4>
+                        <div class="company-stats">
+                            <span class="reviews-count">4 contexts</span>
+                            <span class="negativity-score">Negativity: 0.35</span>
+                        </div>
+                        <div class="top-issues">
+                            <span class="issue-tag">Undervalued (2)</span>
+                            <span class="issue-tag">Technical Debt (2)</span>
+                        </div>
+                        <div class="keyword-section">
+                            <span class="keyword-label">Keywords:</span>
+                            <span class="keyword-tag">capital adequacy models</span>
+                            <span class="keyword-tag">transition finance</span>
+                            <span class="keyword-tag">regulatory capital</span>
+                        </div>
+                    </div>
+
+                    <div class="company-card enterprise">
+                        <h4>GILD (Gilead Sciences)</h4>
+                        <div class="company-stats">
+                            <span class="reviews-count">4 contexts</span>
+                            <span class="negativity-score">Negativity: 0.35</span>
+                        </div>
+                        <div class="top-issues">
+                            <span class="issue-tag">Safety Concerns (2)</span>
+                            <span class="issue-tag">Compliance Issues (2)</span>
+                        </div>
+                        <div class="keyword-section">
+                            <span class="keyword-label">Keywords:</span>
+                            <span class="keyword-tag">regulatory uncertainty</span>
+                            <span class="keyword-tag">disclosure violations</span>
+                            <span class="keyword-tag">transition risk assessment</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Key Differences -->
+            <div class="insights-section">
+                <h3>Enterprise vs Open Source</h3>
+                <div class="insights-grid">
+                    <div class="insight-card">
+                        <div class="insight-icon enterprise">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                        </div>
+                        <h4>Industry Keywords</h4>
+                        <p>Enterprise detects domain-specific terms like "capital adequacy models", "disclosure violations", and "transition finance" that generic sentiment analysis misses.</p>
+                    </div>
+                    <div class="insight-card">
+                        <div class="insight-icon enterprise">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+                            </svg>
+                        </div>
+                        <h4>24 Industry Presets</h4>
+                        <p>Pre-built taxonomies for Finance, Healthcare, Tech, ESG, Regulatory, and 19 more industries. Combine multiple industries for comprehensive coverage.</p>
+                    </div>
+                    <div class="insight-card">
+                        <div class="insight-icon enterprise">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                            </svg>
+                        </div>
+                        <h4>Air-Gapped Operation</h4>
+                        <p>All models bundled - no internet required. Perfect for secure financial environments with strict data governance requirements.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Available Industries -->
+            <div class="results-section">
+                <h3>Available Industry Taxonomies</h3>
+                <p class="section-desc">KeyNeg Enterprise includes 24 pre-built taxonomies with 65 aliases:</p>
+
+                <div class="industry-pills">
+                    <span class="industry-pill">finance</span>
+                    <span class="industry-pill">banking</span>
+                    <span class="industry-pill">healthcare</span>
+                    <span class="industry-pill">pharma</span>
+                    <span class="industry-pill">tech</span>
+                    <span class="industry-pill">saas</span>
+                    <span class="industry-pill">esg</span>
+                    <span class="industry-pill">climate</span>
+                    <span class="industry-pill">regulatory</span>
+                    <span class="industry-pill">compliance</span>
+                    <span class="industry-pill">capital_markets</span>
+                    <span class="industry-pill">private_equity</span>
+                    <span class="industry-pill">retail</span>
+                    <span class="industry-pill">hospitality</span>
+                    <span class="industry-pill">automotive</span>
+                    <span class="industry-pill">manufacturing</span>
+                    <span class="industry-pill">energy</span>
+                    <span class="industry-pill">media</span>
+                    <span class="industry-pill">legal</span>
+                    <span class="industry-pill">government</span>
+                    <span class="industry-pill">+45 more</span>
+                </div>
+            </div>
+
+            <!-- CTA -->
+            <div class="case-cta enterprise">
+                <h3>Get Industry-Specific Insights</h3>
+                <p>KeyNeg Enterprise provides the domain-specific keyword detection that financial analysts need for 10K analysis, due diligence, and risk assessment.</p>
+                <div class="cta-buttons">
+                    <a href="index.html#contact" class="btn btn-enterprise">Request Enterprise Trial</a>
+                    <a href="docs/keyneg-enterprise.html" class="btn btn-secondary">View Documentation</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dataset Attribution -->
+    <section class="attribution">
+        <div class="container">
+            <p>Dataset: <a href="https://www.kaggle.com/datasets/yousefsaeedian/financial-q-and-a-10k" target="_blank">Financial Q&A 10K</a> by Yousef Saeedian on Kaggle (7,000 Q&A pairs)</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Grand Nasser Enterprises. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileMenuBtn.classList.toggle('active');
+        });
+
+        // Navbar background on scroll
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+    </script>
+</body>
+</html>
