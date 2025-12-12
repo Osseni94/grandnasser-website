@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Use Cases | KeyNeg - Grand Nasser Enterprises</title>
+    <meta name="description" content="See KeyNeg in action - Real-world sentiment analysis on Glassdoor employee reviews from major tech companies">
+    <meta name="robots" content="index, follow">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="KeyNeg Use Cases">
+    <meta property="og:description" content="Real-world sentiment analysis on 800K+ Glassdoor employee reviews">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="use-cases.css">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>G</text></svg>">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <img src="logo.png" alt="Grand Nasser Enterprises" class="logo-img">
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html#products">Products</a></li>
+                <li><a href="docs/keyneg.html">Docs</a></li>
+                <li><a href="use-cases.html" class="active">Use Cases</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+            <button class="mobile-menu-btn" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <header class="usecase-hero">
+        <div class="container">
+            <h1>KeyNeg in Action</h1>
+            <p class="hero-subtitle">A step-by-step tutorial on extracting negative sentiment from real-world employee feedback data</p>
+        </div>
+    </header>
+
+    <!-- Tutorial Section -->
+    <section class="case-study">
+        <div class="container">
+            <div class="case-header">
+                <span class="case-badge">Tutorial</span>
+                <h2>Glassdoor Employee Reviews Analysis</h2>
+                <p>Learn how to analyze 800K+ employee reviews to extract actionable insights about workplace sentiment</p>
+            </div>
+
+            <!-- Step 1: The Dataset -->
+            <div class="tutorial-step">
+                <div class="step-header">
+                    <span class="step-number">1</span>
+                    <h3>The Dataset</h3>
+                </div>
+                <p class="step-desc">We're using the Glassdoor Job Reviews dataset from Kaggle, containing 838,566 employee reviews from various companies. Here's a sample of the data:</p>
+
+                <div class="data-sample">
+                    <div class="sample-header">
+                        <span class="sample-badge">Sample Data</span>
+                        <span class="sample-file">glassdoor_reviews.csv</span>
+                    </div>
+                    <div class="sample-table-wrapper">
+                        <table class="sample-table">
+                            <thead>
+                                <tr>
+                                    <th>firm</th>
+                                    <th>overall_rating</th>
+                                    <th>pros</th>
+                                    <th>cons</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>IBM</td>
+                                    <td>1</td>
+                                    <td>Good benefits package</td>
+                                    <td>Management is completely out of touch with reality. Constant layoffs create fear...</td>
+                                </tr>
+                                <tr>
+                                    <td>Oracle</td>
+                                    <td>2</td>
+                                    <td>Good salary</td>
+                                    <td>No career growth opportunities. Managers play favorites and the work environment is toxic...</td>
+                                </tr>
+                                <tr>
+                                    <td>Microsoft</td>
+                                    <td>2</td>
+                                    <td>Great perks</td>
+                                    <td>Work-life balance is terrible. Constant reorgs make it impossible to focus...</td>
+                                </tr>
+                                <tr>
+                                    <td>Google</td>
+                                    <td>2</td>
+                                    <td>Amazing campus</td>
+                                    <td>Too much bureaucracy. Hard to get promoted without politics...</td>
+                                </tr>
+                                <tr>
+                                    <td>Apple</td>
+                                    <td>1</td>
+                                    <td>Prestigious brand</td>
+                                    <td>Extremely long hours expected. No room for creativity, just follow orders...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Dataset Stats -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <span class="stat-value">838,566</span>
+                        <span class="stat-label">Total Reviews</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-value">155,844</span>
+                        <span class="stat-label">Tech Company Reviews</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-value">20,587</span>
+                        <span class="stat-label">Negative Reviews (1-2 stars)</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-value">200</span>
+                        <span class="stat-label">Sample Analyzed</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2: Load and Prepare Data -->
+            <div class="tutorial-step">
+                <div class="step-header">
+                    <span class="step-number">2</span>
+                    <h3>Load and Prepare the Data</h3>
+                </div>
+                <p class="step-desc">First, we load the CSV file and filter for negative reviews (1-2 star ratings) from tech companies:</p>
+
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-lang">Python</span>
+                        <span class="code-file">prepare_data.py</span>
+                    </div>
+                    <pre><code><span class="keyword">import</span> pandas <span class="keyword">as</span> pd
+
+<span class="comment"># Load the Glassdoor reviews dataset</span>
+df = pd.read_csv(<span class="string">'glassdoor_reviews.csv'</span>, encoding=<span class="string">'latin-1'</span>)
+
+<span class="comment"># Define tech companies to analyze</span>
+tech_companies = [<span class="string">'ibm'</span>, <span class="string">'oracle'</span>, <span class="string">'microsoft'</span>, <span class="string">'google'</span>, <span class="string">'apple'</span>]
+
+<span class="comment"># Filter for tech companies (case-insensitive)</span>
+tech_df = df[df[<span class="string">'firm'</span>].str.lower().isin(tech_companies)]
+
+<span class="comment"># Get negative reviews (1-2 star ratings)</span>
+negative_reviews = tech_df[tech_df[<span class="string">'overall_rating'</span>] <= <span class="number">2</span>]
+
+<span class="comment"># Extract the "cons" column - this is what we'll analyze</span>
+cons_text = negative_reviews[[<span class="string">'firm'</span>, <span class="string">'cons'</span>]].dropna()
+
+<span class="keyword">print</span>(<span class="string">f"Found </span>{<span class="keyword">len</span>(cons_text)}<span class="string"> negative reviews to analyze"</span>)</code></pre>
+                </div>
+
+                <div class="output-block">
+                    <div class="output-header">Output</div>
+                    <pre>Found 20,587 negative reviews to analyze</pre>
+                </div>
+            </div>
+
+            <!-- Step 3: Initialize KeyNeg -->
+            <div class="tutorial-step">
+                <div class="step-header">
+                    <span class="step-number">3</span>
+                    <h3>Initialize KeyNeg</h3>
+                </div>
+                <p class="step-desc">Import KeyNeg and initialize the analyzer. For enterprise environments, the model is bundled and works offline:</p>
+
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-lang">Python</span>
+                        <span class="code-file">initialize.py</span>
+                    </div>
+                    <pre><code><span class="comment"># For open source version</span>
+<span class="keyword">from</span> keyneg <span class="keyword">import</span> KeyNeg
+
+<span class="comment"># Or for enterprise version (air-gapped, no internet required)</span>
+<span class="comment"># from keyneg_enterprise import KeyNeg</span>
+
+<span class="comment"># Initialize the analyzer</span>
+kn = KeyNeg()
+
+<span class="comment"># KeyNeg comes with 95+ built-in sentiment labels including:</span>
+<span class="comment"># - incompetent management</span>
+<span class="comment"># - no growth opportunities</span>
+<span class="comment"># - hostile work environment</span>
+<span class="comment"># - layoffs</span>
+<span class="comment"># - work life imbalance</span>
+<span class="comment"># - and many more...</span>
+
+<span class="keyword">print</span>(<span class="string">"KeyNeg initialized successfully"</span>)</code></pre>
+                </div>
+
+                <div class="output-block">
+                    <div class="output-header">Output</div>
+                    <pre>KeyNeg initialized successfully</pre>
+                </div>
+            </div>
+
+            <!-- Step 4: Analyze Single Review -->
+            <div class="tutorial-step">
+                <div class="step-header">
+                    <span class="step-number">4</span>
+                    <h3>Analyze a Single Review</h3>
+                </div>
+                <p class="step-desc">Let's start by analyzing a single employee review to understand the output format:</p>
+
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-lang">Python</span>
+                        <span class="code-file">single_analysis.py</span>
+                    </div>
+                    <pre><code><span class="comment"># Sample review from IBM employee</span>
+review = <span class="string">"""Management is completely out of touch with reality.
+Constant layoffs create fear and uncertainty. No clear career path
+and promotions are based on politics, not merit."""</span>
+
+<span class="comment"># Analyze the review</span>
+result = kn.analyze(review)
+
+<span class="comment"># View the results</span>
+<span class="keyword">print</span>(<span class="string">"Top Sentiment:"</span>, result[<span class="string">'top_sentiment'</span>])
+<span class="keyword">print</span>(<span class="string">"Negativity Score:"</span>, result[<span class="string">'negativity_score'</span>])
+<span class="keyword">print</span>(<span class="string">"All Sentiments:"</span>, result[<span class="string">'sentiments'</span>])</code></pre>
+                </div>
+
+                <div class="output-block">
+                    <div class="output-header">Output</div>
+                    <pre>Top Sentiment: incompetent management
+Negativity Score: 0.45
+All Sentiments: ['incompetent management', 'layoffs', 'no growth opportunities']</pre>
+                </div>
+            </div>
+
+            <!-- Step 5: Batch Analysis -->
+            <div class="tutorial-step">
+                <div class="step-header">
+                    <span class="step-number">5</span>
+                    <h3>Batch Analysis</h3>
+                </div>
+                <p class="step-desc">Now let's analyze all 200 sample reviews at once using batch processing for efficiency:</p>
+
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-lang">Python</span>
+                        <span class="code-file">batch_analysis.py</span>
+                    </div>
+                    <pre><code><span class="comment"># Sample 200 reviews for analysis</span>
+sample_reviews = cons_text.sample(n=<span class="number">200</span>, random_state=<span class="number">42</span>)
+
+<span class="comment"># Convert to list for batch processing</span>
+review_texts = sample_reviews[<span class="string">'cons'</span>].tolist()
+
+<span class="comment"># Analyze all reviews in batch</span>
+results = kn.analyze_batch(review_texts)
+
+<span class="comment"># Count sentiment occurrences</span>
+<span class="keyword">from</span> collections <span class="keyword">import</span> Counter
+
+all_sentiments = []
+<span class="keyword">for</span> r <span class="keyword">in</span> results:
+    all_sentiments.extend(r[<span class="string">'sentiments'</span>])
+
+sentiment_counts = Counter(all_sentiments)
+
+<span class="comment"># Display top 10 sentiments</span>
+<span class="keyword">print</span>(<span class="string">"Top 10 Negative Sentiments:"</span>)
+<span class="keyword">for</span> sentiment, count <span class="keyword">in</span> sentiment_counts.most_common(<span class="number">10</span>):
+    <span class="keyword">print</span>(<span class="string">f"  {sentiment}: {count}"</span>)</code></pre>
+                </div>
+
+                <div class="output-block">
+                    <div class="output-header">Output</div>
+                    <pre>Top 10 Negative Sentiments:
+  incompetent management: 72
+  no growth opportunities: 14
+  career stagnation: 12
+  organizational instability: 10
+  layoffs: 9
+  hostile work environment: 8
+  poor customer service: 6
+  lack of collaboration: 4
+  dismissive management: 4
+  poor leadership: 4</pre>
+                </div>
+            </div>
+
+            <!-- Step 6: Group by Company -->
+            <div class="tutorial-step">
+                <div class="step-header">
+                    <span class="step-number">6</span>
+                    <h3>Group Results by Company</h3>
+                </div>
+                <p class="step-desc">Let's break down the analysis by company to compare sentiment patterns:</p>
+
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-lang">Python</span>
+                        <span class="code-file">company_analysis.py</span>
+                    </div>
+                    <pre><code><span class="comment"># Add company info back to results</span>
+sample_reviews = sample_reviews.reset_index(drop=<span class="keyword">True</span>)
+
+<span class="comment"># Analyze by company</span>
+company_results = {}
+
+<span class="keyword">for</span> company <span class="keyword">in</span> tech_companies:
+    <span class="comment"># Get reviews for this company</span>
+    mask = sample_reviews[<span class="string">'firm'</span>].str.lower() == company
+    company_reviews = sample_reviews[mask][<span class="string">'cons'</span>].tolist()
+
+    <span class="keyword">if</span> <span class="keyword">len</span>(company_reviews) > <span class="number">0</span>:
+        <span class="comment"># Analyze reviews</span>
+        company_analysis = kn.analyze_batch(company_reviews)
+
+        <span class="comment"># Calculate average negativity</span>
+        avg_neg = <span class="keyword">sum</span>(r[<span class="string">'negativity_score'</span>] <span class="keyword">for</span> r <span class="keyword">in</span> company_analysis) / <span class="keyword">len</span>(company_analysis)
+
+        <span class="comment"># Count sentiments</span>
+        sentiments = []
+        <span class="keyword">for</span> r <span class="keyword">in</span> company_analysis:
+            sentiments.extend(r[<span class="string">'sentiments'</span>])
+
+        company_results[company] = {
+            <span class="string">'count'</span>: <span class="keyword">len</span>(company_reviews),
+            <span class="string">'avg_negativity'</span>: <span class="keyword">round</span>(avg_neg, <span class="number">2</span>),
+            <span class="string">'top_sentiments'</span>: Counter(sentiments).most_common(<span class="number">3</span>)
+        }
+
+<span class="comment"># Display results</span>
+<span class="keyword">for</span> company, data <span class="keyword">in</span> company_results.items():
+    <span class="keyword">print</span>(<span class="string">f"\n{company.upper()}"</span>)
+    <span class="keyword">print</span>(<span class="string">f"  Reviews: {data['count']}"</span>)
+    <span class="keyword">print</span>(<span class="string">f"  Avg Negativity: {data['avg_negativity']}"</span>)
+    <span class="keyword">print</span>(<span class="string">f"  Top Issues: {data['top_sentiments']}"</span>)</code></pre>
+                </div>
+
+                <div class="output-block">
+                    <div class="output-header">Output</div>
+                    <pre>IBM
+  Reviews: 108
+  Avg Negativity: 0.42
+  Top Issues: [('incompetent management', 49), ('no growth opportunities', 9), ('layoffs', 7)]
+
+ORACLE
+  Reviews: 48
+  Avg Negativity: 0.43
+  Top Issues: [('incompetent management', 14), ('organizational instability', 5), ('hostile work environment', 3)]
+
+MICROSOFT
+  Reviews: 25
+  Avg Negativity: 0.42
+  Top Issues: [('incompetent management', 6), ('work life imbalance', 3), ('organizational instability', 3)]
+
+GOOGLE
+  Reviews: 8
+  Avg Negativity: 0.33
+  Top Issues: [('no growth opportunities', 2), ('hostile work environment', 1), ('overworked', 1)]
+
+APPLE
+  Reviews: 11
+  Avg Negativity: 0.38
+  Top Issues: [('poor customer service', 2), ('career stagnation', 2), ('incompetent management', 2)]</pre>
+                </div>
+            </div>
+
+            <!-- Results Visualization -->
+            <div class="results-section">
+                <h3>Results Visualization</h3>
+                <p class="section-desc">Here's a visual breakdown of the sentiment analysis results:</p>
+
+                <div class="sentiment-chart">
+                    <div class="sentiment-bar">
+                        <span class="sentiment-label">Incompetent Management</span>
+                        <div class="bar-container">
+                            <div class="bar" style="width: 72%"></div>
+                            <span class="bar-value">72</span>
+                        </div>
+                    </div>
+                    <div class="sentiment-bar">
+                        <span class="sentiment-label">No Growth Opportunities</span>
+                        <div class="bar-container">
+                            <div class="bar" style="width: 14%"></div>
+                            <span class="bar-value">14</span>
+                        </div>
+                    </div>
+                    <div class="sentiment-bar">
+                        <span class="sentiment-label">Career Stagnation</span>
+                        <div class="bar-container">
+                            <div class="bar" style="width: 12%"></div>
+                            <span class="bar-value">12</span>
+                        </div>
+                    </div>
+                    <div class="sentiment-bar">
+                        <span class="sentiment-label">Organizational Instability</span>
+                        <div class="bar-container">
+                            <div class="bar" style="width: 10%"></div>
+                            <span class="bar-value">10</span>
+                        </div>
+                    </div>
+                    <div class="sentiment-bar">
+                        <span class="sentiment-label">Layoffs</span>
+                        <div class="bar-container">
+                            <div class="bar" style="width: 9%"></div>
+                            <span class="bar-value">9</span>
+                        </div>
+                    </div>
+                    <div class="sentiment-bar">
+                        <span class="sentiment-label">Hostile Work Environment</span>
+                        <div class="bar-container">
+                            <div class="bar" style="width: 8%"></div>
+                            <span class="bar-value">8</span>
+                        </div>
+                    </div>
+                    <div class="sentiment-bar">
+                        <span class="sentiment-label">Poor Customer Service</span>
+                        <div class="bar-container">
+                            <div class="bar" style="width: 6%"></div>
+                            <span class="bar-value">6</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Company Comparison -->
+            <div class="results-section">
+                <h3>Company Comparison</h3>
+                <p class="section-desc">Sentiment breakdown by company:</p>
+
+                <div class="company-grid">
+                    <div class="company-card">
+                        <h4>IBM</h4>
+                        <div class="company-stats">
+                            <span class="reviews-count">108 reviews</span>
+                            <span class="negativity-score">Negativity: 0.42</span>
+                        </div>
+                        <div class="top-issues">
+                            <span class="issue-tag">Incompetent Management (49)</span>
+                            <span class="issue-tag">No Growth (9)</span>
+                            <span class="issue-tag">Layoffs (7)</span>
+                        </div>
+                    </div>
+
+                    <div class="company-card">
+                        <h4>Oracle</h4>
+                        <div class="company-stats">
+                            <span class="reviews-count">48 reviews</span>
+                            <span class="negativity-score">Negativity: 0.43</span>
+                        </div>
+                        <div class="top-issues">
+                            <span class="issue-tag">Incompetent Management (14)</span>
+                            <span class="issue-tag">Org Instability (5)</span>
+                            <span class="issue-tag">Hostile Environment (3)</span>
+                        </div>
+                    </div>
+
+                    <div class="company-card">
+                        <h4>Microsoft</h4>
+                        <div class="company-stats">
+                            <span class="reviews-count">25 reviews</span>
+                            <span class="negativity-score">Negativity: 0.42</span>
+                        </div>
+                        <div class="top-issues">
+                            <span class="issue-tag">Incompetent Management (6)</span>
+                            <span class="issue-tag">Work-Life Imbalance (3)</span>
+                            <span class="issue-tag">Org Instability (3)</span>
+                        </div>
+                    </div>
+
+                    <div class="company-card">
+                        <h4>Apple</h4>
+                        <div class="company-stats">
+                            <span class="reviews-count">11 reviews</span>
+                            <span class="negativity-score">Negativity: 0.38</span>
+                        </div>
+                        <div class="top-issues">
+                            <span class="issue-tag">Poor Customer Service (2)</span>
+                            <span class="issue-tag">Career Stagnation (2)</span>
+                            <span class="issue-tag">Incompetent Mgmt (2)</span>
+                        </div>
+                    </div>
+
+                    <div class="company-card">
+                        <h4>Google</h4>
+                        <div class="company-stats">
+                            <span class="reviews-count">8 reviews</span>
+                            <span class="negativity-score">Negativity: 0.33</span>
+                        </div>
+                        <div class="top-issues">
+                            <span class="issue-tag">No Growth (2)</span>
+                            <span class="issue-tag">Hostile Environment (1)</span>
+                            <span class="issue-tag">Overworked (1)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Key Insights -->
+            <div class="insights-section">
+                <h3>Key Insights</h3>
+                <div class="insights-grid">
+                    <div class="insight-card">
+                        <div class="insight-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                                <circle cx="9" cy="7" r="4"/>
+                                <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                                <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                            </svg>
+                        </div>
+                        <h4>Management is #1 Issue</h4>
+                        <p>"Incompetent management" appeared in 36% of all negative reviews analyzed, making it the dominant complaint across all companies.</p>
+                    </div>
+                    <div class="insight-card">
+                        <div class="insight-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="12" y1="20" x2="12" y2="10"/>
+                                <line x1="18" y1="20" x2="18" y2="4"/>
+                                <line x1="6" y1="20" x2="6" y2="16"/>
+                            </svg>
+                        </div>
+                        <h4>Career Growth Concerns</h4>
+                        <p>"No growth opportunities" and "career stagnation" combined account for 13% of complaints - employees want advancement paths.</p>
+                    </div>
+                    <div class="insight-card">
+                        <div class="insight-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <polyline points="12 6 12 12 16 14"/>
+                            </svg>
+                        </div>
+                        <h4>Google Scores Best</h4>
+                        <p>With the lowest negativity score (0.33), Google's negative reviews are less severe compared to IBM (0.42) and Oracle (0.43).</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CTA -->
+            <div class="case-cta">
+                <h3>Try KeyNeg on Your Data</h3>
+                <p>Analyze employee surveys, customer feedback, or any text data for negative sentiment patterns.</p>
+                <div class="cta-buttons">
+                    <a href="https://github.com/Osseni94/keyneg" class="btn btn-primary" target="_blank">Get Started (Free)</a>
+                    <a href="index.html#contact" class="btn btn-secondary">Enterprise Inquiry</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dataset Attribution -->
+    <section class="attribution">
+        <div class="container">
+            <p>Dataset: <a href="https://www.kaggle.com/datasets/davidgauthier/glassdoor-job-reviews" target="_blank">Glassdoor Job Reviews</a> by David Gauthier on Kaggle (838K+ reviews)</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Grand Nasser Enterprises. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileMenuBtn.classList.toggle('active');
+        });
+
+        // Navbar background on scroll
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+    </script>
+</body>
+</html>

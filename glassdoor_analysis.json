@@ -1,0 +1,179 @@
+{
+  "total_reviews": 838566,
+  "tech_reviews": 155844,
+  "negative_reviews_analyzed": 200,
+  "companies": {
+    "IBM": {
+      "count": 108,
+      "avg_negativity": 0.42,
+      "top_sentiments": [
+        [
+          "incompetent management",
+          49
+        ],
+        [
+          "no growth opportunities",
+          9
+        ],
+        [
+          "layoffs",
+          7
+        ],
+        [
+          "career stagnation",
+          5
+        ],
+        [
+          "underpaid",
+          3
+        ]
+      ]
+    },
+    "Oracle": {
+      "count": 48,
+      "avg_negativity": 0.43,
+      "top_sentiments": [
+        [
+          "incompetent management",
+          14
+        ],
+        [
+          "organizational instability",
+          5
+        ],
+        [
+          "poor customer service",
+          3
+        ],
+        [
+          "hostile work environment",
+          3
+        ],
+        [
+          "bureaucracy",
+          3
+        ]
+      ]
+    },
+    "Apple": {
+      "count": 11,
+      "avg_negativity": 0.38,
+      "top_sentiments": [
+        [
+          "poor customer service",
+          2
+        ],
+        [
+          "incompetent management",
+          2
+        ],
+        [
+          "career stagnation",
+          2
+        ],
+        [
+          "excessive hours",
+          1
+        ],
+        [
+          "hostile work environment",
+          1
+        ]
+      ]
+    },
+    "Microsoft": {
+      "count": 25,
+      "avg_negativity": 0.42,
+      "top_sentiments": [
+        [
+          "incompetent management",
+          6
+        ],
+        [
+          "work life imbalance",
+          3
+        ],
+        [
+          "organizational instability",
+          3
+        ],
+        [
+          "career stagnation",
+          2
+        ],
+        [
+          "office politics",
+          1
+        ]
+      ]
+    },
+    "Google": {
+      "count": 8,
+      "avg_negativity": 0.33,
+      "top_sentiments": [
+        [
+          "no growth opportunities",
+          2
+        ],
+        [
+          "incompetent management",
+          1
+        ],
+        [
+          "hostile work environment",
+          1
+        ],
+        [
+          "overworked",
+          1
+        ],
+        [
+          "unfair compensation",
+          1
+        ]
+      ]
+    }
+  },
+  "top_sentiments": [
+    [
+      "incompetent management",
+      72
+    ],
+    [
+      "no growth opportunities",
+      14
+    ],
+    [
+      "career stagnation",
+      12
+    ],
+    [
+      "organizational instability",
+      10
+    ],
+    [
+      "layoffs",
+      9
+    ],
+    [
+      "hostile work environment",
+      8
+    ],
+    [
+      "poor customer service",
+      6
+    ],
+    [
+      "lack of collaboration",
+      4
+    ],
+    [
+      "dismissive management",
+      4
+    ],
+    [
+      "poor leadership",
+      4
+    ]
+  ]
+}
