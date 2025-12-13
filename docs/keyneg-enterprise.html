@@ -73,6 +73,11 @@
                             <li><a href="#taxonomies">Custom Taxonomies</a></li>
                             <li><a href="#models">Custom Models</a></li>
                         </ul>
+                        <h4>Advanced</h4>
+                        <ul>
+                            <li><a href="#detection">Detection Methods</a></li>
+                            <li><a href="#tips">Tips & Best Practices</a></li>
+                        </ul>
                         <h4>Reference</h4>
                         <ul>
                             <li><a href="#troubleshooting">Troubleshooting</a></li>
@@ -291,12 +296,24 @@ kn = KeyNeg(industry=[<span class="string">"banking"</span>, <span class="string
                         </div>
 
                         <h3>Extend vs Replace Default</h3>
-                        <div class="code-block">
-                            <pre><code><span class="comment"># Extend default taxonomy (default)</span>
-kn = KeyNeg(industry=<span class="string">"finance"</span>, extend_default=<span class="keyword">True</span>)
+                        <p>By default, industry taxonomies are <strong>added to</strong> the base workforce keywords. Use <code>extend_default=False</code> for industry-only keywords.</p>
 
-<span class="comment"># Replace default taxonomy with industry-only</span>
-kn = KeyNeg(industry=<span class="string">"finance"</span>, extend_default=<span class="keyword">False</span>)</code></pre>
+                        <div class="info-box">
+                            <strong>Understanding extend_default</strong>
+                            <p><code>extend_default=True</code> (default): Loads ~800 base workforce keywords + industry-specific keywords. Best for general employee feedback analysis where you want to catch both workplace issues AND domain-specific terminology.</p>
+                            <p><code>extend_default=False</code>: Loads ONLY industry-specific keywords. Best for pure domain analysis (e.g., analyzing 10K filings for regulatory language only).</p>
+                        </div>
+
+                        <div class="code-block">
+                            <pre><code><span class="comment"># Extend default taxonomy (default) - includes general workplace terms</span>
+<span class="comment"># Keywords: "burnout", "micromanagement" + "capital adequacy", "disclosure violations"</span>
+kn = KeyNeg(industry=<span class="string">"finance"</span>, extend_default=<span class="keyword">True</span>)
+<span class="keyword">print</span>(len(kn.all_keywords))  <span class="comment"># ~900+ keywords</span>
+
+<span class="comment"># Replace default - ONLY industry-specific terms</span>
+<span class="comment"># Keywords: "capital adequacy", "disclosure violations" (no "burnout", "micromanagement")</span>
+kn = KeyNeg(industry=<span class="string">"finance"</span>, extend_default=<span class="keyword">False</span>)
+<span class="keyword">print</span>(len(kn.all_keywords))  <span class="comment"># ~200 finance-only keywords</span></code></pre>
                         </div>
                     </section>
 
@@ -424,6 +441,115 @@ kn = KeyNeg(model=<span class="string">"all-MiniLM-L6-v2"</span>, offline_only=<
                         <div class="code-block">
                             <pre><code><span class="comment"># Strictly use bundled/local models only</span>
 kn = KeyNeg(offline_only=<span class="keyword">True</span>)</code></pre>
+                        </div>
+                    </section>
+
+                    <section id="detection">
+                        <h2>Detection Methods</h2>
+                        <p>KeyNeg Enterprise includes specialized detection methods for common enterprise use cases.</p>
+
+                        <h3>Detect Departure Intent</h3>
+                        <p>Identify signals that an employee is considering leaving:</p>
+                        <div class="code-block">
+                            <pre><code>result = kn.detect_departure_intent(<span class="string">"I'm updating my resume and looking for new opportunities"</span>)
+
+<span class="keyword">print</span>(result)
+<span class="comment"># {</span>
+<span class="comment">#   'detected': True,</span>
+<span class="comment">#   'confidence': 0.67,</span>
+<span class="comment">#   'signals': ['updating resume', 'looking for jobs']</span>
+<span class="comment"># }</span></code></pre>
+                        </div>
+
+                        <h3>Detect Escalation Risk</h3>
+                        <p>Identify signals of potential legal action or public complaints:</p>
+                        <div class="code-block">
+                            <pre><code>result = kn.detect_escalation_risk(<span class="string">"I'm going to contact a lawyer and post on Glassdoor"</span>)
+
+<span class="keyword">print</span>(result)
+<span class="comment"># {</span>
+<span class="comment">#   'detected': True,</span>
+<span class="comment">#   'risk_level': 'high',</span>
+<span class="comment">#   'signals': ['lawyer', 'glassdoor review']</span>
+<span class="comment"># }</span></code></pre>
+                        </div>
+
+                        <h3>Get Negativity Intensity</h3>
+                        <p>Measure how intense the negative sentiment is:</p>
+                        <div class="code-block">
+                            <pre><code>result = kn.get_intensity(<span class="string">"This is absolutely the worst experience ever"</span>)
+
+<span class="keyword">print</span>(result)
+<span class="comment"># {</span>
+<span class="comment">#   'level': 4,</span>
+<span class="comment">#   'label': 'extreme',</span>
+<span class="comment">#   'indicators': ['absolutely', 'worst ever']</span>
+<span class="comment"># }</span>
+
+<span class="comment"># Levels: 1=mild, 2=moderate, 3=strong, 4=extreme</span></code></pre>
+                        </div>
+                    </section>
+
+                    <section id="tips">
+                        <h2>Tips & Best Practices</h2>
+
+                        <div class="info-box">
+                            <strong>Choosing the Right Industry Preset</strong>
+                            <p>Start specific, then broaden. If analyzing bank complaints, try <code>industry="banking"</code> first. If you're missing terms, add <code>regulatory</code> or <code>finance</code>.</p>
+                        </div>
+
+                        <h3>For Financial Document Analysis</h3>
+                        <div class="code-block">
+                            <pre><code><span class="comment"># Pure regulatory/financial language detection</span>
+<span class="comment"># No workplace terms like "burnout" or "toxic culture"</span>
+kn = KeyNeg(
+    industry=[<span class="string">"finance"</span>, <span class="string">"regulatory"</span>, <span class="string">"esg"</span>],
+    extend_default=<span class="keyword">False</span>  <span class="comment"># Industry-only</span>
+)</code></pre>
+                        </div>
+
+                        <h3>For Employee Feedback Analysis</h3>
+                        <div class="code-block">
+                            <pre><code><span class="comment"># Workplace issues + industry-specific terms</span>
+kn = KeyNeg(
+    industry=[<span class="string">"tech"</span>, <span class="string">"saas"</span>],
+    extend_default=<span class="keyword">True</span>  <span class="comment"># Default: includes base workforce keywords</span>
+)</code></pre>
+                        </div>
+
+                        <h3>Check What Keywords Are Loaded</h3>
+                        <div class="code-block">
+                            <pre><code><span class="comment"># See all loaded keywords</span>
+<span class="keyword">print</span>(len(kn.all_keywords))  <span class="comment"># Total count</span>
+<span class="keyword">print</span>(kn.all_keywords[:20])  <span class="comment"># First 20 keywords</span>
+
+<span class="comment"># Get taxonomy statistics</span>
+stats = kn.get_taxonomy_stats()
+<span class="keyword">print</span>(stats)
+<span class="comment"># {'categories': 12, 'labels': 50, 'total_keywords': 905, 'unique_keywords': 905, 'source': 'default + finance, regulatory'}</span></code></pre>
+                        </div>
+
+                        <h3>Export Taxonomy for Review</h3>
+                        <div class="code-block">
+                            <pre><code><span class="comment"># Save current taxonomy to file for inspection/modification</span>
+kn.save_taxonomy(<span class="string">"my_taxonomy.json"</span>)
+
+<span class="comment"># Later, load your modified version</span>
+kn2 = KeyNeg(taxonomy_file=<span class="string">"my_taxonomy.json"</span>)</code></pre>
+                        </div>
+
+                        <h3>Testing Without License</h3>
+                        <div class="code-block">
+                            <pre><code><span class="comment"># For development/testing only</span>
+kn = KeyNeg(skip_license_check=<span class="keyword">True</span>)</code></pre>
+                        </div>
+
+                        <h3>Snowflake / Size-Restricted Environments</h3>
+                        <p>The full Enterprise package is ~400MB due to the bundled model. For environments with size limits (like Snowflake's 250MB stage limit), request the <strong>Lite version</strong> (~80MB) which uses a smaller model.</p>
+                        <div class="code-block">
+                            <pre><code><span class="comment"># Lite version uses all-MiniLM-L6-v2 instead of all-mpnet-base-v2</span>
+<span class="comment"># Same API, same taxonomies, smaller model = slightly lower accuracy</span>
+pip install keyneg_enterprise_lite-1.1.0-py3-none-any.whl</code></pre>
                         </div>
                     </section>
 
