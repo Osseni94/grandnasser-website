@@ -63,6 +63,62 @@
     font-weight: 500;
 }
 
+/* Doc Version Switcher */
+.docs-version-nav {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 24px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.docs-version-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 20px;
+    background-color: var(--color-background-alt);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    text-decoration: none;
+    color: var(--color-text-light);
+    font-weight: 500;
+    font-size: 0.9375rem;
+    transition: var(--transition);
+}
+
+.docs-version-link:hover {
+    border-color: var(--color-primary);
+    color: var(--color-text);
+}
+
+.docs-version-link.active {
+    background-color: var(--color-background);
+    border-color: var(--color-primary);
+    color: var(--color-text);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.version-badge {
+    display: inline-block;
+    padding: 3px 8px;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-radius: 100px;
+}
+
+.version-badge.opensource {
+    background-color: rgba(16, 185, 129, 0.1);
+    color: var(--color-success);
+}
+
+.version-badge.enterprise {
+    background-color: rgba(124, 58, 237, 0.1);
+    color: var(--color-enterprise);
+}
+
 /* Content */
 .docs-content {
     max-width: 800px;
@@ -526,6 +582,24 @@
 @media (max-width: 768px) {
     .docs-main {
         padding: 80px 0 40px;
+    }
+
+    /* Version switcher mobile */
+    .docs-version-nav {
+        flex-direction: column;
+        gap: 8px;
+        margin-bottom: 20px;
+        padding-bottom: 20px;
+    }
+
+    .docs-version-link {
+        padding: 10px 16px;
+        font-size: 0.875rem;
+    }
+
+    .version-badge {
+        font-size: 0.625rem;
+        padding: 2px 6px;
     }
 
     .docs-header {
