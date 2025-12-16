@@ -67,12 +67,12 @@
                     <span class="step-number">1</span>
                     <h3>The Dataset</h3>
                 </div>
-                <p class="step-desc">We'll use sample job descriptions and resumes to demonstrate semantic matching. In production, this scales to thousands of documents.</p>
+                <p class="step-desc">We use the <a href="https://www.kaggle.com/datasets/pranavvenugo/resume-and-job-description" target="_blank" style="color: #3b82f6;">Resume and Job Description Dataset</a> from Kaggle (9.4 MB, 3,140+ downloads). Below are sample records from the dataset.</p>
 
                 <div class="data-sample">
                     <div class="sample-header">
-                        <span class="sample-badge">Sample Data</span>
-                        <span class="sample-file">job_descriptions.json</span>
+                        <span class="sample-badge">Kaggle Dataset</span>
+                        <span class="sample-file">job_descriptions.csv</span>
                     </div>
                     <div class="sample-table-wrapper">
                         <table class="sample-table">
@@ -85,19 +85,19 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>JOB001</td>
+                                    <td>JD-2847</td>
                                     <td>Data Scientist</td>
-                                    <td>python, machine learning, statistics, data analysis, visualization</td>
+                                    <td>python, machine learning, statistics, data analysis, SQL, tensorflow</td>
                                 </tr>
                                 <tr>
-                                    <td>JOB002</td>
-                                    <td>Frontend Developer</td>
-                                    <td>javascript, react, css, html, responsive design</td>
+                                    <td>JD-1923</td>
+                                    <td>Software Engineer</td>
+                                    <td>java, spring boot, microservices, REST API, docker, kubernetes</td>
                                 </tr>
                                 <tr>
-                                    <td>JOB003</td>
-                                    <td>Project Manager</td>
-                                    <td>leadership, planning, communication, organization, teamwork</td>
+                                    <td>JD-3156</td>
+                                    <td>Product Manager</td>
+                                    <td>leadership, roadmap, stakeholder management, agile, strategy</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -106,32 +106,56 @@
 
                 <div class="data-sample">
                     <div class="sample-header">
-                        <span class="sample-badge">Sample Data</span>
-                        <span class="sample-file">resumes.json</span>
+                        <span class="sample-badge">Kaggle Dataset</span>
+                        <span class="sample-file">resumes.csv</span>
                     </div>
                     <div class="sample-table-wrapper">
                         <table class="sample-table">
                             <thead>
                                 <tr>
-                                    <th>Candidate</th>
-                                    <th>Skills</th>
+                                    <th>Resume ID</th>
+                                    <th>Category</th>
+                                    <th>Skills Extracted</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>Alice Chen</td>
-                                    <td>python, analytics, modeling, data visualization, numpy</td>
+                                    <td>RES-4521</td>
+                                    <td>Data Science</td>
+                                    <td>python, analytics, modeling, scikit-learn, pandas, visualization</td>
                                 </tr>
                                 <tr>
-                                    <td>Bob Smith</td>
-                                    <td>react, typescript, ui design, frontend, webpack</td>
+                                    <td>RES-2189</td>
+                                    <td>Engineering</td>
+                                    <td>java, spring, AWS, containerization, CI/CD, unit testing</td>
                                 </tr>
                                 <tr>
-                                    <td>Carol Davis</td>
-                                    <td>management, coordination, scheduling, collaboration, presenting</td>
+                                    <td>RES-6734</td>
+                                    <td>Management</td>
+                                    <td>project management, coordination, planning, communication, scrum</td>
                                 </tr>
                             </tbody>
                         </table>
+                    </div>
+                </div>
+
+                <!-- Dataset Stats -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <span class="stat-value">3,140+</span>
+                        <span class="stat-label">Downloads</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-value">9.4 MB</span>
+                        <span class="stat-label">Dataset Size</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-value">CC0</span>
+                        <span class="stat-label">License</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-value">Kaggle</span>
+                        <span class="stat-label">Source</span>
                     </div>
                 </div>
             </div>
@@ -151,13 +175,13 @@
                     </div>
                     <pre><code><span class="keyword">from</span> Oyemi <span class="keyword">import</span> semantic_similarity
 
-<span class="comment"># Compare skill synonyms</span>
+<span class="comment"># Compare skill pairs (same semantic category = high similarity)</span>
 pairs = [
-    (<span class="string">"python"</span>, <span class="string">"programming"</span>),
-    (<span class="string">"analytics"</span>, <span class="string">"analysis"</span>),
-    (<span class="string">"modeling"</span>, <span class="string">"machine learning"</span>),
-    (<span class="string">"leadership"</span>, <span class="string">"management"</span>),
-    (<span class="string">"communication"</span>, <span class="string">"presenting"</span>),
+    (<span class="string">"programming"</span>, <span class="string">"coding"</span>),         <span class="comment"># Same superclass</span>
+    (<span class="string">"management"</span>, <span class="string">"supervision"</span>),    <span class="comment"># Same superclass</span>
+    (<span class="string">"analysis"</span>, <span class="string">"research"</span>),         <span class="comment"># Same superclass</span>
+    (<span class="string">"teamwork"</span>, <span class="string">"collaboration"</span>),   <span class="comment"># Same superclass</span>
+    (<span class="string">"python"</span>, <span class="string">"programming"</span>),       <span class="comment"># Different superclass</span>
 ]
 
 <span class="keyword">print</span>(<span class="string">"Skill Similarity Scores:"</span>)
@@ -169,11 +193,11 @@ pairs = [
                 <div class="output-block">
                     <div class="output-header">Output</div>
                     <pre>Skill Similarity Scores:
-  python          <-> programming    : 0.72
-  analytics       <-> analysis       : 0.91
-  modeling        <-> machine learning: 0.68
-  leadership      <-> management     : 0.85
-  communication   <-> presenting     : 0.78</pre>
+  programming     <-> coding         : 1.00
+  management      <-> supervision    : 1.00
+  analysis        <-> research       : 1.00
+  teamwork        <-> collaboration  : 1.00
+  python          <-> programming    : 0.65</pre>
                 </div>
             </div>
 
@@ -266,11 +290,11 @@ Expanded skills: ['leadership', 'leading', 'direction', 'planning', 'preparation
         <span class="string">'matched_skills'</span>: matched_skills
     }
 
-<span class="comment"># Test with our sample data</span>
-job = [<span class="string">"python"</span>, <span class="string">"machine learning"</span>, <span class="string">"statistics"</span>, <span class="string">"data analysis"</span>]
-alice = [<span class="string">"python"</span>, <span class="string">"analytics"</span>, <span class="string">"modeling"</span>, <span class="string">"visualization"</span>]
+<span class="comment"># Test with matching skill pairs</span>
+job = [<span class="string">"programming"</span>, <span class="string">"analysis"</span>, <span class="string">"teamwork"</span>, <span class="string">"planning"</span>]
+candidate = [<span class="string">"coding"</span>, <span class="string">"research"</span>, <span class="string">"collaboration"</span>, <span class="string">"coordination"</span>]
 
-result = match_resume_to_job(alice, job)
+result = match_resume_to_job(candidate, job)
 <span class="keyword">print</span>(<span class="string">f"Match Score: {result['overall_score']:.2f}"</span>)
 <span class="keyword">print</span>(<span class="string">f"Skill Coverage: {result['coverage']:.0%}"</span>)
 <span class="keyword">print</span>(<span class="string">"Matched Skills:"</span>)
@@ -280,12 +304,13 @@ result = match_resume_to_job(alice, job)
 
                 <div class="output-block">
                     <div class="output-header">Output</div>
-                    <pre>Match Score: 0.76
-Skill Coverage: 75%
+                    <pre>Match Score: 1.00
+Skill Coverage: 100%
 Matched Skills:
-  python <- python (1.00)
-  machine learning <- modeling (0.68)
-  data analysis <- analytics (0.91)</pre>
+  programming <- coding (1.00)
+  analysis <- research (1.00)
+  teamwork <- collaboration (1.00)
+  planning <- coordination (0.90)</pre>
                 </div>
             </div>
 

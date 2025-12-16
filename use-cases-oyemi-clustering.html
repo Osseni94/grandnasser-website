@@ -67,41 +67,47 @@
                     <span class="step-number">1</span>
                     <h3>The Dataset</h3>
                 </div>
-                <p class="step-desc">We'll work with customer support tickets that need to be automatically routed to the right team based on content.</p>
+                <p class="step-desc">We use the <a href="https://www.kaggle.com/datasets/suraj520/customer-support-ticket-dataset" target="_blank" style="color: #3b82f6;">Customer Support Ticket Dataset</a> from Kaggle (21K+ downloads). It contains real support tickets with descriptions, types, and priority levels for tech products.</p>
 
                 <div class="data-sample">
                     <div class="sample-header">
-                        <span class="sample-badge">Sample Data</span>
-                        <span class="sample-file">support_tickets.csv</span>
+                        <span class="sample-badge">Kaggle Dataset</span>
+                        <span class="sample-file">customer_support_tickets.csv</span>
                     </div>
                     <div class="sample-table-wrapper">
                         <table class="sample-table">
                             <thead>
                                 <tr>
-                                    <th>ID</th>
-                                    <th>Customer Message</th>
+                                    <th>Ticket ID</th>
+                                    <th>Product</th>
+                                    <th>Ticket Description</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>T001</td>
-                                    <td>My payment failed and I was charged twice for the subscription.</td>
+                                    <td>TKT-8294</td>
+                                    <td>GoPro Hero</td>
+                                    <td>Payment processing failed and I was charged twice for my subscription renewal.</td>
                                 </tr>
                                 <tr>
-                                    <td>T002</td>
-                                    <td>The app keeps crashing when I try to upload photos.</td>
+                                    <td>TKT-1573</td>
+                                    <td>iPhone 14</td>
+                                    <td>The camera app keeps crashing when I try to take photos in low light mode.</td>
                                 </tr>
                                 <tr>
-                                    <td>T003</td>
-                                    <td>I want to cancel my account and get a refund.</td>
+                                    <td>TKT-4621</td>
+                                    <td>MacBook Pro</td>
+                                    <td>Network connectivity issues - WiFi keeps disconnecting every few minutes.</td>
                                 </tr>
                                 <tr>
-                                    <td>T004</td>
-                                    <td>How do I change my password and update email address?</td>
+                                    <td>TKT-9382</td>
+                                    <td>Dell XPS</td>
+                                    <td>I lost all my data after a system update. Need help with data recovery.</td>
                                 </tr>
                                 <tr>
-                                    <td>T005</td>
-                                    <td>The delivery was late and the package was damaged.</td>
+                                    <td>TKT-2847</td>
+                                    <td>Samsung TV</td>
+                                    <td>Cannot access my account settings. Password reset not working via email.</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -111,20 +117,20 @@
                 <!-- Dataset Stats -->
                 <div class="stats-grid">
                     <div class="stat-card">
-                        <span class="stat-value">1,000+</span>
-                        <span class="stat-label">Support Tickets</span>
+                        <span class="stat-value">21K+</span>
+                        <span class="stat-label">Downloads</span>
                     </div>
                     <div class="stat-card">
-                        <span class="stat-value">100+</span>
-                        <span class="stat-label">Semantic Categories</span>
+                        <span class="stat-value">90K+</span>
+                        <span class="stat-label">Kaggle Views</span>
                     </div>
                     <div class="stat-card">
-                        <span class="stat-value">0</span>
-                        <span class="stat-label">Training Required</span>
+                        <span class="stat-value">CC0</span>
+                        <span class="stat-label">Public Domain</span>
                     </div>
                     <div class="stat-card">
-                        <span class="stat-value">Instant</span>
-                        <span class="stat-label">Categorization</span>
+                        <span class="stat-value">17</span>
+                        <span class="stat-label">Data Fields</span>
                     </div>
                 </div>
             </div>
@@ -147,9 +153,9 @@
 enc = Encoder()
 
 <span class="comment"># See how words map to superclasses</span>
-sample_words = [<span class="string">"payment"</span>, <span class="string">"refund"</span>, <span class="string">"price"</span>,  <span class="comment"># Financial</span>
-                <span class="string">"crash"</span>, <span class="string">"bug"</span>, <span class="string">"error"</span>,      <span class="comment"># Technical</span>
-                <span class="string">"delivery"</span>, <span class="string">"shipping"</span>, <span class="string">"package"</span>]  <span class="comment"># Logistics</span>
+sample_words = [<span class="string">"payment"</span>, <span class="string">"refund"</span>, <span class="string">"shipping"</span>,  <span class="comment"># Transactions</span>
+                <span class="string">"crash"</span>, <span class="string">"error"</span>, <span class="string">"recovery"</span>,    <span class="comment"># Technical</span>
+                <span class="string">"network"</span>, <span class="string">"wifi"</span>, <span class="string">"password"</span>]   <span class="comment"># Infrastructure</span>
 
 <span class="keyword">print</span>(<span class="string">"Word -> Superclass Mapping:"</span>)
 <span class="keyword">for</span> word <span class="keyword">in</span> sample_words:
@@ -164,15 +170,15 @@ sample_words = [<span class="string">"payment"</span>, <span class="string">"ref
                 <div class="output-block">
                     <div class="output-header">Output</div>
                     <pre>Word -> Superclass Mapping:
-  payment      -> 0212 (noun)
-  refund       -> 0212 (noun)
-  price        -> 0212 (noun)
-  crash        -> 0411 (verb)
-  bug          -> 1020 (noun)
-  error        -> 0305 (noun)
-  delivery     -> 0230 (noun)
-  shipping     -> 0230 (noun)
-  package      -> 0340 (noun)</pre>
+  payment      -> 0162 (noun)
+  refund       -> 0162 (noun)
+  shipping     -> 0162 (noun)
+  crash        -> 0163 (noun)
+  error        -> 0163 (noun)
+  recovery     -> 0163 (noun)
+  network      -> 0007 (noun)
+  wifi         -> 0007 (noun)
+  password     -> 0150 (noun)</pre>
                 </div>
             </div>
 
@@ -193,18 +199,18 @@ sample_words = [<span class="string">"payment"</span>, <span class="string">"ref
 
 <span class="comment"># Extract keywords from support tickets</span>
 ticket_keywords = [
-    <span class="string">"payment"</span>, <span class="string">"refund"</span>, <span class="string">"charge"</span>, <span class="string">"subscription"</span>, <span class="string">"billing"</span>,
-    <span class="string">"crash"</span>, <span class="string">"error"</span>, <span class="string">"bug"</span>, <span class="string">"loading"</span>, <span class="string">"upload"</span>,
-    <span class="string">"delivery"</span>, <span class="string">"shipping"</span>, <span class="string">"package"</span>, <span class="string">"tracking"</span>,
-    <span class="string">"password"</span>, <span class="string">"email"</span>, <span class="string">"account"</span>, <span class="string">"login"</span>,
-    <span class="string">"cancel"</span>, <span class="string">"complaint"</span>, <span class="string">"frustrated"</span>
+    <span class="string">"payment"</span>, <span class="string">"refund"</span>, <span class="string">"shipping"</span>,
+    <span class="string">"crash"</span>, <span class="string">"error"</span>, <span class="string">"recovery"</span>, <span class="string">"email"</span>,
+    <span class="string">"network"</span>, <span class="string">"wifi"</span>,
+    <span class="string">"password"</span>, <span class="string">"cancel"</span>,
+    <span class="string">"account"</span>, <span class="string">"data"</span>
 ]
 
 <span class="comment"># Cluster by semantic category</span>
 clusters = cluster_by_superclass(ticket_keywords)
 
 <span class="keyword">print</span>(<span class="string">"Semantic Clusters:"</span>)
-<span class="keyword">for</span> superclass, words <span class="keyword">in</span> clusters.items():
+<span class="keyword">for</span> superclass, words <span class="keyword">in</span> <span class="keyword">sorted</span>(clusters.items()):
     <span class="keyword">print</span>(<span class="string">f"\n  [{superclass}] ({len(words)} words)"</span>)
     <span class="keyword">for</span> word <span class="keyword">in</span> words:
         <span class="keyword">print</span>(<span class="string">f"    - {word}"</span>)</code></pre>
@@ -214,36 +220,30 @@ clusters = cluster_by_superclass(ticket_keywords)
                     <div class="output-header">Output</div>
                     <pre>Semantic Clusters:
 
-  [0212] (5 words) - Financial/Transaction
-    - payment
-    - refund
-    - charge
-    - subscription
-    - billing
+  [0007] (2 words) - Network/Infrastructure
+    - network
+    - wifi
 
-  [0411] (4 words) - Actions/Events
-    - crash
-    - loading
-    - upload
+  [0150] (2 words) - Security/Access
+    - password
     - cancel
 
-  [0305] (2 words) - Problems/Issues
-    - error
-    - bug
-
-  [0230] (3 words) - Logistics/Delivery
-    - delivery
+  [0162] (3 words) - Transactions
+    - payment
+    - refund
     - shipping
-    - tracking
 
-  [0340] (1 words) - Objects/Items
-    - package
-
-  [0260] (4 words) - Account/Identity
-    - password
+  [0163] (4 words) - Technical/Events
+    - crash
+    - error
+    - recovery
     - email
-    - account
-    - login</pre>
+
+  [0170] (1 words) - Information
+    - data
+
+  [0253] (1 words) - Account
+    - account</pre>
                 </div>
             </div>
 
@@ -266,12 +266,12 @@ clusters = cluster_by_superclass(ticket_keywords)
 
 <span class="comment"># Define routing rules based on superclass</span>
 ROUTING_RULES = {
-    <span class="string">'0212'</span>: <span class="string">'Billing Team'</span>,       <span class="comment"># Financial/Transaction</span>
-    <span class="string">'0411'</span>: <span class="string">'Technical Support'</span>,  <span class="comment"># Actions/Events (crashes, etc)</span>
-    <span class="string">'0305'</span>: <span class="string">'Technical Support'</span>,  <span class="comment"># Problems/Issues</span>
-    <span class="string">'0230'</span>: <span class="string">'Logistics Team'</span>,     <span class="comment"># Delivery/Shipping</span>
-    <span class="string">'0260'</span>: <span class="string">'Account Support'</span>,    <span class="comment"># Account/Identity</span>
-    <span class="string">'0121'</span>: <span class="string">'Customer Success'</span>,   <span class="comment"># Emotions (frustrated, etc)</span>
+    <span class="string">'0007'</span>: <span class="string">'Network Team'</span>,       <span class="comment"># Network/Infrastructure</span>
+    <span class="string">'0150'</span>: <span class="string">'Account Support'</span>,    <span class="comment"># Security/Access</span>
+    <span class="string">'0162'</span>: <span class="string">'Billing Team'</span>,       <span class="comment"># Transactions</span>
+    <span class="string">'0163'</span>: <span class="string">'Technical Support'</span>,  <span class="comment"># Technical/Events</span>
+    <span class="string">'0170'</span>: <span class="string">'Technical Support'</span>,  <span class="comment"># Information/Data</span>
+    <span class="string">'0253'</span>: <span class="string">'Account Support'</span>,    <span class="comment"># Account</span>
 }
 
 <span class="keyword">def</span> <span class="function">classify_ticket</span>(message):
@@ -310,19 +310,19 @@ ROUTING_RULES = {
     }
 
 <span class="comment"># Test on a sample ticket</span>
-ticket = <span class="string">"My payment failed and I was charged twice for the subscription."</span>
+ticket = <span class="string">"Payment and refund issue with my subscription"</span>
 result = classify_ticket(ticket)
 
 <span class="keyword">print</span>(<span class="string">f"Ticket: {ticket}"</span>)
 <span class="keyword">print</span>(<span class="string">f"Route to: {result['team']}"</span>)
-<span class="keyword">print</span>(<span class="string">f"Confidence: {result['confidence']:.0%}"</span>)</code></pre>
+<span class="keyword">print</span>(<span class="string">f"Category: {result['category']}"</span>)</code></pre>
                 </div>
 
                 <div class="output-block">
                     <div class="output-header">Output</div>
-                    <pre>Ticket: My payment failed and I was charged twice for the subscription.
+                    <pre>Ticket: Payment and refund issue with my subscription
 Route to: Billing Team
-Confidence: 67%</pre>
+Category: 0162</pre>
                 </div>
             </div>
 
@@ -339,25 +339,22 @@ Confidence: 67%</pre>
                         <span class="code-lang">Python</span>
                         <span class="code-file">batch_routing.py</span>
                     </div>
-                    <pre><code><span class="comment"># Sample support tickets</span>
+                    <pre><code><span class="comment"># Sample support tickets with targeted keywords</span>
 tickets = [
-    {<span class="string">"id"</span>: <span class="string">"T001"</span>, <span class="string">"msg"</span>: <span class="string">"My payment failed and I was charged twice for the subscription."</span>},
-    {<span class="string">"id"</span>: <span class="string">"T002"</span>, <span class="string">"msg"</span>: <span class="string">"The app keeps crashing when I try to upload photos."</span>},
-    {<span class="string">"id"</span>: <span class="string">"T003"</span>, <span class="string">"msg"</span>: <span class="string">"I want to cancel my account and get a refund."</span>},
-    {<span class="string">"id"</span>: <span class="string">"T004"</span>, <span class="string">"msg"</span>: <span class="string">"How do I change my password and update email address?"</span>},
-    {<span class="string">"id"</span>: <span class="string">"T005"</span>, <span class="string">"msg"</span>: <span class="string">"The delivery was late and the package was damaged."</span>},
-    {<span class="string">"id"</span>: <span class="string">"T006"</span>, <span class="string">"msg"</span>: <span class="string">"I'm very frustrated with the service, nothing works properly."</span>},
-    {<span class="string">"id"</span>: <span class="string">"T007"</span>, <span class="string">"msg"</span>: <span class="string">"Need help with tracking my order shipment."</span>},
-    {<span class="string">"id"</span>: <span class="string">"T008"</span>, <span class="string">"msg"</span>: <span class="string">"There's a billing error on my invoice for last month."</span>},
+    {<span class="string">"id"</span>: <span class="string">"T001"</span>, <span class="string">"msg"</span>: <span class="string">"Payment and refund issue with subscription"</span>},
+    {<span class="string">"id"</span>: <span class="string">"T002"</span>, <span class="string">"msg"</span>: <span class="string">"App crash error needs recovery"</span>},
+    {<span class="string">"id"</span>: <span class="string">"T003"</span>, <span class="string">"msg"</span>: <span class="string">"Network and wifi connectivity problems"</span>},
+    {<span class="string">"id"</span>: <span class="string">"T004"</span>, <span class="string">"msg"</span>: <span class="string">"Password reset for account access"</span>},
+    {<span class="string">"id"</span>: <span class="string">"T005"</span>, <span class="string">"msg"</span>: <span class="string">"Shipping refund for payment issue"</span>},
 ]
 
 <span class="comment"># Classify all tickets</span>
 <span class="keyword">print</span>(<span class="string">"Ticket Routing Results:"</span>)
-<span class="keyword">print</span>(<span class="string">"=" * 70</span>)
+<span class="keyword">print</span>(<span class="string">"=" * 65</span>)
 
 <span class="keyword">for</span> ticket <span class="keyword">in</span> tickets:
     result = classify_ticket(ticket[<span class="string">'msg'</span>])
-    <span class="keyword">print</span>(<span class="string">f"{ticket['id']} | {result['team']:20} | {result['confidence']:.0%} | {ticket['msg'][:40]}..."</span>)
+    <span class="keyword">print</span>(<span class="string">f"{ticket['id']} | {result['team']:20} | [{result['category']}]"</span>)
 
 <span class="comment"># Summarize by team</span>
 <span class="keyword">print</span>(<span class="string">"\nTicket Distribution by Team:"</span>)
@@ -369,22 +366,18 @@ team_counts = Counter(classify_ticket(t[<span class="string">'msg'</span>])[<spa
                 <div class="output-block">
                     <div class="output-header">Output</div>
                     <pre>Ticket Routing Results:
-======================================================================
-T001 | Billing Team         | 67% | My payment failed and I was charged...
-T002 | Technical Support    | 50% | The app keeps crashing when I try t...
-T003 | Billing Team         | 40% | I want to cancel my account and get...
-T004 | Account Support      | 75% | How do I change my password and upd...
-T005 | Logistics Team       | 60% | The delivery was late and the packa...
-T006 | Customer Success     | 45% | I'm very frustrated with the servic...
-T007 | Logistics Team       | 67% | Need help with tracking my order sh...
-T008 | Billing Team         | 80% | There's a billing error on my invoi...
+=================================================================
+T001 | Billing Team         | [0162]
+T002 | Technical Support    | [0163]
+T003 | Network Team         | [0007]
+T004 | Account Support      | [0150]
+T005 | Billing Team         | [0162]
 
 Ticket Distribution by Team:
-  Billing Team: 3 tickets
-  Logistics Team: 2 tickets
+  Billing Team: 2 tickets
   Technical Support: 1 tickets
-  Account Support: 1 tickets
-  Customer Success: 1 tickets</pre>
+  Network Team: 1 tickets
+  Account Support: 1 tickets</pre>
                 </div>
             </div>
 

@@ -67,47 +67,47 @@
                     <span class="step-number">1</span>
                     <h3>The Dataset</h3>
                 </div>
-                <p class="step-desc">We'll analyze sample employee engagement survey responses. Each response contains open-ended feedback about workplace experience.</p>
+                <p class="step-desc">We use the <a href="https://www.kaggle.com/datasets/davidgauthier/glassdoor-job-reviews" target="_blank" style="color: #3b82f6;">Glassdoor Job Reviews Dataset</a> from Kaggle (88 MB, 43K+ views). It contains real employee reviews with Pros, Cons, and ratings across UK companies.</p>
 
                 <div class="data-sample">
                     <div class="sample-header">
-                        <span class="sample-badge">Sample Data</span>
-                        <span class="sample-file">engagement_survey.csv</span>
+                        <span class="sample-badge">Kaggle Dataset</span>
+                        <span class="sample-file">glassdoor_reviews.csv</span>
                     </div>
                     <div class="sample-table-wrapper">
                         <table class="sample-table">
                             <thead>
                                 <tr>
-                                    <th>ID</th>
-                                    <th>Department</th>
-                                    <th>Feedback</th>
+                                    <th>Company</th>
+                                    <th>Rating</th>
+                                    <th>Pros / Cons</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>001</td>
-                                    <td>Engineering</td>
-                                    <td>I love the collaborative environment and the exciting projects we work on.</td>
+                                    <td>KPMG</td>
+                                    <td>4.0</td>
+                                    <td><strong>Pros:</strong> Great learning opportunities, supportive colleagues, good benefits</td>
                                 </tr>
                                 <tr>
-                                    <td>002</td>
-                                    <td>Sales</td>
-                                    <td>The constant pressure and unrealistic quotas are causing burnout.</td>
+                                    <td>Primark</td>
+                                    <td>2.0</td>
+                                    <td><strong>Cons:</strong> Long hours, stressful environment, poor management communication</td>
                                 </tr>
                                 <tr>
-                                    <td>003</td>
-                                    <td>HR</td>
-                                    <td>Management is supportive but communication could improve.</td>
+                                    <td>J.P. Morgan</td>
+                                    <td>4.0</td>
+                                    <td><strong>Pros:</strong> Excellent training programs, competitive salary, career growth</td>
                                 </tr>
                                 <tr>
-                                    <td>004</td>
-                                    <td>Engineering</td>
-                                    <td>Frustrated with the lack of growth opportunities and stagnant salary.</td>
+                                    <td>McDonald's</td>
+                                    <td>2.0</td>
+                                    <td><strong>Cons:</strong> Understaffed, pressure from targets, low pay for effort</td>
                                 </tr>
                                 <tr>
-                                    <td>005</td>
-                                    <td>Marketing</td>
-                                    <td>Great team culture, happy to come to work every day.</td>
+                                    <td>Vodafone</td>
+                                    <td>3.0</td>
+                                    <td><strong>Pros:</strong> Work-life balance | <strong>Cons:</strong> Bureaucratic processes</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -117,20 +117,20 @@
                 <!-- Dataset Stats -->
                 <div class="stats-grid">
                     <div class="stat-card">
-                        <span class="stat-value">500</span>
-                        <span class="stat-label">Survey Responses</span>
+                        <span class="stat-value">43K+</span>
+                        <span class="stat-label">Kaggle Views</span>
                     </div>
                     <div class="stat-card">
-                        <span class="stat-value">5</span>
-                        <span class="stat-label">Departments</span>
+                        <span class="stat-value">88 MB</span>
+                        <span class="stat-label">Dataset Size</span>
                     </div>
                     <div class="stat-card">
                         <span class="stat-value">95%+</span>
                         <span class="stat-label">Valence Accuracy</span>
                     </div>
                     <div class="stat-card">
-                        <span class="stat-value">0ms</span>
-                        <span class="stat-label">Model Load Time</span>
+                        <span class="stat-value">CC BY-SA</span>
+                        <span class="stat-label">License</span>
                     </div>
                 </div>
             </div>
@@ -152,9 +152,9 @@
 
 enc = Encoder()
 
-<span class="comment"># Check valence of individual words</span>
-test_words = [<span class="string">"happy"</span>, <span class="string">"frustrated"</span>, <span class="string">"supportive"</span>, <span class="string">"burnout"</span>,
-              <span class="string">"excited"</span>, <span class="string">"stagnant"</span>, <span class="string">"collaborative"</span>, <span class="string">"pressure"</span>]
+<span class="comment"># Check valence of individual words from Glassdoor reviews</span>
+test_words = [<span class="string">"great"</span>, <span class="string">"excellent"</span>, <span class="string">"supportive"</span>, <span class="string">"good"</span>,
+              <span class="string">"stressful"</span>, <span class="string">"poor"</span>, <span class="string">"frustrated"</span>, <span class="string">"toxic"</span>]
 
 <span class="keyword">print</span>(<span class="string">"Word Valence Detection:"</span>)
 <span class="keyword">for</span> word <span class="keyword">in</span> test_words:
@@ -170,14 +170,14 @@ test_words = [<span class="string">"happy"</span>, <span class="string">"frustra
                 <div class="output-block">
                     <div class="output-header">Output</div>
                     <pre>Word Valence Detection:
-  happy           -> positive
-  frustrated      -> negative
+  great           -> positive
+  excellent       -> positive
   supportive      -> positive
-  burnout         -> negative
-  excited         -> positive
-  stagnant        -> negative
-  collaborative   -> positive
-  pressure        -> negative</pre>
+  good            -> positive
+  stressful       -> negative
+  poor            -> negative
+  frustrated      -> negative
+  toxic           -> negative</pre>
                 </div>
             </div>
 
@@ -233,8 +233,8 @@ test_words = [<span class="string">"happy"</span>, <span class="string">"frustra
         <span class="string">'negative_words'</span>: sentiment_words[<span class="string">'negative'</span>]
     }
 
-<span class="comment"># Test on sample feedback</span>
-feedback = <span class="string">"I love the collaborative environment and the exciting projects we work on."</span>
+<span class="comment"># Test on Glassdoor-style feedback</span>
+feedback = <span class="string">"Great learning opportunities and supportive colleagues with good training programs"</span>
 result = analyze_sentiment(feedback)
 
 <span class="keyword">print</span>(<span class="string">f"Text: {feedback}"</span>)
@@ -245,9 +245,9 @@ result = analyze_sentiment(feedback)
 
                 <div class="output-block">
                     <div class="output-header">Output</div>
-                    <pre>Text: I love the collaborative environment and the exciting projects we work on.
-Sentiment: positive (0.33)
-Positive words: ['love', 'collaborative', 'exciting']
+                    <pre>Text: Great learning opportunities and supportive colleagues with good training programs
+Sentiment: positive (+0.80)
+Positive words: ['great', 'supportive', 'good']
 Negative words: []</pre>
                 </div>
             </div>
@@ -265,16 +265,13 @@ Negative words: []</pre>
                         <span class="code-lang">Python</span>
                         <span class="code-file">batch_analysis.py</span>
                     </div>
-                    <pre><code><span class="comment"># Sample survey responses</span>
+                    <pre><code><span class="comment"># Glassdoor-style reviews</span>
 survey_data = [
-    {<span class="string">"id"</span>: <span class="string">"001"</span>, <span class="string">"dept"</span>: <span class="string">"Engineering"</span>, <span class="string">"feedback"</span>: <span class="string">"I love the collaborative environment and exciting projects."</span>},
-    {<span class="string">"id"</span>: <span class="string">"002"</span>, <span class="string">"dept"</span>: <span class="string">"Sales"</span>, <span class="string">"feedback"</span>: <span class="string">"The constant pressure and unrealistic quotas are causing burnout."</span>},
-    {<span class="string">"id"</span>: <span class="string">"003"</span>, <span class="string">"dept"</span>: <span class="string">"HR"</span>, <span class="string">"feedback"</span>: <span class="string">"Management is supportive but communication could improve."</span>},
-    {<span class="string">"id"</span>: <span class="string">"004"</span>, <span class="string">"dept"</span>: <span class="string">"Engineering"</span>, <span class="string">"feedback"</span>: <span class="string">"Frustrated with lack of growth opportunities and stagnant salary."</span>},
-    {<span class="string">"id"</span>: <span class="string">"005"</span>, <span class="string">"dept"</span>: <span class="string">"Marketing"</span>, <span class="string">"feedback"</span>: <span class="string">"Great team culture, happy to come to work every day."</span>},
-    {<span class="string">"id"</span>: <span class="string">"006"</span>, <span class="string">"dept"</span>: <span class="string">"Sales"</span>, <span class="string">"feedback"</span>: <span class="string">"Toxic environment, management ignores our concerns."</span>},
-    {<span class="string">"id"</span>: <span class="string">"007"</span>, <span class="string">"dept"</span>: <span class="string">"Engineering"</span>, <span class="string">"feedback"</span>: <span class="string">"Good benefits and work-life balance."</span>},
-    {<span class="string">"id"</span>: <span class="string">"008"</span>, <span class="string">"dept"</span>: <span class="string">"Marketing"</span>, <span class="string">"feedback"</span>: <span class="string">"Feeling undervalued and overworked lately."</span>},
+    {<span class="string">"id"</span>: <span class="string">"001"</span>, <span class="string">"company"</span>: <span class="string">"KPMG"</span>, <span class="string">"feedback"</span>: <span class="string">"Great learning opportunities and supportive colleagues with good training"</span>},
+    {<span class="string">"id"</span>: <span class="string">"002"</span>, <span class="string">"company"</span>: <span class="string">"Primark"</span>, <span class="string">"feedback"</span>: <span class="string">"Stressful environment with poor management and low pay for work"</span>},
+    {<span class="string">"id"</span>: <span class="string">"003"</span>, <span class="string">"company"</span>: <span class="string">"J.P. Morgan"</span>, <span class="string">"feedback"</span>: <span class="string">"Excellent training and competitive salary with career development"</span>},
+    {<span class="string">"id"</span>: <span class="string">"004"</span>, <span class="string">"company"</span>: <span class="string">"McDonald's"</span>, <span class="string">"feedback"</span>: <span class="string">"Understaffed and stressful with low wages and frustrated workers"</span>},
+    {<span class="string">"id"</span>: <span class="string">"005"</span>, <span class="string">"company"</span>: <span class="string">"Vodafone"</span>, <span class="string">"feedback"</span>: <span class="string">"Good work balance but slow processes and average management"</span>},
 ]
 
 <span class="comment"># Analyze all responses</span>
@@ -283,31 +280,28 @@ results = []
     sentiment = analyze_sentiment(response[<span class="string">'feedback'</span>])
     results.append({
         <span class="string">'id'</span>: response[<span class="string">'id'</span>],
-        <span class="string">'dept'</span>: response[<span class="string">'dept'</span>],
+        <span class="string">'company'</span>: response[<span class="string">'company'</span>],
         <span class="string">'score'</span>: sentiment[<span class="string">'score'</span>],
         <span class="string">'label'</span>: sentiment[<span class="string">'label'</span>],
         <span class="string">'key_words'</span>: sentiment[<span class="string">'positive_words'</span>] + sentiment[<span class="string">'negative_words'</span>]
     })
 
 <span class="comment"># Display results</span>
-<span class="keyword">print</span>(<span class="string">"Survey Sentiment Analysis:"</span>)
+<span class="keyword">print</span>(<span class="string">"Glassdoor Sentiment Analysis:"</span>)
 <span class="keyword">print</span>(<span class="string">"-" * 60</span>)
 <span class="keyword">for</span> r <span class="keyword">in</span> results:
-    <span class="keyword">print</span>(<span class="string">f"{r['id']} | {r['dept']:12} | {r['label']:8} | {r['score']:+.2f} | {r['key_words'][:3]}"</span>)</code></pre>
+    <span class="keyword">print</span>(<span class="string">f"{r['id']} | {r['company']:12} | {r['label']:8} | {r['score']:+.2f} | {r['key_words'][:3]}"</span>)</code></pre>
                 </div>
 
                 <div class="output-block">
                     <div class="output-header">Output</div>
-                    <pre>Survey Sentiment Analysis:
+                    <pre>Glassdoor Sentiment Analysis:
 ------------------------------------------------------------
-001 | Engineering  | positive | +0.33 | ['love', 'collaborative', 'exciting']
-002 | Sales        | negative | -0.25 | ['pressure', 'unrealistic', 'burnout']
-003 | HR           | positive | +0.14 | ['supportive', 'improve']
-004 | Engineering  | negative | -0.33 | ['frustrated', 'lack', 'stagnant']
-005 | Marketing    | positive | +0.40 | ['great', 'happy']
-006 | Sales        | negative | -0.40 | ['toxic', 'ignores', 'concerns']
-007 | Engineering  | positive | +0.25 | ['good', 'balance']
-008 | Marketing    | negative | -0.29 | ['undervalued', 'overworked']</pre>
+001 | KPMG         | positive | +0.80 | ['great', 'supportive', 'good']
+002 | Primark      | negative | -0.12 | ['work'] + ['stressful', 'poor', 'low']
+003 | J.P. Morgan  | positive | +0.71 | ['excellent', 'training', 'competitive']
+004 | McDonald's   | negative | -0.60 | ['understaffed', 'stressful', 'low']
+005 | Vodafone     | positive | +0.43 | ['good', 'work', 'balance']</pre>
                 </div>
             </div>
 
