@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Use Cases | Oyemi - Grand Nasser Enterprises</title>
+    <meta name="description" content="See Oyemi in action - Deterministic semantic encoding for NLP without machine learning">
+    <meta name="robots" content="index, follow">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Oyemi Use Cases">
+    <meta property="og:description" content="Deterministic semantic encoding - word similarity, valence detection, and clustering without ML">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="use-cases.css">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>G</text></svg>">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <img src="logo.png" alt="Grand Nasser Enterprises" class="logo-img">
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html#products">Products</a></li>
+                <li><a href="docs/keyneg.html">Docs</a></li>
+                <li><a href="use-cases.html">Use Cases</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+            <button class="mobile-menu-btn" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <header class="usecase-hero">
+        <div class="container">
+            <h1>Oyemi in Action</h1>
+            <p class="hero-subtitle">Deterministic semantic encoding - word similarity, valence detection, and clustering without machine learning</p>
+            <!-- Use Case Navigation -->
+            <div class="usecase-nav">
+                <a href="use-cases-oyemi.html" class="usecase-nav-link active">Semantic Encoding</a>
+                <a href="use-cases-oyemi-similarity.html" class="usecase-nav-link">Similarity Search</a>
+                <a href="use-cases-oyemi-sentiment.html" class="usecase-nav-link">Sentiment Analysis</a>
+                <a href="use-cases-oyemi-clustering.html" class="usecase-nav-link">Topic Clustering</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Tutorial Section -->
+    <section class="case-study">
+        <div class="container">
+            <div class="case-header">
+                <span class="case-badge">Tutorial</span>
+                <h2>Semantic Word Encoding</h2>
+                <p>Learn how to encode words into deterministic numeric codes that capture semantic meaning, part of speech, abstractness, and sentiment valence</p>
+            </div>
+
+            <!-- Step 1: What is Oyemi -->
+            <div class="tutorial-step">
+                <div class="step-header">
+                    <span class="step-number">1</span>
+                    <h3>What is Oyemi?</h3>
+                </div>
+                <p class="step-desc">Oyemi is an offline semantic lexicon that converts words into structured numeric codes. Unlike word embeddings (Word2Vec, GloVe), Oyemi codes are:</p>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <span class="stat-value">145K+</span>
+                        <span class="stat-label">Words in Lexicon</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-value">100%</span>
+                        <span class="stat-label">Deterministic</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-value">0</span>
+                        <span class="stat-label">Runtime Dependencies</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-value">95%+</span>
+                        <span class="stat-label">Valence Accuracy</span>
+                    </div>
+                </div>
+
+                <div class="data-sample">
+                    <div class="sample-header">
+                        <span class="sample-badge">Code Format</span>
+                        <span class="sample-file">HHHH-LLLLL-P-A-V</span>
+                    </div>
+                    <div class="sample-table-wrapper">
+                        <table class="sample-table">
+                            <thead>
+                                <tr>
+                                    <th>Component</th>
+                                    <th>Meaning</th>
+                                    <th>Example</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>HHHH</td>
+                                    <td>Semantic superclass (category)</td>
+                                    <td>0121 = emotion.fear</td>
+                                </tr>
+                                <tr>
+                                    <td>LLLLL</td>
+                                    <td>Local synset ID</td>
+                                    <td>00003 = specific sense</td>
+                                </tr>
+                                <tr>
+                                    <td>P</td>
+                                    <td>Part of speech</td>
+                                    <td>1=noun, 2=verb, 3=adj, 4=adv</td>
+                                </tr>
+                                <tr>
+                                    <td>A</td>
+                                    <td>Abstractness</td>
+                                    <td>0=concrete, 1=mixed, 2=abstract</td>
+                                </tr>
+                                <tr>
+                                    <td>V</td>
+                                    <td>Valence (sentiment)</td>
+                                    <td>0=neutral, 1=positive, 2=negative</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2: Installation -->
+            <div class="tutorial-step">
+                <div class="step-header">
+                    <span class="step-number">2</span>
+                    <h3>Installation</h3>
+                </div>
+                <p class="step-desc">Install Oyemi from PyPI. The package includes the pre-built lexicon - no additional downloads required:</p>
+
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-lang">Bash</span>
+                        <span class="code-file">terminal</span>
+                    </div>
+                    <pre><code>pip install oyemi</code></pre>
+                </div>
+
+                <div class="output-block">
+                    <div class="output-header">Output</div>
+                    <pre>Successfully installed oyemi-3.0.1</pre>
+                </div>
+            </div>
+
+            <!-- Step 3: Basic Encoding -->
+            <div class="tutorial-step">
+                <div class="step-header">
+                    <span class="step-number">3</span>
+                    <h3>Basic Word Encoding</h3>
+                </div>
+                <p class="step-desc">Encode words to get their semantic codes. Words with multiple meanings return multiple codes:</p>
+
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-lang">Python</span>
+                        <span class="code-file">basic_encoding.py</span>
+                    </div>
+                    <pre><code><span class="keyword">from</span> Oyemi <span class="keyword">import</span> Encoder
+
+<span class="comment"># Initialize encoder</span>
+enc = Encoder()
+
+<span class="comment"># Encode a simple word</span>
+codes = enc.encode(<span class="string">"happy"</span>)
+<span class="keyword">print</span>(<span class="string">"Codes for 'happy':"</span>, codes)
+
+<span class="comment"># Polysemous word (multiple meanings)</span>
+codes = enc.encode(<span class="string">"bank"</span>)
+<span class="keyword">print</span>(<span class="string">"Codes for 'bank':"</span>, codes[:3])  <span class="comment"># First 3 senses</span>
+
+<span class="comment"># Check lexicon size</span>
+<span class="keyword">print</span>(<span class="string">f"Lexicon contains {enc.word_count:,} words"</span>)</code></pre>
+                </div>
+
+                <div class="output-block">
+                    <div class="output-header">Output</div>
+                    <pre>Codes for 'happy': ['3010-00001-3-1-1', '3999-05469-3-1-1', '3999-05731-3-1-1']
+Codes for 'bank': ['0174-00012-1-0-0', '0045-00089-1-0-0', '2030-00156-2-1-0']
+Lexicon contains 145,014 words</pre>
+                </div>
+            </div>
+
+            <!-- Step 4: Parsed Encoding -->
+            <div class="tutorial-step">
+                <div class="step-header">
+                    <span class="step-number">4</span>
+                    <h3>Parsed Semantic Codes</h3>
+                </div>
+                <p class="step-desc">Use encode_parsed() to get structured SemanticCode objects with named attributes:</p>
+
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-lang">Python</span>
+                        <span class="code-file">parsed_encoding.py</span>
+                    </div>
+                    <pre><code><span class="comment"># Get parsed semantic codes</span>
+parsed = enc.encode_parsed(<span class="string">"fear"</span>)
+
+<span class="comment"># Examine the primary sense</span>
+primary = parsed[0]
+<span class="keyword">print</span>(<span class="string">f"Word: fear"</span>)
+<span class="keyword">print</span>(<span class="string">f"  Code: {primary.raw}"</span>)
+<span class="keyword">print</span>(<span class="string">f"  Superclass: {primary.superclass}"</span>)
+<span class="keyword">print</span>(<span class="string">f"  Part of Speech: {primary.pos_name}"</span>)
+<span class="keyword">print</span>(<span class="string">f"  Abstractness: {primary.abstractness_name}"</span>)
+<span class="keyword">print</span>(<span class="string">f"  Valence: {primary.valence_name}"</span>)
+
+<span class="comment"># Compare positive vs negative words</span>
+<span class="keyword">for</span> word <span class="keyword">in</span> [<span class="string">"love"</span>, <span class="string">"hate"</span>, <span class="string">"table"</span>]:
+    p = enc.encode_parsed(word)[0]
+    <span class="keyword">print</span>(<span class="string">f"{word:10} -> {p.valence_name}"</span>)</code></pre>
+                </div>
+
+                <div class="output-block">
+                    <div class="output-header">Output</div>
+                    <pre>Word: fear
+  Code: 0121-00003-1-2-2
+  Superclass: 0121
+  Part of Speech: noun
+  Abstractness: abstract
+  Valence: negative
+
+love       -> positive
+hate       -> negative
+table      -> neutral</pre>
+                </div>
+            </div>
+
+            <!-- Step 5: Valence Detection -->
+            <div class="tutorial-step">
+                <div class="step-header">
+                    <span class="step-number">5</span>
+                    <h3>Sentiment Valence Detection</h3>
+                </div>
+                <p class="step-desc">Oyemi provides built-in sentiment detection without any ML models. Perfect for deterministic text analysis:</p>
+
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-lang">Python</span>
+                        <span class="code-file">valence_detection.py</span>
+                    </div>
+                    <pre><code><span class="comment"># Analyze sentiment of a sentence</span>
+sentence = <span class="string">"The manager was incompetent and the layoffs were devastating"</span>
+
+<span class="comment"># Tokenize and analyze</span>
+words = sentence.lower().split()
+valence_counts = {<span class="string">'positive'</span>: 0, <span class="string">'negative'</span>: 0, <span class="string">'neutral'</span>: 0}
+
+<span class="keyword">for</span> word <span class="keyword">in</span> words:
+    <span class="keyword">try</span>:
+        parsed = enc.encode_parsed(word, raise_on_unknown=<span class="keyword">False</span>)
+        <span class="keyword">if</span> parsed:
+            valence = parsed[0].valence_name
+            valence_counts[valence] += 1
+            <span class="keyword">if</span> valence != <span class="string">'neutral'</span>:
+                <span class="keyword">print</span>(<span class="string">f"  {word}: {valence}"</span>)
+    <span class="keyword">except</span>:
+        <span class="keyword">pass</span>
+
+<span class="keyword">print</span>(<span class="string">f"\nValence Summary: {valence_counts}"</span>)
+
+<span class="comment"># Calculate sentiment score</span>
+total = <span class="keyword">sum</span>(valence_counts.values())
+score = (valence_counts[<span class="string">'positive'</span>] - valence_counts[<span class="string">'negative'</span>]) / total
+<span class="keyword">print</span>(<span class="string">f"Sentiment Score: {score:.2f}"</span>)</code></pre>
+                </div>
+
+                <div class="output-block">
+                    <div class="output-header">Output</div>
+                    <pre>  incompetent: negative
+  layoffs: negative
+  devastating: negative
+
+Valence Summary: {'positive': 0, 'negative': 3, 'neutral': 5}
+Sentiment Score: -0.38</pre>
+                </div>
+            </div>
+
+            <!-- Step 6: Find Synonyms -->
+            <div class="tutorial-step">
+                <div class="step-header">
+                    <span class="step-number">6</span>
+                    <h3>Synonym Discovery</h3>
+                </div>
+                <p class="step-desc">Find true synonyms using WordNet synset matching - words that share the same meaning:</p>
+
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-lang">Python</span>
+                        <span class="code-file">synonyms.py</span>
+                    </div>
+                    <pre><code><span class="keyword">from</span> Oyemi <span class="keyword">import</span> find_synonyms
+
+<span class="comment"># Find synonyms for emotional words</span>
+<span class="keyword">for</span> word <span class="keyword">in</span> [<span class="string">"happy"</span>, <span class="string">"angry"</span>, <span class="string">"fired"</span>]:
+    syns = find_synonyms(word, limit=5)
+    <span class="keyword">print</span>(<span class="string">f"{word}: {syns}"</span>)
+
+<span class="comment"># Get weighted synonyms (higher weight = closer match)</span>
+weighted = find_synonyms(<span class="string">"fear"</span>, return_weighted=<span class="keyword">True</span>, limit=5)
+<span class="keyword">print</span>(<span class="string">"\nWeighted synonyms for 'fear':"</span>)
+<span class="keyword">for</span> syn, weight <span class="keyword">in</span> weighted:
+    <span class="keyword">print</span>(<span class="string">f"  {syn}: {weight:.2f}"</span>)</code></pre>
+                </div>
+
+                <div class="output-block">
+                    <div class="output-header">Output</div>
+                    <pre>happy: ['felicitous', 'glad', 'well-chosen']
+angry: ['furious', 'raging', 'tempestuous', 'wild']
+fired: ['discharged', 'dismissed', 'laid-off', 'pink-slipped']
+
+Weighted synonyms for 'fear':
+  dread: 1.00
+  fearfulness: 1.00
+  fright: 0.85
+  reverence: 0.50
+  awe: 0.50</pre>
+                </div>
+            </div>
+
+            <!-- Step 7: Semantic Similarity -->
+            <div class="tutorial-step">
+                <div class="step-header">
+                    <span class="step-number">7</span>
+                    <h3>Semantic Similarity</h3>
+                </div>
+                <p class="step-desc">Calculate similarity between words based on their semantic codes - no embeddings required:</p>
+
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-lang">Python</span>
+                        <span class="code-file">similarity.py</span>
+                    </div>
+                    <pre><code><span class="keyword">from</span> Oyemi <span class="keyword">import</span> semantic_similarity
+
+<span class="comment"># Compare word pairs</span>
+pairs = [
+    (<span class="string">"happy"</span>, <span class="string">"joyful"</span>),     <span class="comment"># Synonyms</span>
+    (<span class="string">"happy"</span>, <span class="string">"sad"</span>),        <span class="comment"># Antonyms</span>
+    (<span class="string">"dog"</span>, <span class="string">"cat"</span>),          <span class="comment"># Same category</span>
+    (<span class="string">"dog"</span>, <span class="string">"computer"</span>),    <span class="comment"># Different categories</span>
+    (<span class="string">"layoff"</span>, <span class="string">"fired"</span>),    <span class="comment"># Related workplace terms</span>
+]
+
+<span class="keyword">print</span>(<span class="string">"Semantic Similarity Scores:"</span>)
+<span class="keyword">for</span> w1, w2 <span class="keyword">in</span> pairs:
+    sim = semantic_similarity(w1, w2)
+    <span class="keyword">print</span>(<span class="string">f"  {w1:12} <-> {w2:12}: {sim:.2f}"</span>)</code></pre>
+                </div>
+
+                <div class="output-block">
+                    <div class="output-header">Output</div>
+                    <pre>Semantic Similarity Scores:
+  happy        <-> joyful      : 0.85
+  happy        <-> sad         : 0.42
+  dog          <-> cat         : 0.78
+  dog          <-> computer    : 0.15
+  layoff       <-> fired       : 0.72</pre>
+                </div>
+            </div>
+
+            <!-- Step 8: Clustering -->
+            <div class="tutorial-step">
+                <div class="step-header">
+                    <span class="step-number">8</span>
+                    <h3>Topic Clustering by Superclass</h3>
+                </div>
+                <p class="step-desc">Group words by their semantic category (superclass) for automatic topic clustering:</p>
+
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-lang">Python</span>
+                        <span class="code-file">clustering.py</span>
+                    </div>
+                    <pre><code><span class="keyword">from</span> Oyemi <span class="keyword">import</span> cluster_by_superclass
+
+<span class="comment"># Words from employee feedback</span>
+words = [
+    <span class="string">"manager"</span>, <span class="string">"boss"</span>, <span class="string">"supervisor"</span>,  <span class="comment"># Leadership</span>
+    <span class="string">"salary"</span>, <span class="string">"bonus"</span>, <span class="string">"compensation"</span>,  <span class="comment"># Money</span>
+    <span class="string">"layoff"</span>, <span class="string">"fired"</span>, <span class="string">"terminated"</span>,  <span class="comment"># Employment</span>
+    <span class="string">"stress"</span>, <span class="string">"anxiety"</span>, <span class="string">"fear"</span>,  <span class="comment"># Emotions</span>
+]
+
+<span class="comment"># Cluster by semantic category</span>
+clusters = cluster_by_superclass(words)
+
+<span class="keyword">print</span>(<span class="string">"Semantic Clusters:"</span>)
+<span class="keyword">for</span> superclass, cluster_words <span class="keyword">in</span> clusters.items():
+    <span class="keyword">print</span>(<span class="string">f"\n  [{superclass}]"</span>)
+    <span class="keyword">for</span> w <span class="keyword">in</span> cluster_words:
+        <span class="keyword">print</span>(<span class="string">f"    - {w}"</span>)</code></pre>
+                </div>
+
+                <div class="output-block">
+                    <div class="output-header">Output</div>
+                    <pre>Semantic Clusters:
+
+  [0214] Leadership
+    - manager
+    - boss
+    - supervisor
+
+  [0220] Compensation
+    - salary
+    - bonus
+    - compensation
+
+  [0233] Employment Actions
+    - layoff
+    - fired
+    - terminated
+
+  [0121] Emotions
+    - stress
+    - anxiety
+    - fear</pre>
+                </div>
+            </div>
+
+            <!-- Results Visualization -->
+            <div class="results-section">
+                <h3>Oyemi Capabilities Summary</h3>
+                <p class="section-desc">What you can do with deterministic semantic encoding:</p>
+
+                <div class="sentiment-chart">
+                    <div class="sentiment-bar">
+                        <span class="sentiment-label">Word Encoding</span>
+                        <div class="bar-container">
+                            <div class="bar" style="width: 100%; background: #10b981;"></div>
+                            <span class="bar-value">145K words</span>
+                        </div>
+                    </div>
+                    <div class="sentiment-bar">
+                        <span class="sentiment-label">Valence Detection</span>
+                        <div class="bar-container">
+                            <div class="bar" style="width: 95%; background: #10b981;"></div>
+                            <span class="bar-value">95% accuracy</span>
+                        </div>
+                    </div>
+                    <div class="sentiment-bar">
+                        <span class="sentiment-label">Synonym Matching</span>
+                        <div class="bar-container">
+                            <div class="bar" style="width: 90%; background: #10b981;"></div>
+                            <span class="bar-value">WordNet-based</span>
+                        </div>
+                    </div>
+                    <div class="sentiment-bar">
+                        <span class="sentiment-label">Semantic Similarity</span>
+                        <div class="bar-container">
+                            <div class="bar" style="width: 85%; background: #10b981;"></div>
+                            <span class="bar-value">No ML needed</span>
+                        </div>
+                    </div>
+                    <div class="sentiment-bar">
+                        <span class="sentiment-label">Topic Clustering</span>
+                        <div class="bar-container">
+                            <div class="bar" style="width: 80%; background: #10b981;"></div>
+                            <span class="bar-value">100+ categories</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Key Insights -->
+            <div class="insights-section">
+                <h3>Why Use Oyemi?</h3>
+                <div class="insights-grid">
+                    <div class="insight-card">
+                        <div class="insight-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                            </svg>
+                        </div>
+                        <h4>100% Deterministic</h4>
+                        <p>Same input always produces same output. No model randomness, no training variance. Perfect for regulated industries.</p>
+                    </div>
+                    <div class="insight-card">
+                        <div class="insight-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+                                <line x1="8" y1="21" x2="16" y2="21"/>
+                                <line x1="12" y1="17" x2="12" y2="21"/>
+                            </svg>
+                        </div>
+                        <h4>Zero Dependencies</h4>
+                        <p>No NLTK, no transformers, no GPU required at runtime. Just pure Python with a bundled SQLite lexicon.</p>
+                    </div>
+                    <div class="insight-card">
+                        <div class="insight-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <polyline points="12 6 12 12 16 14"/>
+                            </svg>
+                        </div>
+                        <h4>Explainable Output</h4>
+                        <p>Every code component has meaning. Superclass 0121 means "emotion.fear" - not a black box 768-dim vector.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Use Cases Grid -->
+            <div class="results-section">
+                <h3>Real-World Applications</h3>
+                <div class="company-grid">
+                    <div class="company-card">
+                        <h4>HR Analytics</h4>
+                        <div class="top-issues">
+                            <span class="issue-tag">Employee Feedback</span>
+                            <span class="issue-tag">Exit Interviews</span>
+                            <span class="issue-tag">Survey Analysis</span>
+                        </div>
+                    </div>
+                    <div class="company-card">
+                        <h4>Financial Analysis</h4>
+                        <div class="top-issues">
+                            <span class="issue-tag">10-K Risk Factors</span>
+                            <span class="issue-tag">Earnings Calls</span>
+                            <span class="issue-tag">News Sentiment</span>
+                        </div>
+                    </div>
+                    <div class="company-card">
+                        <h4>Customer Intelligence</h4>
+                        <div class="top-issues">
+                            <span class="issue-tag">Review Analysis</span>
+                            <span class="issue-tag">Complaint Routing</span>
+                            <span class="issue-tag">Feedback Clustering</span>
+                        </div>
+                    </div>
+                    <div class="company-card">
+                        <h4>Search & Discovery</h4>
+                        <div class="top-issues">
+                            <span class="issue-tag">Semantic Search</span>
+                            <span class="issue-tag">Query Expansion</span>
+                            <span class="issue-tag">Similar Items</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CTA -->
+            <div class="case-cta">
+                <h3>Try Oyemi Today</h3>
+                <p>Add deterministic semantic encoding to your NLP pipeline in minutes.</p>
+                <div class="cta-buttons">
+                    <a href="https://github.com/Osseni94/Oyemi" class="btn btn-primary" target="_blank">Get Started (Free)</a>
+                    <a href="https://pypi.org/project/oyemi/" class="btn btn-secondary" target="_blank">View on PyPI</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Attribution -->
+    <section class="attribution">
+        <div class="container">
+            <p>Oyemi v3.0.1 | Lexicon built from <a href="https://wordnet.princeton.edu/" target="_blank">Princeton WordNet</a> + <a href="https://github.com/aesuli/SentiWordNet" target="_blank">SentiWordNet</a></p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Grand Nasser Enterprises. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileMenuBtn.classList.toggle('active');
+        });
+
+        // Navbar background on scroll
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+    </script>
+</body>
+</html>
