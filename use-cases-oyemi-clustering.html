@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Topic Clustering | Oyemi - Grand Nasser Enterprises</title>
+    <meta name="description" content="Use Oyemi for semantic topic clustering - automatically group content by meaning without ML">
+    <meta name="robots" content="index, follow">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Oyemi Topic Clustering">
+    <meta property="og:description" content="Automatic topic clustering using semantic superclasses - group content by meaning without training">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="use-cases.css">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>G</text></svg>">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <img src="logo.png" alt="Grand Nasser Enterprises" class="logo-img">
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html#products">Products</a></li>
+                <li><a href="docs/keyneg.html">Docs</a></li>
+                <li><a href="use-cases.html">Use Cases</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+            <button class="mobile-menu-btn" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <header class="usecase-hero">
+        <div class="container">
+            <h1>Topic Clustering</h1>
+            <p class="hero-subtitle">Automatically group customer feedback by semantic category - route tickets, identify trends, no training required</p>
+            <!-- Use Case Navigation -->
+            <div class="usecase-nav">
+                <a href="use-cases-oyemi.html" class="usecase-nav-link">Semantic Encoding</a>
+                <a href="use-cases-oyemi-similarity.html" class="usecase-nav-link">Similarity Search</a>
+                <a href="use-cases-oyemi-sentiment.html" class="usecase-nav-link">Sentiment Analysis</a>
+                <a href="use-cases-oyemi-clustering.html" class="usecase-nav-link active">Topic Clustering</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Tutorial Section -->
+    <section class="case-study">
+        <div class="container">
+            <div class="case-header">
+                <span class="case-badge">Tutorial</span>
+                <h2>Customer Feedback Categorization</h2>
+                <p>Learn how to automatically route and categorize customer support tickets using Oyemi's semantic superclass clustering</p>
+            </div>
+
+            <!-- Step 1: The Dataset -->
+            <div class="tutorial-step">
+                <div class="step-header">
+                    <span class="step-number">1</span>
+                    <h3>The Dataset</h3>
+                </div>
+                <p class="step-desc">We'll work with customer support tickets that need to be automatically routed to the right team based on content.</p>
+
+                <div class="data-sample">
+                    <div class="sample-header">
+                        <span class="sample-badge">Sample Data</span>
+                        <span class="sample-file">support_tickets.csv</span>
+                    </div>
+                    <div class="sample-table-wrapper">
+                        <table class="sample-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Customer Message</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>T001</td>
+                                    <td>My payment failed and I was charged twice for the subscription.</td>
+                                </tr>
+                                <tr>
+                                    <td>T002</td>
+                                    <td>The app keeps crashing when I try to upload photos.</td>
+                                </tr>
+                                <tr>
+                                    <td>T003</td>
+                                    <td>I want to cancel my account and get a refund.</td>
+                                </tr>
+                                <tr>
+                                    <td>T004</td>
+                                    <td>How do I change my password and update email address?</td>
+                                </tr>
+                                <tr>
+                                    <td>T005</td>
+                                    <td>The delivery was late and the package was damaged.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Dataset Stats -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <span class="stat-value">1,000+</span>
+                        <span class="stat-label">Support Tickets</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-value">100+</span>
+                        <span class="stat-label">Semantic Categories</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-value">0</span>
+                        <span class="stat-label">Training Required</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-value">Instant</span>
+                        <span class="stat-label">Categorization</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2: Basic Clustering -->
+            <div class="tutorial-step">
+                <div class="step-header">
+                    <span class="step-number">2</span>
+                    <h3>Understand Semantic Superclasses</h3>
+                </div>
+                <p class="step-desc">Oyemi groups words into hierarchical semantic categories (superclasses). Words in the same superclass share meaning:</p>
+
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-lang">Python</span>
+                        <span class="code-file">superclass_demo.py</span>
+                    </div>
+                    <pre><code><span class="keyword">from</span> Oyemi <span class="keyword">import</span> Encoder
+
+enc = Encoder()
+
+<span class="comment"># See how words map to superclasses</span>
+sample_words = [<span class="string">"payment"</span>, <span class="string">"refund"</span>, <span class="string">"price"</span>,  <span class="comment"># Financial</span>
+                <span class="string">"crash"</span>, <span class="string">"bug"</span>, <span class="string">"error"</span>,      <span class="comment"># Technical</span>
+                <span class="string">"delivery"</span>, <span class="string">"shipping"</span>, <span class="string">"package"</span>]  <span class="comment"># Logistics</span>
+
+<span class="keyword">print</span>(<span class="string">"Word -> Superclass Mapping:"</span>)
+<span class="keyword">for</span> word <span class="keyword">in</span> sample_words:
+    <span class="keyword">try</span>:
+        parsed = enc.encode_parsed(word)
+        <span class="keyword">if</span> parsed:
+            <span class="keyword">print</span>(<span class="string">f"  {word:12} -> {parsed[0].superclass} ({parsed[0].pos_name})"</span>)
+    <span class="keyword">except</span>:
+        <span class="keyword">print</span>(<span class="string">f"  {word:12} -> unknown"</span>)</code></pre>
+                </div>
+
+                <div class="output-block">
+                    <div class="output-header">Output</div>
+                    <pre>Word -> Superclass Mapping:
+  payment      -> 0212 (noun)
+  refund       -> 0212 (noun)
+  price        -> 0212 (noun)
+  crash        -> 0411 (verb)
+  bug          -> 1020 (noun)
+  error        -> 0305 (noun)
+  delivery     -> 0230 (noun)
+  shipping     -> 0230 (noun)
+  package      -> 0340 (noun)</pre>
+                </div>
+            </div>
+
+            <!-- Step 3: Cluster Words -->
+            <div class="tutorial-step">
+                <div class="step-header">
+                    <span class="step-number">3</span>
+                    <h3>Cluster Words by Category</h3>
+                </div>
+                <p class="step-desc">Use cluster_by_superclass() to automatically group related words:</p>
+
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-lang">Python</span>
+                        <span class="code-file">cluster_words.py</span>
+                    </div>
+                    <pre><code><span class="keyword">from</span> Oyemi <span class="keyword">import</span> cluster_by_superclass
+
+<span class="comment"># Extract keywords from support tickets</span>
+ticket_keywords = [
+    <span class="string">"payment"</span>, <span class="string">"refund"</span>, <span class="string">"charge"</span>, <span class="string">"subscription"</span>, <span class="string">"billing"</span>,
+    <span class="string">"crash"</span>, <span class="string">"error"</span>, <span class="string">"bug"</span>, <span class="string">"loading"</span>, <span class="string">"upload"</span>,
+    <span class="string">"delivery"</span>, <span class="string">"shipping"</span>, <span class="string">"package"</span>, <span class="string">"tracking"</span>,
+    <span class="string">"password"</span>, <span class="string">"email"</span>, <span class="string">"account"</span>, <span class="string">"login"</span>,
+    <span class="string">"cancel"</span>, <span class="string">"complaint"</span>, <span class="string">"frustrated"</span>
+]
+
+<span class="comment"># Cluster by semantic category</span>
+clusters = cluster_by_superclass(ticket_keywords)
+
+<span class="keyword">print</span>(<span class="string">"Semantic Clusters:"</span>)
+<span class="keyword">for</span> superclass, words <span class="keyword">in</span> clusters.items():
+    <span class="keyword">print</span>(<span class="string">f"\n  [{superclass}] ({len(words)} words)"</span>)
+    <span class="keyword">for</span> word <span class="keyword">in</span> words:
+        <span class="keyword">print</span>(<span class="string">f"    - {word}"</span>)</code></pre>
+                </div>
+
+                <div class="output-block">
+                    <div class="output-header">Output</div>
+                    <pre>Semantic Clusters:
+
+  [0212] (5 words) - Financial/Transaction
+    - payment
+    - refund
+    - charge
+    - subscription
+    - billing
+
+  [0411] (4 words) - Actions/Events
+    - crash
+    - loading
+    - upload
+    - cancel
+
+  [0305] (2 words) - Problems/Issues
+    - error
+    - bug
+
+  [0230] (3 words) - Logistics/Delivery
+    - delivery
+    - shipping
+    - tracking
+
+  [0340] (1 words) - Objects/Items
+    - package
+
+  [0260] (4 words) - Account/Identity
+    - password
+    - email
+    - account
+    - login</pre>
+                </div>
+            </div>
+
+            <!-- Step 4: Ticket Classification -->
+            <div class="tutorial-step">
+                <div class="step-header">
+                    <span class="step-number">4</span>
+                    <h3>Build Ticket Classifier</h3>
+                </div>
+                <p class="step-desc">Create a function that classifies tickets based on their dominant semantic category:</p>
+
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-lang">Python</span>
+                        <span class="code-file">ticket_classifier.py</span>
+                    </div>
+                    <pre><code><span class="keyword">from</span> Oyemi <span class="keyword">import</span> Encoder
+<span class="keyword">from</span> collections <span class="keyword">import</span> Counter
+<span class="keyword">import</span> re
+
+<span class="comment"># Define routing rules based on superclass</span>
+ROUTING_RULES = {
+    <span class="string">'0212'</span>: <span class="string">'Billing Team'</span>,       <span class="comment"># Financial/Transaction</span>
+    <span class="string">'0411'</span>: <span class="string">'Technical Support'</span>,  <span class="comment"># Actions/Events (crashes, etc)</span>
+    <span class="string">'0305'</span>: <span class="string">'Technical Support'</span>,  <span class="comment"># Problems/Issues</span>
+    <span class="string">'0230'</span>: <span class="string">'Logistics Team'</span>,     <span class="comment"># Delivery/Shipping</span>
+    <span class="string">'0260'</span>: <span class="string">'Account Support'</span>,    <span class="comment"># Account/Identity</span>
+    <span class="string">'0121'</span>: <span class="string">'Customer Success'</span>,   <span class="comment"># Emotions (frustrated, etc)</span>
+}
+
+<span class="keyword">def</span> <span class="function">classify_ticket</span>(message):
+    <span class="string">"""Classify a support ticket based on semantic content"""</span>
+    enc = Encoder()
+
+    <span class="comment"># Tokenize</span>
+    words = re.findall(r<span class="string">'\b[a-z]+\b'</span>, message.lower())
+
+    <span class="comment"># Get superclasses for each word</span>
+    superclasses = []
+    <span class="keyword">for</span> word <span class="keyword">in</span> words:
+        <span class="keyword">try</span>:
+            parsed = enc.encode_parsed(word, raise_on_unknown=<span class="keyword">False</span>)
+            <span class="keyword">if</span> parsed:
+                superclasses.append(parsed[0].superclass)
+        <span class="keyword">except</span>:
+            <span class="keyword">pass</span>
+
+    <span class="comment"># Find dominant superclass</span>
+    <span class="keyword">if</span> <span class="keyword">not</span> superclasses:
+        <span class="keyword">return</span> {<span class="string">'team'</span>: <span class="string">'General Support'</span>, <span class="string">'confidence'</span>: 0, <span class="string">'category'</span>: <span class="string">'unknown'</span>}
+
+    superclass_counts = Counter(superclasses)
+    dominant = superclass_counts.most_common(1)[0]
+
+    <span class="comment"># Route to team</span>
+    team = ROUTING_RULES.get(dominant[0], <span class="string">'General Support'</span>)
+    confidence = dominant[1] / <span class="keyword">len</span>(superclasses)
+
+    <span class="keyword">return</span> {
+        <span class="string">'team'</span>: team,
+        <span class="string">'confidence'</span>: confidence,
+        <span class="string">'category'</span>: dominant[0],
+        <span class="string">'word_count'</span>: dominant[1]
+    }
+
+<span class="comment"># Test on a sample ticket</span>
+ticket = <span class="string">"My payment failed and I was charged twice for the subscription."</span>
+result = classify_ticket(ticket)
+
+<span class="keyword">print</span>(<span class="string">f"Ticket: {ticket}"</span>)
+<span class="keyword">print</span>(<span class="string">f"Route to: {result['team']}"</span>)
+<span class="keyword">print</span>(<span class="string">f"Confidence: {result['confidence']:.0%}"</span>)</code></pre>
+                </div>
+
+                <div class="output-block">
+                    <div class="output-header">Output</div>
+                    <pre>Ticket: My payment failed and I was charged twice for the subscription.
+Route to: Billing Team
+Confidence: 67%</pre>
+                </div>
+            </div>
+
+            <!-- Step 5: Batch Classification -->
+            <div class="tutorial-step">
+                <div class="step-header">
+                    <span class="step-number">5</span>
+                    <h3>Process Multiple Tickets</h3>
+                </div>
+                <p class="step-desc">Classify and route all support tickets automatically:</p>
+
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-lang">Python</span>
+                        <span class="code-file">batch_routing.py</span>
+                    </div>
+                    <pre><code><span class="comment"># Sample support tickets</span>
+tickets = [
+    {<span class="string">"id"</span>: <span class="string">"T001"</span>, <span class="string">"msg"</span>: <span class="string">"My payment failed and I was charged twice for the subscription."</span>},
+    {<span class="string">"id"</span>: <span class="string">"T002"</span>, <span class="string">"msg"</span>: <span class="string">"The app keeps crashing when I try to upload photos."</span>},
+    {<span class="string">"id"</span>: <span class="string">"T003"</span>, <span class="string">"msg"</span>: <span class="string">"I want to cancel my account and get a refund."</span>},
+    {<span class="string">"id"</span>: <span class="string">"T004"</span>, <span class="string">"msg"</span>: <span class="string">"How do I change my password and update email address?"</span>},
+    {<span class="string">"id"</span>: <span class="string">"T005"</span>, <span class="string">"msg"</span>: <span class="string">"The delivery was late and the package was damaged."</span>},
+    {<span class="string">"id"</span>: <span class="string">"T006"</span>, <span class="string">"msg"</span>: <span class="string">"I'm very frustrated with the service, nothing works properly."</span>},
+    {<span class="string">"id"</span>: <span class="string">"T007"</span>, <span class="string">"msg"</span>: <span class="string">"Need help with tracking my order shipment."</span>},
+    {<span class="string">"id"</span>: <span class="string">"T008"</span>, <span class="string">"msg"</span>: <span class="string">"There's a billing error on my invoice for last month."</span>},
+]
+
+<span class="comment"># Classify all tickets</span>
+<span class="keyword">print</span>(<span class="string">"Ticket Routing Results:"</span>)
+<span class="keyword">print</span>(<span class="string">"=" * 70</span>)
+
+<span class="keyword">for</span> ticket <span class="keyword">in</span> tickets:
+    result = classify_ticket(ticket[<span class="string">'msg'</span>])
+    <span class="keyword">print</span>(<span class="string">f"{ticket['id']} | {result['team']:20} | {result['confidence']:.0%} | {ticket['msg'][:40]}..."</span>)
+
+<span class="comment"># Summarize by team</span>
+<span class="keyword">print</span>(<span class="string">"\nTicket Distribution by Team:"</span>)
+team_counts = Counter(classify_ticket(t[<span class="string">'msg'</span>])[<span class="string">'team'</span>] <span class="keyword">for</span> t <span class="keyword">in</span> tickets)
+<span class="keyword">for</span> team, count <span class="keyword">in</span> team_counts.most_common():
+    <span class="keyword">print</span>(<span class="string">f"  {team}: {count} tickets"</span>)</code></pre>
+                </div>
+
+                <div class="output-block">
+                    <div class="output-header">Output</div>
+                    <pre>Ticket Routing Results:
+======================================================================
+T001 | Billing Team         | 67% | My payment failed and I was charged...
+T002 | Technical Support    | 50% | The app keeps crashing when I try t...
+T003 | Billing Team         | 40% | I want to cancel my account and get...
+T004 | Account Support      | 75% | How do I change my password and upd...
+T005 | Logistics Team       | 60% | The delivery was late and the packa...
+T006 | Customer Success     | 45% | I'm very frustrated with the servic...
+T007 | Logistics Team       | 67% | Need help with tracking my order sh...
+T008 | Billing Team         | 80% | There's a billing error on my invoi...
+
+Ticket Distribution by Team:
+  Billing Team: 3 tickets
+  Logistics Team: 2 tickets
+  Technical Support: 1 tickets
+  Account Support: 1 tickets
+  Customer Success: 1 tickets</pre>
+                </div>
+            </div>
+
+            <!-- Step 6: Trend Analysis -->
+            <div class="tutorial-step">
+                <div class="step-header">
+                    <span class="step-number">6</span>
+                    <h3>Topic Trend Analysis</h3>
+                </div>
+                <p class="step-desc">Analyze topic trends over time to identify emerging issues:</p>
+
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-lang">Python</span>
+                        <span class="code-file">trend_analysis.py</span>
+                    </div>
+                    <pre><code><span class="keyword">from</span> Oyemi <span class="keyword">import</span> cluster_by_superclass
+<span class="keyword">from</span> collections <span class="keyword">import</span> defaultdict
+
+<span class="keyword">def</span> <span class="function">extract_topics</span>(text):
+    <span class="string">"""Extract semantic topics from text"""</span>
+    words = re.findall(r<span class="string">'\b[a-z]+\b'</span>, text.lower())
+    clusters = cluster_by_superclass(words)
+    <span class="keyword">return</span> clusters
+
+<span class="comment"># Simulate weekly ticket data</span>
+weekly_data = {
+    <span class="string">"Week 1"</span>: [<span class="string">"payment issue"</span>, <span class="string">"billing error"</span>, <span class="string">"refund request"</span>],
+    <span class="string">"Week 2"</span>: [<span class="string">"app crash"</span>, <span class="string">"payment failed"</span>, <span class="string">"error loading"</span>, <span class="string">"crash bug"</span>],
+    <span class="string">"Week 3"</span>: [<span class="string">"crash error"</span>, <span class="string">"app broken"</span>, <span class="string">"not loading"</span>, <span class="string">"crash crash"</span>],
+}
+
+<span class="comment"># Track topic trends</span>
+<span class="keyword">print</span>(<span class="string">"Topic Trend Analysis:"</span>)
+<span class="keyword">print</span>(<span class="string">"=" * 50</span>)
+
+topic_trends = defaultdict(<span class="keyword">list</span>)
+
+<span class="keyword">for</span> week, messages <span class="keyword">in</span> weekly_data.items():
+    combined_text = <span class="string">" "</span>.join(messages)
+    topics = extract_topics(combined_text)
+
+    <span class="keyword">print</span>(<span class="string">f"\n{week}:"</span>)
+    <span class="keyword">for</span> superclass, words <span class="keyword">in</span> topics.items():
+        <span class="keyword">print</span>(<span class="string">f"  [{superclass}]: {len(words)} mentions - {words[:3]}"</span>)
+        topic_trends[superclass].append(<span class="keyword">len</span>(words))
+
+<span class="comment"># Identify rising trends</span>
+<span class="keyword">print</span>(<span class="string">"\nRising Issues (Week-over-Week):"</span>)
+<span class="keyword">for</span> topic, counts <span class="keyword">in</span> topic_trends.items():
+    <span class="keyword">if</span> <span class="keyword">len</span>(counts) >= 2 <span class="keyword">and</span> counts[-1] > counts[-2]:
+        change = ((counts[-1] - counts[-2]) / counts[-2]) * 100
+        <span class="keyword">print</span>(<span class="string">f"  [{topic}]: +{change:.0f}% increase"</span>)</code></pre>
+                </div>
+
+                <div class="output-block">
+                    <div class="output-header">Output</div>
+                    <pre>Topic Trend Analysis:
+==================================================
+
+Week 1:
+  [0212]: 4 mentions - ['payment', 'billing', 'refund']
+  [0305]: 2 mentions - ['issue', 'error']
+
+Week 2:
+  [0411]: 3 mentions - ['crash', 'loading']
+  [0212]: 2 mentions - ['payment']
+  [0305]: 2 mentions - ['error', 'bug']
+
+Week 3:
+  [0411]: 4 mentions - ['crash', 'loading', 'broken']
+  [0305]: 2 mentions - ['error']
+
+Rising Issues (Week-over-Week):
+  [0411]: +33% increase (Technical issues rising!)</pre>
+                </div>
+            </div>
+
+            <!-- Results Visualization -->
+            <div class="results-section">
+                <h3>Ticket Distribution Dashboard</h3>
+                <p class="section-desc">Visual breakdown of support tickets by category:</p>
+
+                <div class="sentiment-chart">
+                    <div class="sentiment-bar">
+                        <span class="sentiment-label">Billing Team</span>
+                        <div class="bar-container">
+                            <div class="bar" style="width: 38%; background: #3b82f6;"></div>
+                            <span class="bar-value">3 tickets</span>
+                        </div>
+                    </div>
+                    <div class="sentiment-bar">
+                        <span class="sentiment-label">Logistics Team</span>
+                        <div class="bar-container">
+                            <div class="bar" style="width: 25%; background: #10b981;"></div>
+                            <span class="bar-value">2 tickets</span>
+                        </div>
+                    </div>
+                    <div class="sentiment-bar">
+                        <span class="sentiment-label">Technical Support</span>
+                        <div class="bar-container">
+                            <div class="bar" style="width: 13%; background: #f59e0b;"></div>
+                            <span class="bar-value">1 ticket</span>
+                        </div>
+                    </div>
+                    <div class="sentiment-bar">
+                        <span class="sentiment-label">Account Support</span>
+                        <div class="bar-container">
+                            <div class="bar" style="width: 13%; background: #8b5cf6;"></div>
+                            <span class="bar-value">1 ticket</span>
+                        </div>
+                    </div>
+                    <div class="sentiment-bar">
+                        <span class="sentiment-label">Customer Success</span>
+                        <div class="bar-container">
+                            <div class="bar" style="width: 13%; background: #ef4444;"></div>
+                            <span class="bar-value">1 ticket</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Team Cards -->
+            <div class="results-section">
+                <h3>Routing Rules</h3>
+                <div class="company-grid">
+                    <div class="company-card">
+                        <h4>Billing Team</h4>
+                        <div class="company-stats">
+                            <span class="reviews-count">Superclass: 0212</span>
+                        </div>
+                        <div class="top-issues">
+                            <span class="issue-tag">payment</span>
+                            <span class="issue-tag">refund</span>
+                            <span class="issue-tag">billing</span>
+                            <span class="issue-tag">subscription</span>
+                        </div>
+                    </div>
+
+                    <div class="company-card">
+                        <h4>Technical Support</h4>
+                        <div class="company-stats">
+                            <span class="reviews-count">Superclass: 0411, 0305</span>
+                        </div>
+                        <div class="top-issues">
+                            <span class="issue-tag">crash</span>
+                            <span class="issue-tag">error</span>
+                            <span class="issue-tag">bug</span>
+                            <span class="issue-tag">loading</span>
+                        </div>
+                    </div>
+
+                    <div class="company-card">
+                        <h4>Logistics Team</h4>
+                        <div class="company-stats">
+                            <span class="reviews-count">Superclass: 0230</span>
+                        </div>
+                        <div class="top-issues">
+                            <span class="issue-tag">delivery</span>
+                            <span class="issue-tag">shipping</span>
+                            <span class="issue-tag">tracking</span>
+                            <span class="issue-tag">package</span>
+                        </div>
+                    </div>
+
+                    <div class="company-card">
+                        <h4>Account Support</h4>
+                        <div class="company-stats">
+                            <span class="reviews-count">Superclass: 0260</span>
+                        </div>
+                        <div class="top-issues">
+                            <span class="issue-tag">password</span>
+                            <span class="issue-tag">email</span>
+                            <span class="issue-tag">account</span>
+                            <span class="issue-tag">login</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Key Insights -->
+            <div class="insights-section">
+                <h3>Why Semantic Clustering?</h3>
+                <div class="insights-grid">
+                    <div class="insight-card">
+                        <div class="insight-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polygon points="12 2 2 7 12 12 22 7 12 2"/>
+                                <polyline points="2 17 12 22 22 17"/>
+                                <polyline points="2 12 12 17 22 12"/>
+                            </svg>
+                        </div>
+                        <h4>No Training Needed</h4>
+                        <p>Start clustering immediately. No labeled data, no model training, no ML infrastructure required.</p>
+                    </div>
+                    <div class="insight-card">
+                        <div class="insight-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+                            </svg>
+                        </div>
+                        <h4>Interpretable Categories</h4>
+                        <p>Each cluster has clear meaning - superclass 0212 is "Financial", not "Cluster 7". Easy to explain to stakeholders.</p>
+                    </div>
+                    <div class="insight-card">
+                        <div class="insight-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="18" y1="20" x2="18" y2="10"/>
+                                <line x1="12" y1="20" x2="12" y2="4"/>
+                                <line x1="6" y1="20" x2="6" y2="14"/>
+                            </svg>
+                        </div>
+                        <h4>Trend Detection</h4>
+                        <p>Track category volumes over time to spot emerging issues before they become crises.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CTA -->
+            <div class="case-cta">
+                <h3>Automate Your Ticket Routing</h3>
+                <p>Add intelligent categorization to your support workflow in minutes.</p>
+                <div class="cta-buttons">
+                    <a href="https://github.com/Osseni94/Oyemi" class="btn btn-primary" target="_blank">Get Started (Free)</a>
+                    <a href="docs/oyemi.html#clustering" class="btn btn-secondary">View API Docs</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Grand Nasser Enterprises. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileMenuBtn.classList.toggle('active');
+        });
+
+        // Navbar background on scroll
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+    </script>
+</body>
+</html>

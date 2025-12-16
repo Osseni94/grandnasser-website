@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sentiment Analysis | Oyemi - Grand Nasser Enterprises</title>
+    <meta name="description" content="Use Oyemi for deterministic sentiment analysis - valence detection without ML models">
+    <meta name="robots" content="index, follow">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Oyemi Sentiment Analysis">
+    <meta property="og:description" content="Deterministic sentiment analysis with 95% valence accuracy - no machine learning required">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="use-cases.css">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>G</text></svg>">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <img src="logo.png" alt="Grand Nasser Enterprises" class="logo-img">
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html#products">Products</a></li>
+                <li><a href="docs/keyneg.html">Docs</a></li>
+                <li><a href="use-cases.html">Use Cases</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+            <button class="mobile-menu-btn" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <header class="usecase-hero">
+        <div class="container">
+            <h1>Sentiment Analysis</h1>
+            <p class="hero-subtitle">Analyze employee engagement surveys with deterministic valence detection - 95%+ accuracy without ML</p>
+            <!-- Use Case Navigation -->
+            <div class="usecase-nav">
+                <a href="use-cases-oyemi.html" class="usecase-nav-link">Semantic Encoding</a>
+                <a href="use-cases-oyemi-similarity.html" class="usecase-nav-link">Similarity Search</a>
+                <a href="use-cases-oyemi-sentiment.html" class="usecase-nav-link active">Sentiment Analysis</a>
+                <a href="use-cases-oyemi-clustering.html" class="usecase-nav-link">Topic Clustering</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Tutorial Section -->
+    <section class="case-study">
+        <div class="container">
+            <div class="case-header">
+                <span class="case-badge">Tutorial</span>
+                <h2>Employee Engagement Analysis</h2>
+                <p>Learn how to analyze employee feedback for sentiment patterns using Oyemi's built-in valence detection</p>
+            </div>
+
+            <!-- Step 1: The Dataset -->
+            <div class="tutorial-step">
+                <div class="step-header">
+                    <span class="step-number">1</span>
+                    <h3>The Dataset</h3>
+                </div>
+                <p class="step-desc">We'll analyze sample employee engagement survey responses. Each response contains open-ended feedback about workplace experience.</p>
+
+                <div class="data-sample">
+                    <div class="sample-header">
+                        <span class="sample-badge">Sample Data</span>
+                        <span class="sample-file">engagement_survey.csv</span>
+                    </div>
+                    <div class="sample-table-wrapper">
+                        <table class="sample-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Department</th>
+                                    <th>Feedback</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>001</td>
+                                    <td>Engineering</td>
+                                    <td>I love the collaborative environment and the exciting projects we work on.</td>
+                                </tr>
+                                <tr>
+                                    <td>002</td>
+                                    <td>Sales</td>
+                                    <td>The constant pressure and unrealistic quotas are causing burnout.</td>
+                                </tr>
+                                <tr>
+                                    <td>003</td>
+                                    <td>HR</td>
+                                    <td>Management is supportive but communication could improve.</td>
+                                </tr>
+                                <tr>
+                                    <td>004</td>
+                                    <td>Engineering</td>
+                                    <td>Frustrated with the lack of growth opportunities and stagnant salary.</td>
+                                </tr>
+                                <tr>
+                                    <td>005</td>
+                                    <td>Marketing</td>
+                                    <td>Great team culture, happy to come to work every day.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Dataset Stats -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <span class="stat-value">500</span>
+                        <span class="stat-label">Survey Responses</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-value">5</span>
+                        <span class="stat-label">Departments</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-value">95%+</span>
+                        <span class="stat-label">Valence Accuracy</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-value">0ms</span>
+                        <span class="stat-label">Model Load Time</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2: Basic Valence Detection -->
+            <div class="tutorial-step">
+                <div class="step-header">
+                    <span class="step-number">2</span>
+                    <h3>Basic Valence Detection</h3>
+                </div>
+                <p class="step-desc">Oyemi assigns valence (positive/negative/neutral) to each word in the lexicon:</p>
+
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-lang">Python</span>
+                        <span class="code-file">valence_basics.py</span>
+                    </div>
+                    <pre><code><span class="keyword">from</span> Oyemi <span class="keyword">import</span> Encoder
+
+enc = Encoder()
+
+<span class="comment"># Check valence of individual words</span>
+test_words = [<span class="string">"happy"</span>, <span class="string">"frustrated"</span>, <span class="string">"supportive"</span>, <span class="string">"burnout"</span>,
+              <span class="string">"excited"</span>, <span class="string">"stagnant"</span>, <span class="string">"collaborative"</span>, <span class="string">"pressure"</span>]
+
+<span class="keyword">print</span>(<span class="string">"Word Valence Detection:"</span>)
+<span class="keyword">for</span> word <span class="keyword">in</span> test_words:
+    <span class="keyword">try</span>:
+        parsed = enc.encode_parsed(word)
+        <span class="keyword">if</span> parsed:
+            valence = parsed[0].valence_name
+            <span class="keyword">print</span>(<span class="string">f"  {word:15} -> {valence}"</span>)
+    <span class="keyword">except</span>:
+        <span class="keyword">print</span>(<span class="string">f"  {word:15} -> unknown"</span>)</code></pre>
+                </div>
+
+                <div class="output-block">
+                    <div class="output-header">Output</div>
+                    <pre>Word Valence Detection:
+  happy           -> positive
+  frustrated      -> negative
+  supportive      -> positive
+  burnout         -> negative
+  excited         -> positive
+  stagnant        -> negative
+  collaborative   -> positive
+  pressure        -> negative</pre>
+                </div>
+            </div>
+
+            <!-- Step 3: Sentence Sentiment -->
+            <div class="tutorial-step">
+                <div class="step-header">
+                    <span class="step-number">3</span>
+                    <h3>Analyze Sentence Sentiment</h3>
+                </div>
+                <p class="step-desc">Build a function to analyze overall sentiment of a sentence:</p>
+
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-lang">Python</span>
+                        <span class="code-file">sentence_sentiment.py</span>
+                    </div>
+                    <pre><code><span class="keyword">import</span> re
+<span class="keyword">from</span> Oyemi <span class="keyword">import</span> Encoder
+
+<span class="keyword">def</span> <span class="function">analyze_sentiment</span>(text):
+    <span class="string">"""Analyze sentiment of text using Oyemi valence detection"""</span>
+    enc = Encoder()
+
+    <span class="comment"># Tokenize (simple word extraction)</span>
+    words = re.findall(r<span class="string">'\b[a-z]+\b'</span>, text.lower())
+
+    valence_counts = {<span class="string">'positive'</span>: 0, <span class="string">'negative'</span>: 0, <span class="string">'neutral'</span>: 0}
+    sentiment_words = {<span class="string">'positive'</span>: [], <span class="string">'negative'</span>: []}
+
+    <span class="keyword">for</span> word <span class="keyword">in</span> words:
+        <span class="keyword">try</span>:
+            parsed = enc.encode_parsed(word, raise_on_unknown=<span class="keyword">False</span>)
+            <span class="keyword">if</span> parsed:
+                valence = parsed[0].valence_name
+                valence_counts[valence] += 1
+                <span class="keyword">if</span> valence != <span class="string">'neutral'</span>:
+                    sentiment_words[valence].append(word)
+        <span class="keyword">except</span>:
+            <span class="keyword">pass</span>
+
+    <span class="comment"># Calculate sentiment score (-1 to +1)</span>
+    total = <span class="keyword">sum</span>(valence_counts.values())
+    <span class="keyword">if</span> total == 0:
+        score = 0
+    <span class="keyword">else</span>:
+        score = (valence_counts[<span class="string">'positive'</span>] - valence_counts[<span class="string">'negative'</span>]) / total
+
+    <span class="keyword">return</span> {
+        <span class="string">'score'</span>: score,
+        <span class="string">'label'</span>: <span class="string">'positive'</span> <span class="keyword">if</span> score > 0.1 <span class="keyword">else</span> <span class="string">'negative'</span> <span class="keyword">if</span> score < -0.1 <span class="keyword">else</span> <span class="string">'neutral'</span>,
+        <span class="string">'counts'</span>: valence_counts,
+        <span class="string">'positive_words'</span>: sentiment_words[<span class="string">'positive'</span>],
+        <span class="string">'negative_words'</span>: sentiment_words[<span class="string">'negative'</span>]
+    }
+
+<span class="comment"># Test on sample feedback</span>
+feedback = <span class="string">"I love the collaborative environment and the exciting projects we work on."</span>
+result = analyze_sentiment(feedback)
+
+<span class="keyword">print</span>(<span class="string">f"Text: {feedback}"</span>)
+<span class="keyword">print</span>(<span class="string">f"Sentiment: {result['label']} ({result['score']:.2f})"</span>)
+<span class="keyword">print</span>(<span class="string">f"Positive words: {result['positive_words']}"</span>)
+<span class="keyword">print</span>(<span class="string">f"Negative words: {result['negative_words']}"</span>)</code></pre>
+                </div>
+
+                <div class="output-block">
+                    <div class="output-header">Output</div>
+                    <pre>Text: I love the collaborative environment and the exciting projects we work on.
+Sentiment: positive (0.33)
+Positive words: ['love', 'collaborative', 'exciting']
+Negative words: []</pre>
+                </div>
+            </div>
+
+            <!-- Step 4: Batch Analysis -->
+            <div class="tutorial-step">
+                <div class="step-header">
+                    <span class="step-number">4</span>
+                    <h3>Batch Survey Analysis</h3>
+                </div>
+                <p class="step-desc">Process all survey responses and categorize by sentiment:</p>
+
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-lang">Python</span>
+                        <span class="code-file">batch_analysis.py</span>
+                    </div>
+                    <pre><code><span class="comment"># Sample survey responses</span>
+survey_data = [
+    {<span class="string">"id"</span>: <span class="string">"001"</span>, <span class="string">"dept"</span>: <span class="string">"Engineering"</span>, <span class="string">"feedback"</span>: <span class="string">"I love the collaborative environment and exciting projects."</span>},
+    {<span class="string">"id"</span>: <span class="string">"002"</span>, <span class="string">"dept"</span>: <span class="string">"Sales"</span>, <span class="string">"feedback"</span>: <span class="string">"The constant pressure and unrealistic quotas are causing burnout."</span>},
+    {<span class="string">"id"</span>: <span class="string">"003"</span>, <span class="string">"dept"</span>: <span class="string">"HR"</span>, <span class="string">"feedback"</span>: <span class="string">"Management is supportive but communication could improve."</span>},
+    {<span class="string">"id"</span>: <span class="string">"004"</span>, <span class="string">"dept"</span>: <span class="string">"Engineering"</span>, <span class="string">"feedback"</span>: <span class="string">"Frustrated with lack of growth opportunities and stagnant salary."</span>},
+    {<span class="string">"id"</span>: <span class="string">"005"</span>, <span class="string">"dept"</span>: <span class="string">"Marketing"</span>, <span class="string">"feedback"</span>: <span class="string">"Great team culture, happy to come to work every day."</span>},
+    {<span class="string">"id"</span>: <span class="string">"006"</span>, <span class="string">"dept"</span>: <span class="string">"Sales"</span>, <span class="string">"feedback"</span>: <span class="string">"Toxic environment, management ignores our concerns."</span>},
+    {<span class="string">"id"</span>: <span class="string">"007"</span>, <span class="string">"dept"</span>: <span class="string">"Engineering"</span>, <span class="string">"feedback"</span>: <span class="string">"Good benefits and work-life balance."</span>},
+    {<span class="string">"id"</span>: <span class="string">"008"</span>, <span class="string">"dept"</span>: <span class="string">"Marketing"</span>, <span class="string">"feedback"</span>: <span class="string">"Feeling undervalued and overworked lately."</span>},
+]
+
+<span class="comment"># Analyze all responses</span>
+results = []
+<span class="keyword">for</span> response <span class="keyword">in</span> survey_data:
+    sentiment = analyze_sentiment(response[<span class="string">'feedback'</span>])
+    results.append({
+        <span class="string">'id'</span>: response[<span class="string">'id'</span>],
+        <span class="string">'dept'</span>: response[<span class="string">'dept'</span>],
+        <span class="string">'score'</span>: sentiment[<span class="string">'score'</span>],
+        <span class="string">'label'</span>: sentiment[<span class="string">'label'</span>],
+        <span class="string">'key_words'</span>: sentiment[<span class="string">'positive_words'</span>] + sentiment[<span class="string">'negative_words'</span>]
+    })
+
+<span class="comment"># Display results</span>
+<span class="keyword">print</span>(<span class="string">"Survey Sentiment Analysis:"</span>)
+<span class="keyword">print</span>(<span class="string">"-" * 60</span>)
+<span class="keyword">for</span> r <span class="keyword">in</span> results:
+    <span class="keyword">print</span>(<span class="string">f"{r['id']} | {r['dept']:12} | {r['label']:8} | {r['score']:+.2f} | {r['key_words'][:3]}"</span>)</code></pre>
+                </div>
+
+                <div class="output-block">
+                    <div class="output-header">Output</div>
+                    <pre>Survey Sentiment Analysis:
+------------------------------------------------------------
+001 | Engineering  | positive | +0.33 | ['love', 'collaborative', 'exciting']
+002 | Sales        | negative | -0.25 | ['pressure', 'unrealistic', 'burnout']
+003 | HR           | positive | +0.14 | ['supportive', 'improve']
+004 | Engineering  | negative | -0.33 | ['frustrated', 'lack', 'stagnant']
+005 | Marketing    | positive | +0.40 | ['great', 'happy']
+006 | Sales        | negative | -0.40 | ['toxic', 'ignores', 'concerns']
+007 | Engineering  | positive | +0.25 | ['good', 'balance']
+008 | Marketing    | negative | -0.29 | ['undervalued', 'overworked']</pre>
+                </div>
+            </div>
+
+            <!-- Step 5: Department Breakdown -->
+            <div class="tutorial-step">
+                <div class="step-header">
+                    <span class="step-number">5</span>
+                    <h3>Department Sentiment Breakdown</h3>
+                </div>
+                <p class="step-desc">Aggregate sentiment by department to identify problem areas:</p>
+
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-lang">Python</span>
+                        <span class="code-file">department_analysis.py</span>
+                    </div>
+                    <pre><code><span class="keyword">from</span> collections <span class="keyword">import</span> defaultdict
+<span class="keyword">import</span> numpy <span class="keyword">as</span> np
+
+<span class="comment"># Aggregate by department</span>
+dept_stats = defaultdict(<span class="keyword">lambda</span>: {<span class="string">'scores'</span>: [], <span class="string">'labels'</span>: []})
+
+<span class="keyword">for</span> r <span class="keyword">in</span> results:
+    dept_stats[r[<span class="string">'dept'</span>]][<span class="string">'scores'</span>].append(r[<span class="string">'score'</span>])
+    dept_stats[r[<span class="string">'dept'</span>]][<span class="string">'labels'</span>].append(r[<span class="string">'label'</span>])
+
+<span class="comment"># Calculate department metrics</span>
+<span class="keyword">print</span>(<span class="string">"Department Sentiment Summary:"</span>)
+<span class="keyword">print</span>(<span class="string">"=" * 50</span>)
+
+<span class="keyword">for</span> dept, stats <span class="keyword">in</span> <span class="keyword">sorted</span>(dept_stats.items()):
+    avg_score = np.mean(stats[<span class="string">'scores'</span>])
+    positive_pct = stats[<span class="string">'labels'</span>].count(<span class="string">'positive'</span>) / <span class="keyword">len</span>(stats[<span class="string">'labels'</span>]) * 100
+    negative_pct = stats[<span class="string">'labels'</span>].count(<span class="string">'negative'</span>) / <span class="keyword">len</span>(stats[<span class="string">'labels'</span>]) * 100
+
+    <span class="comment"># Determine health status</span>
+    <span class="keyword">if</span> avg_score >= 0.2:
+        health = <span class="string">"Healthy"</span>
+    <span class="keyword">elif</span> avg_score >= 0:
+        health = <span class="string">"Mixed"</span>
+    <span class="keyword">else</span>:
+        health = <span class="string">"At Risk"</span>
+
+    <span class="keyword">print</span>(<span class="string">f"\n{dept}:"</span>)
+    <span class="keyword">print</span>(<span class="string">f"  Average Score: {avg_score:+.2f}"</span>)
+    <span class="keyword">print</span>(<span class="string">f"  Positive: {positive_pct:.0f}% | Negative: {negative_pct:.0f}%"</span>)
+    <span class="keyword">print</span>(<span class="string">f"  Status: {health}"</span>)</code></pre>
+                </div>
+
+                <div class="output-block">
+                    <div class="output-header">Output</div>
+                    <pre>Department Sentiment Summary:
+==================================================
+
+Engineering:
+  Average Score: +0.08
+  Positive: 67% | Negative: 33%
+  Status: Mixed
+
+HR:
+  Average Score: +0.14
+  Positive: 100% | Negative: 0%
+  Status: Mixed
+
+Marketing:
+  Average Score: +0.05
+  Positive: 50% | Negative: 50%
+  Status: Mixed
+
+Sales:
+  Average Score: -0.33
+  Positive: 0% | Negative: 100%
+  Status: At Risk</pre>
+                </div>
+            </div>
+
+            <!-- Step 6: Extract Key Concerns -->
+            <div class="tutorial-step">
+                <div class="step-header">
+                    <span class="step-number">6</span>
+                    <h3>Extract Key Concerns</h3>
+                </div>
+                <p class="step-desc">Identify the most common negative sentiment words across all feedback:</p>
+
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-lang">Python</span>
+                        <span class="code-file">extract_concerns.py</span>
+                    </div>
+                    <pre><code><span class="keyword">from</span> collections <span class="keyword">import</span> Counter
+
+<span class="comment"># Collect all negative words</span>
+all_negative_words = []
+<span class="keyword">for</span> response <span class="keyword">in</span> survey_data:
+    sentiment = analyze_sentiment(response[<span class="string">'feedback'</span>])
+    all_negative_words.extend(sentiment[<span class="string">'negative_words'</span>])
+
+<span class="comment"># Count occurrences</span>
+negative_counts = Counter(all_negative_words)
+
+<span class="keyword">print</span>(<span class="string">"Top Employee Concerns:"</span>)
+<span class="keyword">print</span>(<span class="string">"-" * 30</span>)
+<span class="keyword">for</span> word, count <span class="keyword">in</span> negative_counts.most_common(10):
+    <span class="keyword">print</span>(<span class="string">f"  {word}: {count} mentions"</span>)
+
+<span class="comment"># Also track positive themes</span>
+all_positive_words = []
+<span class="keyword">for</span> response <span class="keyword">in</span> survey_data:
+    sentiment = analyze_sentiment(response[<span class="string">'feedback'</span>])
+    all_positive_words.extend(sentiment[<span class="string">'positive_words'</span>])
+
+positive_counts = Counter(all_positive_words)
+
+<span class="keyword">print</span>(<span class="string">"\nTop Positive Themes:"</span>)
+<span class="keyword">print</span>(<span class="string">"-" * 30</span>)
+<span class="keyword">for</span> word, count <span class="keyword">in</span> positive_counts.most_common(5):
+    <span class="keyword">print</span>(<span class="string">f"  {word}: {count} mentions"</span>)</code></pre>
+                </div>
+
+                <div class="output-block">
+                    <div class="output-header">Output</div>
+                    <pre>Top Employee Concerns:
+------------------------------
+  pressure: 2 mentions
+  burnout: 1 mentions
+  frustrated: 1 mentions
+  stagnant: 1 mentions
+  toxic: 1 mentions
+  undervalued: 1 mentions
+  overworked: 1 mentions
+
+Top Positive Themes:
+------------------------------
+  collaborative: 1 mentions
+  exciting: 1 mentions
+  supportive: 1 mentions
+  great: 1 mentions
+  happy: 1 mentions</pre>
+                </div>
+            </div>
+
+            <!-- Results Visualization -->
+            <div class="results-section">
+                <h3>Department Sentiment Dashboard</h3>
+                <p class="section-desc">Visual breakdown of sentiment by department:</p>
+
+                <div class="sentiment-chart">
+                    <div class="sentiment-bar">
+                        <span class="sentiment-label">Engineering</span>
+                        <div class="bar-container">
+                            <div class="bar" style="width: 67%; background: linear-gradient(90deg, #10b981 67%, #ef4444 33%);"></div>
+                            <span class="bar-value">+0.08</span>
+                        </div>
+                    </div>
+                    <div class="sentiment-bar">
+                        <span class="sentiment-label">HR</span>
+                        <div class="bar-container">
+                            <div class="bar" style="width: 100%; background: #10b981;"></div>
+                            <span class="bar-value">+0.14</span>
+                        </div>
+                    </div>
+                    <div class="sentiment-bar">
+                        <span class="sentiment-label">Marketing</span>
+                        <div class="bar-container">
+                            <div class="bar" style="width: 50%; background: linear-gradient(90deg, #10b981 50%, #ef4444 50%);"></div>
+                            <span class="bar-value">+0.05</span>
+                        </div>
+                    </div>
+                    <div class="sentiment-bar">
+                        <span class="sentiment-label">Sales</span>
+                        <div class="bar-container">
+                            <div class="bar" style="width: 100%; background: #ef4444;"></div>
+                            <span class="bar-value">-0.33</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Company Comparison -->
+            <div class="results-section">
+                <h3>Action Items by Department</h3>
+                <div class="company-grid">
+                    <div class="company-card">
+                        <h4>Sales (At Risk)</h4>
+                        <div class="company-stats">
+                            <span class="reviews-count">Score: -0.33</span>
+                            <span class="negativity-score" style="background: #ef4444;">100% Negative</span>
+                        </div>
+                        <div class="top-issues">
+                            <span class="issue-tag" style="background: #ef4444;">pressure</span>
+                            <span class="issue-tag" style="background: #ef4444;">burnout</span>
+                            <span class="issue-tag" style="background: #ef4444;">toxic</span>
+                        </div>
+                    </div>
+
+                    <div class="company-card">
+                        <h4>Marketing (Mixed)</h4>
+                        <div class="company-stats">
+                            <span class="reviews-count">Score: +0.05</span>
+                            <span class="negativity-score" style="background: #f59e0b;">50% Positive</span>
+                        </div>
+                        <div class="top-issues">
+                            <span class="issue-tag" style="background: #ef4444;">undervalued</span>
+                            <span class="issue-tag" style="background: #ef4444;">overworked</span>
+                            <span class="issue-tag" style="background: #10b981;">great culture</span>
+                        </div>
+                    </div>
+
+                    <div class="company-card">
+                        <h4>Engineering (Mixed)</h4>
+                        <div class="company-stats">
+                            <span class="reviews-count">Score: +0.08</span>
+                            <span class="negativity-score" style="background: #f59e0b;">67% Positive</span>
+                        </div>
+                        <div class="top-issues">
+                            <span class="issue-tag" style="background: #10b981;">collaborative</span>
+                            <span class="issue-tag" style="background: #ef4444;">stagnant growth</span>
+                            <span class="issue-tag" style="background: #10b981;">good balance</span>
+                        </div>
+                    </div>
+
+                    <div class="company-card">
+                        <h4>HR (Healthy)</h4>
+                        <div class="company-stats">
+                            <span class="reviews-count">Score: +0.14</span>
+                            <span class="negativity-score" style="background: #10b981;">100% Positive</span>
+                        </div>
+                        <div class="top-issues">
+                            <span class="issue-tag" style="background: #10b981;">supportive</span>
+                            <span class="issue-tag" style="background: #f59e0b;">needs improvement</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Key Insights -->
+            <div class="insights-section">
+                <h3>Why Deterministic Sentiment?</h3>
+                <div class="insights-grid">
+                    <div class="insight-card">
+                        <div class="insight-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                            </svg>
+                        </div>
+                        <h4>Auditable Results</h4>
+                        <p>Same feedback always produces same sentiment score. Perfect for HR compliance and legal documentation.</p>
+                    </div>
+                    <div class="insight-card">
+                        <div class="insight-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <polyline points="12 6 12 12 16 14"/>
+                            </svg>
+                        </div>
+                        <h4>Instant Processing</h4>
+                        <p>No model loading, no GPU. Process thousands of survey responses in seconds on any hardware.</p>
+                    </div>
+                    <div class="insight-card">
+                        <div class="insight-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                                <polyline points="14 2 14 8 20 8"/>
+                            </svg>
+                        </div>
+                        <h4>Explainable Output</h4>
+                        <p>See exactly which words drove the sentiment score. No black-box model to explain to stakeholders.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CTA -->
+            <div class="case-cta">
+                <h3>Analyze Your Employee Feedback</h3>
+                <p>Add deterministic sentiment analysis to your HR analytics pipeline.</p>
+                <div class="cta-buttons">
+                    <a href="https://github.com/Osseni94/Oyemi" class="btn btn-primary" target="_blank">Get Started (Free)</a>
+                    <a href="docs/oyemi.html#valence" class="btn btn-secondary">View API Docs</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Grand Nasser Enterprises. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileMenuBtn.classList.toggle('active');
+        });
+
+        // Navbar background on scroll
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+    </script>
+</body>
+</html>

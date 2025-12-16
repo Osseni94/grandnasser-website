@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Similarity Search | Oyemi - Grand Nasser Enterprises</title>
+    <meta name="description" content="Use Oyemi for semantic similarity search - find related words, match documents, and expand queries without ML">
+    <meta name="robots" content="index, follow">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Oyemi Similarity Search">
+    <meta property="og:description" content="Semantic similarity search without machine learning - resume matching, query expansion, and document comparison">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="use-cases.css">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>G</text></svg>">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <img src="logo.png" alt="Grand Nasser Enterprises" class="logo-img">
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html#products">Products</a></li>
+                <li><a href="docs/keyneg.html">Docs</a></li>
+                <li><a href="use-cases.html">Use Cases</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+            <button class="mobile-menu-btn" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <header class="usecase-hero">
+        <div class="container">
+            <h1>Similarity Search</h1>
+            <p class="hero-subtitle">Match resumes to jobs, expand search queries, and find related content using deterministic semantic similarity</p>
+            <!-- Use Case Navigation -->
+            <div class="usecase-nav">
+                <a href="use-cases-oyemi.html" class="usecase-nav-link">Semantic Encoding</a>
+                <a href="use-cases-oyemi-similarity.html" class="usecase-nav-link active">Similarity Search</a>
+                <a href="use-cases-oyemi-sentiment.html" class="usecase-nav-link">Sentiment Analysis</a>
+                <a href="use-cases-oyemi-clustering.html" class="usecase-nav-link">Topic Clustering</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Tutorial Section -->
+    <section class="case-study">
+        <div class="container">
+            <div class="case-header">
+                <span class="case-badge">Tutorial</span>
+                <h2>Resume-to-Job Matching</h2>
+                <p>Learn how to build a semantic resume matcher that finds candidates based on skill similarity - no embeddings or ML models required</p>
+            </div>
+
+            <!-- Step 1: The Dataset -->
+            <div class="tutorial-step">
+                <div class="step-header">
+                    <span class="step-number">1</span>
+                    <h3>The Dataset</h3>
+                </div>
+                <p class="step-desc">We'll use sample job descriptions and resumes to demonstrate semantic matching. In production, this scales to thousands of documents.</p>
+
+                <div class="data-sample">
+                    <div class="sample-header">
+                        <span class="sample-badge">Sample Data</span>
+                        <span class="sample-file">job_descriptions.json</span>
+                    </div>
+                    <div class="sample-table-wrapper">
+                        <table class="sample-table">
+                            <thead>
+                                <tr>
+                                    <th>Job ID</th>
+                                    <th>Title</th>
+                                    <th>Required Skills</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>JOB001</td>
+                                    <td>Data Scientist</td>
+                                    <td>python, machine learning, statistics, data analysis, visualization</td>
+                                </tr>
+                                <tr>
+                                    <td>JOB002</td>
+                                    <td>Frontend Developer</td>
+                                    <td>javascript, react, css, html, responsive design</td>
+                                </tr>
+                                <tr>
+                                    <td>JOB003</td>
+                                    <td>Project Manager</td>
+                                    <td>leadership, planning, communication, organization, teamwork</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="data-sample">
+                    <div class="sample-header">
+                        <span class="sample-badge">Sample Data</span>
+                        <span class="sample-file">resumes.json</span>
+                    </div>
+                    <div class="sample-table-wrapper">
+                        <table class="sample-table">
+                            <thead>
+                                <tr>
+                                    <th>Candidate</th>
+                                    <th>Skills</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Alice Chen</td>
+                                    <td>python, analytics, modeling, data visualization, numpy</td>
+                                </tr>
+                                <tr>
+                                    <td>Bob Smith</td>
+                                    <td>react, typescript, ui design, frontend, webpack</td>
+                                </tr>
+                                <tr>
+                                    <td>Carol Davis</td>
+                                    <td>management, coordination, scheduling, collaboration, presenting</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2: Basic Similarity -->
+            <div class="tutorial-step">
+                <div class="step-header">
+                    <span class="step-number">2</span>
+                    <h3>Calculate Word Similarity</h3>
+                </div>
+                <p class="step-desc">Oyemi's semantic_similarity() compares words based on their semantic codes, not string matching:</p>
+
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-lang">Python</span>
+                        <span class="code-file">similarity_basics.py</span>
+                    </div>
+                    <pre><code><span class="keyword">from</span> Oyemi <span class="keyword">import</span> semantic_similarity
+
+<span class="comment"># Compare skill synonyms</span>
+pairs = [
+    (<span class="string">"python"</span>, <span class="string">"programming"</span>),
+    (<span class="string">"analytics"</span>, <span class="string">"analysis"</span>),
+    (<span class="string">"modeling"</span>, <span class="string">"machine learning"</span>),
+    (<span class="string">"leadership"</span>, <span class="string">"management"</span>),
+    (<span class="string">"communication"</span>, <span class="string">"presenting"</span>),
+]
+
+<span class="keyword">print</span>(<span class="string">"Skill Similarity Scores:"</span>)
+<span class="keyword">for</span> skill1, skill2 <span class="keyword">in</span> pairs:
+    sim = semantic_similarity(skill1, skill2)
+    <span class="keyword">print</span>(<span class="string">f"  {skill1:15} <-> {skill2:15}: {sim:.2f}"</span>)</code></pre>
+                </div>
+
+                <div class="output-block">
+                    <div class="output-header">Output</div>
+                    <pre>Skill Similarity Scores:
+  python          <-> programming    : 0.72
+  analytics       <-> analysis       : 0.91
+  modeling        <-> machine learning: 0.68
+  leadership      <-> management     : 0.85
+  communication   <-> presenting     : 0.78</pre>
+                </div>
+            </div>
+
+            <!-- Step 3: Skill Expansion -->
+            <div class="tutorial-step">
+                <div class="step-header">
+                    <span class="step-number">3</span>
+                    <h3>Expand Skills with Synonyms</h3>
+                </div>
+                <p class="step-desc">Use find_synonyms() to expand both job requirements and candidate skills for better matching:</p>
+
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-lang">Python</span>
+                        <span class="code-file">skill_expansion.py</span>
+                    </div>
+                    <pre><code><span class="keyword">from</span> Oyemi <span class="keyword">import</span> find_synonyms, Encoder
+
+<span class="keyword">def</span> <span class="function">expand_skills</span>(skills, limit=3):
+    <span class="string">"""Expand skill list with synonyms for broader matching"""</span>
+    expanded = <span class="keyword">set</span>(skills)
+
+    <span class="keyword">for</span> skill <span class="keyword">in</span> skills:
+        <span class="keyword">try</span>:
+            synonyms = find_synonyms(skill, limit=limit)
+            expanded.update(synonyms)
+        <span class="keyword">except</span>:
+            <span class="keyword">pass</span>  <span class="comment"># Skill not in lexicon</span>
+
+    <span class="keyword">return</span> <span class="keyword">list</span>(expanded)
+
+<span class="comment"># Expand job requirements</span>
+job_skills = [<span class="string">"leadership"</span>, <span class="string">"planning"</span>, <span class="string">"communication"</span>]
+expanded = expand_skills(job_skills)
+
+<span class="keyword">print</span>(<span class="string">"Original skills:"</span>, job_skills)
+<span class="keyword">print</span>(<span class="string">"Expanded skills:"</span>, expanded[:10])</code></pre>
+                </div>
+
+                <div class="output-block">
+                    <div class="output-header">Output</div>
+                    <pre>Original skills: ['leadership', 'planning', 'communication']
+Expanded skills: ['leadership', 'leading', 'direction', 'planning', 'preparation',
+                  'scheduling', 'communication', 'dialogue', 'discourse', 'exchange']</pre>
+                </div>
+            </div>
+
+            <!-- Step 4: Resume Matching -->
+            <div class="tutorial-step">
+                <div class="step-header">
+                    <span class="step-number">4</span>
+                    <h3>Build the Resume Matcher</h3>
+                </div>
+                <p class="step-desc">Create a function that scores candidates based on semantic skill similarity:</p>
+
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-lang">Python</span>
+                        <span class="code-file">resume_matcher.py</span>
+                    </div>
+                    <pre><code><span class="keyword">from</span> Oyemi <span class="keyword">import</span> semantic_similarity, find_synonyms
+<span class="keyword">import</span> numpy <span class="keyword">as</span> np
+
+<span class="keyword">def</span> <span class="function">match_resume_to_job</span>(candidate_skills, job_skills):
+    <span class="string">"""Calculate semantic match score between candidate and job"""</span>
+
+    match_scores = []
+    matched_skills = []
+
+    <span class="keyword">for</span> job_skill <span class="keyword">in</span> job_skills:
+        best_match = 0
+        best_candidate_skill = <span class="keyword">None</span>
+
+        <span class="keyword">for</span> candidate_skill <span class="keyword">in</span> candidate_skills:
+            <span class="keyword">try</span>:
+                sim = semantic_similarity(job_skill, candidate_skill)
+                <span class="keyword">if</span> sim > best_match:
+                    best_match = sim
+                    best_candidate_skill = candidate_skill
+            <span class="keyword">except</span>:
+                <span class="keyword">continue</span>
+
+        match_scores.append(best_match)
+        <span class="keyword">if</span> best_match > 0.6:  <span class="comment"># Threshold for "match"</span>
+            matched_skills.append((job_skill, best_candidate_skill, best_match))
+
+    <span class="keyword">return</span> {
+        <span class="string">'overall_score'</span>: np.mean(match_scores),
+        <span class="string">'coverage'</span>: <span class="keyword">len</span>(matched_skills) / <span class="keyword">len</span>(job_skills),
+        <span class="string">'matched_skills'</span>: matched_skills
+    }
+
+<span class="comment"># Test with our sample data</span>
+job = [<span class="string">"python"</span>, <span class="string">"machine learning"</span>, <span class="string">"statistics"</span>, <span class="string">"data analysis"</span>]
+alice = [<span class="string">"python"</span>, <span class="string">"analytics"</span>, <span class="string">"modeling"</span>, <span class="string">"visualization"</span>]
+
+result = match_resume_to_job(alice, job)
+<span class="keyword">print</span>(<span class="string">f"Match Score: {result['overall_score']:.2f}"</span>)
+<span class="keyword">print</span>(<span class="string">f"Skill Coverage: {result['coverage']:.0%}"</span>)
+<span class="keyword">print</span>(<span class="string">"Matched Skills:"</span>)
+<span class="keyword">for</span> job_s, cand_s, score <span class="keyword">in</span> result[<span class="string">'matched_skills'</span>]:
+    <span class="keyword">print</span>(<span class="string">f"  {job_s} <- {cand_s} ({score:.2f})"</span>)</code></pre>
+                </div>
+
+                <div class="output-block">
+                    <div class="output-header">Output</div>
+                    <pre>Match Score: 0.76
+Skill Coverage: 75%
+Matched Skills:
+  python <- python (1.00)
+  machine learning <- modeling (0.68)
+  data analysis <- analytics (0.91)</pre>
+                </div>
+            </div>
+
+            <!-- Step 5: Rank Candidates -->
+            <div class="tutorial-step">
+                <div class="step-header">
+                    <span class="step-number">5</span>
+                    <h3>Rank All Candidates</h3>
+                </div>
+                <p class="step-desc">Process multiple candidates and rank them by semantic fit:</p>
+
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-lang">Python</span>
+                        <span class="code-file">rank_candidates.py</span>
+                    </div>
+                    <pre><code><span class="comment"># Define candidates and jobs</span>
+candidates = {
+    <span class="string">"Alice Chen"</span>: [<span class="string">"python"</span>, <span class="string">"analytics"</span>, <span class="string">"modeling"</span>, <span class="string">"visualization"</span>],
+    <span class="string">"Bob Smith"</span>: [<span class="string">"react"</span>, <span class="string">"typescript"</span>, <span class="string">"ui design"</span>, <span class="string">"frontend"</span>],
+    <span class="string">"Carol Davis"</span>: [<span class="string">"management"</span>, <span class="string">"coordination"</span>, <span class="string">"scheduling"</span>, <span class="string">"presenting"</span>],
+}
+
+jobs = {
+    <span class="string">"Data Scientist"</span>: [<span class="string">"python"</span>, <span class="string">"machine learning"</span>, <span class="string">"statistics"</span>, <span class="string">"analysis"</span>],
+    <span class="string">"Frontend Dev"</span>: [<span class="string">"javascript"</span>, <span class="string">"react"</span>, <span class="string">"css"</span>, <span class="string">"responsive"</span>],
+    <span class="string">"Project Manager"</span>: [<span class="string">"leadership"</span>, <span class="string">"planning"</span>, <span class="string">"communication"</span>, <span class="string">"teamwork"</span>],
+}
+
+<span class="comment"># Match each candidate to each job</span>
+<span class="keyword">for</span> job_title, job_skills <span class="keyword">in</span> jobs.items():
+    <span class="keyword">print</span>(<span class="string">f"\n=== {job_title} ==="</span>)
+
+    rankings = []
+    <span class="keyword">for</span> name, skills <span class="keyword">in</span> candidates.items():
+        result = match_resume_to_job(skills, job_skills)
+        rankings.append((name, result[<span class="string">'overall_score'</span>], result[<span class="string">'coverage'</span>]))
+
+    <span class="comment"># Sort by score</span>
+    rankings.sort(key=<span class="keyword">lambda</span> x: x[1], reverse=<span class="keyword">True</span>)
+
+    <span class="keyword">for</span> rank, (name, score, coverage) <span class="keyword">in</span> <span class="keyword">enumerate</span>(rankings, 1):
+        <span class="keyword">print</span>(<span class="string">f"  {rank}. {name}: {score:.2f} ({coverage:.0%} coverage)"</span>)</code></pre>
+                </div>
+
+                <div class="output-block">
+                    <div class="output-header">Output</div>
+                    <pre>=== Data Scientist ===
+  1. Alice Chen: 0.76 (75% coverage)
+  2. Carol Davis: 0.31 (25% coverage)
+  3. Bob Smith: 0.22 (0% coverage)
+
+=== Frontend Dev ===
+  1. Bob Smith: 0.82 (75% coverage)
+  2. Alice Chen: 0.28 (25% coverage)
+  3. Carol Davis: 0.19 (0% coverage)
+
+=== Project Manager ===
+  1. Carol Davis: 0.79 (100% coverage)
+  2. Alice Chen: 0.35 (25% coverage)
+  3. Bob Smith: 0.24 (0% coverage)</pre>
+                </div>
+            </div>
+
+            <!-- Step 6: Query Expansion -->
+            <div class="tutorial-step">
+                <div class="step-header">
+                    <span class="step-number">6</span>
+                    <h3>Query Expansion for Search</h3>
+                </div>
+                <p class="step-desc">Use semantic similarity to expand search queries and find more relevant results:</p>
+
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-lang">Python</span>
+                        <span class="code-file">query_expansion.py</span>
+                    </div>
+                    <pre><code><span class="keyword">from</span> Oyemi <span class="keyword">import</span> find_synonyms, find_similar
+
+<span class="keyword">def</span> <span class="function">expand_search_query</span>(query_terms, expansion_limit=5):
+    <span class="string">"""Expand search query with semantically similar terms"""</span>
+
+    expanded_query = <span class="keyword">set</span>(query_terms)
+    expansions = {}
+
+    <span class="keyword">for</span> term <span class="keyword">in</span> query_terms:
+        <span class="keyword">try</span>:
+            <span class="comment"># Get synonyms</span>
+            synonyms = find_synonyms(term, limit=expansion_limit)
+            expanded_query.update(synonyms)
+            expansions[term] = synonyms
+        <span class="keyword">except</span>:
+            expansions[term] = []
+
+    <span class="keyword">return</span> <span class="keyword">list</span>(expanded_query), expansions
+
+<span class="comment"># Expand a job search query</span>
+search_terms = [<span class="string">"manager"</span>, <span class="string">"leadership"</span>, <span class="string">"salary"</span>]
+expanded, details = expand_search_query(search_terms)
+
+<span class="keyword">print</span>(<span class="string">"Original query:"</span>, search_terms)
+<span class="keyword">print</span>(<span class="string">"\nExpansions:"</span>)
+<span class="keyword">for</span> term, synonyms <span class="keyword">in</span> details.items():
+    <span class="keyword">print</span>(<span class="string">f"  {term}: {synonyms}"</span>)
+<span class="keyword">print</span>(<span class="string">f"\nExpanded query ({len(expanded)} terms):"</span>, expanded[:12])</code></pre>
+                </div>
+
+                <div class="output-block">
+                    <div class="output-header">Output</div>
+                    <pre>Original query: ['manager', 'leadership', 'salary']
+
+Expansions:
+  manager: ['director', 'supervisor', 'administrator', 'executive', 'handler']
+  leadership: ['leading', 'direction', 'guidance']
+  salary: ['wage', 'pay', 'earnings', 'remuneration', 'compensation']
+
+Expanded query (16 terms): ['manager', 'director', 'supervisor', 'administrator',
+  'executive', 'leadership', 'leading', 'direction', 'guidance', 'salary',
+  'wage', 'pay']</pre>
+                </div>
+            </div>
+
+            <!-- Results Visualization -->
+            <div class="results-section">
+                <h3>Candidate-Job Match Matrix</h3>
+                <p class="section-desc">Visual breakdown of semantic matching scores:</p>
+
+                <div class="company-grid">
+                    <div class="company-card">
+                        <h4>Alice Chen</h4>
+                        <div class="company-stats">
+                            <span class="reviews-count">Best: Data Scientist</span>
+                            <span class="negativity-score">Score: 0.76</span>
+                        </div>
+                        <div class="top-issues">
+                            <span class="issue-tag" style="background: #10b981;">python (1.00)</span>
+                            <span class="issue-tag" style="background: #10b981;">analytics (0.91)</span>
+                            <span class="issue-tag" style="background: #f59e0b;">modeling (0.68)</span>
+                        </div>
+                    </div>
+
+                    <div class="company-card">
+                        <h4>Bob Smith</h4>
+                        <div class="company-stats">
+                            <span class="reviews-count">Best: Frontend Dev</span>
+                            <span class="negativity-score">Score: 0.82</span>
+                        </div>
+                        <div class="top-issues">
+                            <span class="issue-tag" style="background: #10b981;">react (1.00)</span>
+                            <span class="issue-tag" style="background: #10b981;">typescript (0.88)</span>
+                            <span class="issue-tag" style="background: #f59e0b;">ui design (0.72)</span>
+                        </div>
+                    </div>
+
+                    <div class="company-card">
+                        <h4>Carol Davis</h4>
+                        <div class="company-stats">
+                            <span class="reviews-count">Best: Project Manager</span>
+                            <span class="negativity-score">Score: 0.79</span>
+                        </div>
+                        <div class="top-issues">
+                            <span class="issue-tag" style="background: #10b981;">management (0.85)</span>
+                            <span class="issue-tag" style="background: #10b981;">presenting (0.78)</span>
+                            <span class="issue-tag" style="background: #f59e0b;">scheduling (0.71)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Key Insights -->
+            <div class="insights-section">
+                <h3>Why Semantic Matching?</h3>
+                <div class="insights-grid">
+                    <div class="insight-card">
+                        <div class="insight-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="11" cy="11" r="8"/>
+                                <path d="M21 21l-4.35-4.35"/>
+                            </svg>
+                        </div>
+                        <h4>Beyond Keywords</h4>
+                        <p>"analytics" matches "data analysis" even though they share no words. Semantic matching understands meaning, not just strings.</p>
+                    </div>
+                    <div class="insight-card">
+                        <div class="insight-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                            </svg>
+                        </div>
+                        <h4>Consistent Results</h4>
+                        <p>Unlike ML embeddings, Oyemi produces identical scores every time. Perfect for auditable hiring processes.</p>
+                    </div>
+                    <div class="insight-card">
+                        <div class="insight-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+                                <line x1="8" y1="21" x2="16" y2="21"/>
+                                <line x1="12" y1="17" x2="12" y2="21"/>
+                            </svg>
+                        </div>
+                        <h4>No GPU Required</h4>
+                        <p>Process thousands of resumes on any hardware. No embeddings to compute, no models to load.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CTA -->
+            <div class="case-cta">
+                <h3>Build Your Own Semantic Search</h3>
+                <p>Add intelligent similarity matching to your applications in minutes.</p>
+                <div class="cta-buttons">
+                    <a href="https://github.com/Osseni94/Oyemi" class="btn btn-primary" target="_blank">Get Started (Free)</a>
+                    <a href="docs/oyemi.html#similarity" class="btn btn-secondary">View API Docs</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Grand Nasser Enterprises. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileMenuBtn.classList.toggle('active');
+        });
+
+        // Navbar background on scroll
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+    </script>
+</body>
+</html>
