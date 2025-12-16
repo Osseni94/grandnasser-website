@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oyemi Documentation | Grand Nasser Enterprises</title>
+    <meta name="description" content="Oyemi - Deterministic Semantic Word Encoding for NLP without Machine Learning">
+    <meta name="robots" content="index, follow">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Oyemi Documentation">
+    <meta property="og:description" content="Convert words to structured semantic codes with valence detection, similarity search, and topic clustering - no ML required.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="docs.css">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>G</text></svg>">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="../index.html" class="logo">
+                <img src="../logo.png" alt="Grand Nasser Enterprises" class="logo-img">
+            </a>
+            <ul class="nav-links">
+                <li><a href="../index.html#products">Products</a></li>
+                <li><a href="keyneg.html" class="active">Docs</a></li>
+                <li><a href="../use-cases.html">Use Cases</a></li>
+                <li><a href="../index.html#contact">Contact</a></li>
+            </ul>
+            <button class="mobile-menu-btn" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Documentation Content -->
+    <main class="docs-main">
+        <div class="container">
+            <div class="docs-layout">
+                <!-- Sidebar -->
+                <aside class="docs-sidebar">
+                    <button class="docs-toc-toggle" aria-expanded="false">
+                        <span>Table of Contents</span>
+                        <svg class="toc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </button>
+                    <nav class="docs-nav">
+                        <h4>Getting Started</h4>
+                        <ul>
+                            <li><a href="#installation">Installation</a></li>
+                            <li><a href="#quick-start">Quick Start</a></li>
+                            <li><a href="#code-format">Code Format</a></li>
+                        </ul>
+                        <h4>Core Features</h4>
+                        <ul>
+                            <li><a href="#encoding">Word Encoding</a></li>
+                            <li><a href="#parsed-codes">Parsed Codes</a></li>
+                            <li><a href="#valence">Valence Detection</a></li>
+                        </ul>
+                        <h4>Semantic Analysis</h4>
+                        <ul>
+                            <li><a href="#synonyms">Synonym Discovery</a></li>
+                            <li><a href="#antonyms">Antonym Detection</a></li>
+                            <li><a href="#similarity">Semantic Similarity</a></li>
+                            <li><a href="#clustering">Topic Clustering</a></li>
+                        </ul>
+                        <h4>Advanced</h4>
+                        <ul>
+                            <li><a href="#distance">Distance Functions</a></li>
+                            <li><a href="#storage">Lexicon Storage</a></li>
+                            <li><a href="#exceptions">Error Handling</a></li>
+                        </ul>
+                        <h4>Reference</h4>
+                        <ul>
+                            <li><a href="#api-reference">API Reference</a></li>
+                            <li><a href="#superclasses">Superclass Categories</a></li>
+                        </ul>
+                        <h4>More Docs</h4>
+                        <ul>
+                            <li><a href="keyneg.html">KeyNeg</a></li>
+                            <li><a href="keyneg-enterprise.html">KeyNeg Enterprise</a></li>
+                        </ul>
+                    </nav>
+                </aside>
+
+                <!-- Main Content -->
+                <article class="docs-content">
+                    <!-- Doc Version Switcher -->
+                    <div class="docs-version-nav">
+                        <a href="keyneg.html" class="docs-version-link">
+                            <span class="version-badge opensource">Open Source</span>
+                            KeyNeg
+                        </a>
+                        <a href="oyemi.html" class="docs-version-link active">
+                            <span class="version-badge opensource">Open Source</span>
+                            Oyemi
+                        </a>
+                    </div>
+
+                    <header class="docs-header">
+                        <div class="docs-badge badge-opensource">Open Source</div>
+                        <h1>Oyemi</h1>
+                        <p class="docs-subtitle">Deterministic Semantic Word Encoding for NLP - No Machine Learning Required</p>
+                        <div class="docs-links">
+                            <a href="https://github.com/Osseni94/Oyemi" class="btn btn-outline" target="_blank">
+                                <svg class="icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                                GitHub
+                            </a>
+                            <a href="https://pypi.org/project/oyemi/" class="btn btn-outline" target="_blank">
+                                <svg class="icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0L1.5 6v12L12 24l10.5-6V6L12 0zm0 2.25l7.5 4.5v9l-7.5 4.5-7.5-4.5v-9l7.5-4.5z"/></svg>
+                                PyPI
+                            </a>
+                        </div>
+                    </header>
+
+                    <section id="installation">
+                        <h2>Installation</h2>
+                        <p>Install Oyemi from PyPI using pip. The package includes a pre-built lexicon with 145K+ words - no additional downloads required:</p>
+                        <div class="code-block">
+                            <pre><code><span class="comment"># Install from PyPI</span>
+pip install oyemi
+
+<span class="comment"># Verify installation</span>
+python -c "from Oyemi import Encoder; print(Encoder().word_count)"
+<span class="comment"># 145014</span></code></pre>
+                        </div>
+                        <p><strong>Key Features:</strong></p>
+                        <ul>
+                            <li>Zero runtime dependencies - just pure Python + SQLite</li>
+                            <li>100% deterministic - same input always gives same output</li>
+                            <li>No internet required - fully offline operation</li>
+                            <li>Works on Python 3.8+</li>
+                        </ul>
+                    </section>
+
+                    <section id="quick-start">
+                        <h2>Quick Start</h2>
+                        <p>Get started with Oyemi in just a few lines:</p>
+                        <div class="code-block">
+                            <pre><code><span class="keyword">from</span> Oyemi <span class="keyword">import</span> Encoder, encode, semantic_similarity
+
+<span class="comment"># Simple encoding</span>
+codes = encode(<span class="string">"happy"</span>)
+<span class="keyword">print</span>(codes)
+<span class="comment"># ['3010-00001-3-1-1', '3999-05469-3-1-1', '3999-05731-3-1-1']</span>
+
+<span class="comment"># Using encoder instance</span>
+enc = Encoder()
+parsed = enc.encode_parsed(<span class="string">"fear"</span>)
+<span class="keyword">print</span>(parsed[0].valence_name)
+<span class="comment"># 'negative'</span>
+
+<span class="comment"># Semantic similarity</span>
+sim = semantic_similarity(<span class="string">"happy"</span>, <span class="string">"joyful"</span>)
+<span class="keyword">print</span>(sim)
+<span class="comment"># 0.85</span></code></pre>
+                        </div>
+                    </section>
+
+                    <section id="code-format">
+                        <h2>Code Format</h2>
+                        <p>Oyemi codes follow the format <code>HHHH-LLLLL-P-A-V</code>:</p>
+                        <div class="params-table">
+                            <table>
+                                <tr><td><code>HHHH</code></td><td><strong>Superclass</strong> - Semantic category (e.g., 0121 = emotion.fear)</td></tr>
+                                <tr><td><code>LLLLL</code></td><td><strong>Local ID</strong> - Specific synset within the superclass</td></tr>
+                                <tr><td><code>P</code></td><td><strong>Part of Speech</strong> - 1=noun, 2=verb, 3=adjective, 4=adverb</td></tr>
+                                <tr><td><code>A</code></td><td><strong>Abstractness</strong> - 0=concrete, 1=mixed, 2=abstract</td></tr>
+                                <tr><td><code>V</code></td><td><strong>Valence</strong> - 0=neutral, 1=positive, 2=negative</td></tr>
+                            </table>
+                        </div>
+                        <p>Example: <code>0121-00003-1-2-2</code> for "fear" means:</p>
+                        <ul>
+                            <li>Superclass 0121 (emotion category)</li>
+                            <li>Local synset ID 00003</li>
+                            <li>Part of speech: noun (1)</li>
+                            <li>Abstractness: abstract (2)</li>
+                            <li>Valence: negative (2)</li>
+                        </ul>
+                    </section>
+
+                    <section id="encoding">
+                        <h2>Word Encoding</h2>
+                        <p>Encode words to get their semantic codes:</p>
+                        <div class="code-block">
+                            <pre><code><span class="keyword">from</span> Oyemi <span class="keyword">import</span> Encoder
+
+enc = Encoder()
+
+<span class="comment"># Simple encoding returns list of code strings</span>
+codes = enc.encode(<span class="string">"bank"</span>)
+<span class="keyword">print</span>(codes)
+<span class="comment"># ['0174-00012-1-0-0', '0045-00089-1-0-0', '2030-00156-2-1-0']</span>
+<span class="comment"># Multiple codes = polysemous word (multiple meanings)</span>
+
+<span class="comment"># Check if word exists</span>
+<span class="keyword">print</span>(enc.has_word(<span class="string">"serendipity"</span>))  <span class="comment"># True</span>
+<span class="keyword">print</span>(enc.has_word(<span class="string">"asdfgh"</span>))       <span class="comment"># False</span>
+
+<span class="comment"># Get lexicon stats</span>
+<span class="keyword">print</span>(<span class="string">f"Lexicon size: {enc.word_count:,} words"</span>)
+<span class="comment"># Lexicon size: 145,014 words</span></code></pre>
+                        </div>
+                    </section>
+
+                    <section id="parsed-codes">
+                        <h2>Parsed Codes</h2>
+                        <p>Use <code>encode_parsed()</code> to get structured SemanticCode objects:</p>
+                        <div class="code-block">
+                            <pre><code>parsed = enc.encode_parsed(<span class="string">"fear"</span>)
+code = parsed[0]
+
+<span class="comment"># Access components directly</span>
+<span class="keyword">print</span>(code.raw)              <span class="comment"># '0121-00003-1-2-2'</span>
+<span class="keyword">print</span>(code.superclass)       <span class="comment"># '0121'</span>
+<span class="keyword">print</span>(code.local_id)         <span class="comment"># '00003'</span>
+<span class="keyword">print</span>(code.pos)              <span class="comment"># 1</span>
+<span class="keyword">print</span>(code.pos_name)         <span class="comment"># 'noun'</span>
+<span class="keyword">print</span>(code.abstractness)     <span class="comment"># 2</span>
+<span class="keyword">print</span>(code.abstractness_name)<span class="comment"># 'abstract'</span>
+<span class="keyword">print</span>(code.valence)          <span class="comment"># 2</span>
+<span class="keyword">print</span>(code.valence_name)     <span class="comment"># 'negative'</span>
+
+<span class="comment"># Get full synset ID</span>
+<span class="keyword">print</span>(code.synset_id)        <span class="comment"># '0121-00003'</span></code></pre>
+                        </div>
+                        <div class="params-table">
+                            <h4>SemanticCode Properties</h4>
+                            <table>
+                                <tr><td><code>raw</code></td><td>Full code string</td></tr>
+                                <tr><td><code>superclass</code></td><td>4-digit category code</td></tr>
+                                <tr><td><code>local_id</code></td><td>5-digit synset ID within category</td></tr>
+                                <tr><td><code>synset_id</code></td><td>Combined superclass + local_id</td></tr>
+                                <tr><td><code>pos / pos_name</code></td><td>Part of speech (int / string)</td></tr>
+                                <tr><td><code>abstractness / abstractness_name</code></td><td>Concreteness level</td></tr>
+                                <tr><td><code>valence / valence_name</code></td><td>Sentiment polarity</td></tr>
+                            </table>
+                        </div>
+                    </section>
+
+                    <section id="valence">
+                        <h2>Valence Detection</h2>
+                        <p>Oyemi provides built-in sentiment detection with 95%+ accuracy:</p>
+                        <div class="code-block">
+                            <pre><code><span class="comment"># Check valence of individual words</span>
+<span class="keyword">for</span> word <span class="keyword">in</span> [<span class="string">"happy"</span>, <span class="string">"angry"</span>, <span class="string">"table"</span>, <span class="string">"fired"</span>]:
+    parsed = enc.encode_parsed(word)
+    <span class="keyword">if</span> parsed:
+        <span class="keyword">print</span>(<span class="string">f"{word}: {parsed[0].valence_name}"</span>)
+
+<span class="comment"># Output:</span>
+<span class="comment"># happy: positive</span>
+<span class="comment"># angry: negative</span>
+<span class="comment"># table: neutral</span>
+<span class="comment"># fired: negative</span>
+
+<span class="comment"># Analyze sentence sentiment</span>
+sentence = <span class="string">"The manager was incompetent and the layoffs were devastating"</span>
+words = sentence.lower().split()
+valence_counts = {<span class="string">'positive'</span>: 0, <span class="string">'negative'</span>: 0, <span class="string">'neutral'</span>: 0}
+
+<span class="keyword">for</span> word <span class="keyword">in</span> words:
+    parsed = enc.encode_parsed(word, raise_on_unknown=<span class="keyword">False</span>)
+    <span class="keyword">if</span> parsed:
+        valence_counts[parsed[0].valence_name] += 1
+
+<span class="keyword">print</span>(valence_counts)
+<span class="comment"># {'positive': 0, 'negative': 3, 'neutral': 5}</span></code></pre>
+                        </div>
+                    </section>
+
+                    <section id="synonyms">
+                        <h2>Synonym Discovery</h2>
+                        <p>Find true synonyms using WordNet synset matching:</p>
+                        <div class="code-block">
+                            <pre><code><span class="keyword">from</span> Oyemi <span class="keyword">import</span> find_synonyms
+
+<span class="comment"># Basic synonym search</span>
+syns = find_synonyms(<span class="string">"happy"</span>, limit=5)
+<span class="keyword">print</span>(syns)
+<span class="comment"># ['felicitous', 'glad', 'well-chosen']</span>
+
+<span class="comment"># Weighted synonyms (higher = closer match)</span>
+weighted = find_synonyms(<span class="string">"fear"</span>, return_weighted=<span class="keyword">True</span>, limit=5)
+<span class="keyword">for</span> syn, weight <span class="keyword">in</span> weighted:
+    <span class="keyword">print</span>(<span class="string">f"  {syn}: {weight:.2f}"</span>)
+<span class="comment"># dread: 1.00</span>
+<span class="comment"># fearfulness: 1.00</span>
+<span class="comment"># fright: 0.85</span>
+
+<span class="comment"># With constraints</span>
+syns = find_synonyms(
+    <span class="string">"run"</span>,
+    limit=10,
+    pos_lock=<span class="keyword">True</span>,           <span class="comment"># Same part of speech only</span>
+    abstractness_lock=<span class="keyword">True</span>   <span class="comment"># Don't mix abstract/concrete</span>
+)</code></pre>
+                        </div>
+                        <div class="params-table">
+                            <h4>Parameters</h4>
+                            <table>
+                                <tr><td><code>word</code></td><td>Word to find synonyms for</td></tr>
+                                <tr><td><code>limit</code></td><td>Maximum synonyms to return (default: 20)</td></tr>
+                                <tr><td><code>pos_lock</code></td><td>Only return same part of speech (default: True)</td></tr>
+                                <tr><td><code>abstractness_lock</code></td><td>Don't mix abstract/concrete (default: True)</td></tr>
+                                <tr><td><code>return_weighted</code></td><td>Return (word, weight) tuples (default: False)</td></tr>
+                            </table>
+                        </div>
+                    </section>
+
+                    <section id="antonyms">
+                        <h2>Antonym Detection</h2>
+                        <p>Check and retrieve antonyms for words:</p>
+                        <div class="code-block">
+                            <pre><code><span class="keyword">from</span> Oyemi <span class="keyword">import</span> are_antonyms, get_antonyms
+
+<span class="comment"># Check if two words are antonyms</span>
+<span class="keyword">print</span>(are_antonyms(<span class="string">"happy"</span>, <span class="string">"sad"</span>))     <span class="comment"># True</span>
+<span class="keyword">print</span>(are_antonyms(<span class="string">"good"</span>, <span class="string">"bad"</span>))     <span class="comment"># True</span>
+<span class="keyword">print</span>(are_antonyms(<span class="string">"happy"</span>, <span class="string">"table"</span>))  <span class="comment"># False</span>
+
+<span class="comment"># Get all antonyms for a word</span>
+antonyms = get_antonyms(<span class="string">"happy"</span>)
+<span class="keyword">print</span>(antonyms)
+<span class="comment"># ['sad', 'unhappy', 'sorrowful', ...]</span></code></pre>
+                        </div>
+                    </section>
+
+                    <section id="similarity">
+                        <h2>Semantic Similarity</h2>
+                        <p>Calculate similarity between words based on their semantic codes:</p>
+                        <div class="code-block">
+                            <pre><code><span class="keyword">from</span> Oyemi <span class="keyword">import</span> semantic_similarity, find_similar
+
+<span class="comment"># Compare two words</span>
+sim = semantic_similarity(<span class="string">"happy"</span>, <span class="string">"joyful"</span>)
+<span class="keyword">print</span>(<span class="string">f"happy <-> joyful: {sim:.2f}"</span>)  <span class="comment"># 0.85</span>
+
+<span class="comment"># Compare multiple pairs</span>
+pairs = [
+    (<span class="string">"dog"</span>, <span class="string">"cat"</span>),          <span class="comment"># Same category</span>
+    (<span class="string">"dog"</span>, <span class="string">"computer"</span>),     <span class="comment"># Different categories</span>
+    (<span class="string">"layoff"</span>, <span class="string">"fired"</span>),     <span class="comment"># Related terms</span>
+]
+<span class="keyword">for</span> w1, w2 <span class="keyword">in</span> pairs:
+    <span class="keyword">print</span>(<span class="string">f"{w1} <-> {w2}: {semantic_similarity(w1, w2):.2f}"</span>)
+
+<span class="comment"># Find similar words</span>
+similar = find_similar(<span class="string">"happy"</span>, top_n=5)
+<span class="keyword">print</span>(similar)
+<span class="comment"># [('joyful', 0.85), ('glad', 0.82), ('cheerful', 0.78), ...]</span></code></pre>
+                        </div>
+                    </section>
+
+                    <section id="clustering">
+                        <h2>Topic Clustering</h2>
+                        <p>Group words by their semantic category (superclass):</p>
+                        <div class="code-block">
+                            <pre><code><span class="keyword">from</span> Oyemi <span class="keyword">import</span> cluster_by_superclass
+
+<span class="comment"># Words from employee feedback</span>
+words = [
+    <span class="string">"manager"</span>, <span class="string">"boss"</span>, <span class="string">"supervisor"</span>,
+    <span class="string">"salary"</span>, <span class="string">"bonus"</span>, <span class="string">"compensation"</span>,
+    <span class="string">"layoff"</span>, <span class="string">"fired"</span>, <span class="string">"terminated"</span>,
+    <span class="string">"stress"</span>, <span class="string">"anxiety"</span>, <span class="string">"fear"</span>,
+]
+
+<span class="comment"># Cluster by semantic category</span>
+clusters = cluster_by_superclass(words)
+
+<span class="keyword">for</span> superclass, cluster_words <span class="keyword">in</span> clusters.items():
+    <span class="keyword">print</span>(<span class="string">f"\n[{superclass}]"</span>)
+    <span class="keyword">for</span> w <span class="keyword">in</span> cluster_words:
+        <span class="keyword">print</span>(<span class="string">f"  - {w}"</span>)
+
+<span class="comment"># Output:</span>
+<span class="comment"># [0214] Leadership</span>
+<span class="comment">#   - manager</span>
+<span class="comment">#   - boss</span>
+<span class="comment">#   - supervisor</span>
+<span class="comment"># [0220] Compensation</span>
+<span class="comment">#   - salary</span>
+<span class="comment">#   - bonus</span>
+<span class="comment"># ...</span></code></pre>
+                        </div>
+                    </section>
+
+                    <section id="distance">
+                        <h2>Distance Functions</h2>
+                        <p>Calculate semantic distance between words or codes:</p>
+                        <div class="code-block">
+                            <pre><code><span class="keyword">from</span> Oyemi <span class="keyword">import</span> code_distance, word_distance, DistanceResult
+
+<span class="comment"># Distance between codes directly</span>
+dist = code_distance(<span class="string">"0121-00003-1-2-2"</span>, <span class="string">"0121-00005-1-2-2"</span>)
+<span class="keyword">print</span>(<span class="string">f"Distance: {dist}"</span>)
+
+<span class="comment"># Distance between words (returns DistanceResult)</span>
+result = word_distance(<span class="string">"happy"</span>, <span class="string">"sad"</span>)
+<span class="keyword">print</span>(<span class="string">f"Distance: {result.distance}"</span>)
+<span class="keyword">print</span>(<span class="string">f"Same superclass: {result.same_superclass}"</span>)
+<span class="keyword">print</span>(<span class="string">f"Same POS: {result.same_pos}"</span>)</code></pre>
+                        </div>
+                    </section>
+
+                    <section id="storage">
+                        <h2>Lexicon Storage</h2>
+                        <p>Access the underlying SQLite lexicon directly:</p>
+                        <div class="code-block">
+                            <pre><code><span class="keyword">from</span> Oyemi <span class="keyword">import</span> get_storage, LexiconStorage
+
+<span class="comment"># Get storage instance</span>
+storage = get_storage()
+
+<span class="comment"># Query the lexicon directly</span>
+<span class="keyword">print</span>(<span class="string">f"Total words: {storage.word_count}"</span>)
+<span class="keyword">print</span>(<span class="string">f"Total synsets: {storage.synset_count}"</span>)
+
+<span class="comment"># Low-level lookup</span>
+codes = storage.lookup(<span class="string">"happy"</span>)
+<span class="keyword">print</span>(codes)</code></pre>
+                        </div>
+                    </section>
+
+                    <section id="exceptions">
+                        <h2>Error Handling</h2>
+                        <p>Oyemi provides specific exceptions for different error cases:</p>
+                        <div class="code-block">
+                            <pre><code><span class="keyword">from</span> Oyemi <span class="keyword">import</span> (
+    OyemiError,           <span class="comment"># Base exception</span>
+    UnknownWordError,     <span class="comment"># Word not in lexicon</span>
+    LexiconNotFoundError, <span class="comment"># Database file missing</span>
+    InvalidCodeError,     <span class="comment"># Malformed code string</span>
+)
+
+<span class="keyword">try</span>:
+    codes = enc.encode(<span class="string">"asdfghjkl"</span>)
+<span class="keyword">except</span> UnknownWordError <span class="keyword">as</span> e:
+    <span class="keyword">print</span>(<span class="string">f"Word not found: {e.word}"</span>)
+
+<span class="comment"># Or use raise_on_unknown=False</span>
+codes = enc.encode(<span class="string">"asdfghjkl"</span>, raise_on_unknown=<span class="keyword">False</span>)
+<span class="keyword">print</span>(codes)  <span class="comment"># []</span></code></pre>
+                        </div>
+                    </section>
+
+                    <section id="api-reference">
+                        <h2>API Reference</h2>
+                        <div class="taxonomy-grid">
+                            <div class="taxonomy-item">
+                                <h4>Encoder Class</h4>
+                                <p><code>encode()</code>, <code>encode_parsed()</code>, <code>has_word()</code>, <code>find_synonyms()</code>, <code>are_antonyms()</code>, <code>get_antonyms()</code></p>
+                            </div>
+                            <div class="taxonomy-item">
+                                <h4>Distance Functions</h4>
+                                <p><code>code_distance()</code>, <code>word_distance()</code>, <code>semantic_similarity()</code>, <code>find_similar()</code></p>
+                            </div>
+                            <div class="taxonomy-item">
+                                <h4>Clustering</h4>
+                                <p><code>cluster_by_superclass()</code></p>
+                            </div>
+                            <div class="taxonomy-item">
+                                <h4>Storage</h4>
+                                <p><code>get_storage()</code>, <code>LexiconStorage</code></p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section id="superclasses">
+                        <h2>Superclass Categories</h2>
+                        <p>Oyemi uses hierarchical semantic categories based on WordNet hypernyms:</p>
+                        <div class="taxonomy-grid">
+                            <div class="taxonomy-item">
+                                <h4>0100-0199: Psychological</h4>
+                                <p>Emotions, mental states, cognition, feelings</p>
+                            </div>
+                            <div class="taxonomy-item">
+                                <h4>0200-0299: Social</h4>
+                                <p>People, organizations, roles, relationships</p>
+                            </div>
+                            <div class="taxonomy-item">
+                                <h4>0300-0399: Physical</h4>
+                                <p>Objects, materials, substances, artifacts</p>
+                            </div>
+                            <div class="taxonomy-item">
+                                <h4>0400-0499: Actions</h4>
+                                <p>Verbs, activities, processes, events</p>
+                            </div>
+                            <div class="taxonomy-item">
+                                <h4>1000-1999: Nature</h4>
+                                <p>Animals, plants, natural phenomena</p>
+                            </div>
+                            <div class="taxonomy-item">
+                                <h4>2000-2999: Activities</h4>
+                                <p>Work, sports, communication, motion</p>
+                            </div>
+                            <div class="taxonomy-item">
+                                <h4>3000-3999: Attributes</h4>
+                                <p>Qualities, properties, states, conditions</p>
+                            </div>
+                            <div class="taxonomy-item">
+                                <h4>4000-4999: Relations</h4>
+                                <p>Spatial, temporal, logical relations</p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section id="use-cases">
+                        <h2>Use Cases</h2>
+                        <ul class="use-cases-list">
+                            <li><strong>Sentiment Analysis</strong> - Deterministic valence detection without ML models</li>
+                            <li><strong>Search Enhancement</strong> - Query expansion using synonyms and similar words</li>
+                            <li><strong>Topic Modeling</strong> - Group documents by semantic category</li>
+                            <li><strong>Text Classification</strong> - Use codes as features for classifiers</li>
+                            <li><strong>Lexical Databases</strong> - Build domain-specific semantic indexes</li>
+                            <li><strong>Educational Tools</strong> - Vocabulary analysis and language learning</li>
+                        </ul>
+                    </section>
+
+                    <section class="docs-cta">
+                        <h2>See Oyemi in Action</h2>
+                        <p>Check out the interactive tutorials with real code examples.</p>
+                        <a href="../use-cases-oyemi.html" class="btn btn-primary">View Use Cases</a>
+                    </section>
+                </article>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Grand Nasser Enterprises. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileMenuBtn.classList.toggle('active');
+        });
+
+        // TOC toggle for mobile
+        const tocToggle = document.querySelector('.docs-toc-toggle');
+        const docsNav = document.querySelector('.docs-nav');
+
+        if (tocToggle) {
+            tocToggle.addEventListener('click', () => {
+                const isExpanded = tocToggle.getAttribute('aria-expanded') === 'true';
+                tocToggle.setAttribute('aria-expanded', !isExpanded);
+                docsNav.classList.toggle('expanded');
+            });
+        }
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    navLinks.classList.remove('active');
+                    mobileMenuBtn.classList.remove('active');
+                    // Collapse TOC on mobile after clicking a link
+                    if (window.innerWidth <= 968) {
+                        tocToggle.setAttribute('aria-expanded', 'false');
+                        docsNav.classList.remove('expanded');
+                    }
+                }
+            });
+        });
+
+        // Navbar background on scroll
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Highlight active sidebar link on scroll
+        const sections = document.querySelectorAll('section[id]');
+        const sidebarLinks = document.querySelectorAll('.docs-nav a');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (scrollY >= sectionTop - 100) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            sidebarLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
