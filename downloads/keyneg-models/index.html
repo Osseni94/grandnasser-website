@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KeyNeg Models Download | Grand Nasser Enterprises</title>
+    <meta name="description" content="Download pre-exported ONNX models for KeyNeg Enterprise and KeyNeg-RS sentiment analysis">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../style.css">
+    <style>
+        .downloads-hero {
+            padding: 120px 0 60px;
+            background: linear-gradient(180deg, var(--color-background-alt) 0%, var(--color-background) 100%);
+        }
+        .downloads-hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 16px;
+        }
+        .downloads-hero p {
+            color: var(--color-text-light);
+            font-size: 1.125rem;
+            max-width: 600px;
+        }
+        .downloads-section {
+            padding: 60px 0;
+        }
+        .model-card {
+            background: var(--color-background);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            padding: 32px;
+            margin-bottom: 24px;
+        }
+        .model-card h2 {
+            font-size: 1.5rem;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .model-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            border-radius: 100px;
+            background-color: rgba(37, 99, 235, 0.1);
+            color: var(--color-primary);
+        }
+        .model-badge.hf {
+            background-color: rgba(255, 213, 0, 0.15);
+            color: #b8860b;
+        }
+        .model-description {
+            color: var(--color-text-light);
+            margin-bottom: 24px;
+        }
+        .model-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+            padding: 20px;
+            background: var(--color-background-alt);
+            border-radius: var(--radius);
+        }
+        .detail-item {
+            display: flex;
+            flex-direction: column;
+        }
+        .detail-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            color: var(--color-text-light);
+            margin-bottom: 4px;
+        }
+        .detail-value {
+            font-weight: 600;
+            color: var(--color-text);
+        }
+        .hf-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 24px;
+            background: linear-gradient(135deg, #ff9d00 0%, #ffcd00 100%);
+            color: #1a1a1a;
+            text-decoration: none;
+            border-radius: var(--radius);
+            font-weight: 600;
+            transition: var(--transition);
+        }
+        .hf-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 157, 0, 0.3);
+        }
+        .hf-btn svg {
+            width: 24px;
+            height: 24px;
+        }
+        .instructions {
+            background: var(--color-background-alt);
+            border-radius: var(--radius-lg);
+            padding: 32px;
+            margin-top: 40px;
+        }
+        .instructions h3 {
+            margin-bottom: 16px;
+        }
+        .instructions ol {
+            margin-left: 20px;
+            color: var(--color-text-light);
+        }
+        .instructions li {
+            margin-bottom: 12px;
+        }
+        .instructions code {
+            background: var(--color-background);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-family: 'SF Mono', Monaco, Consolas, monospace;
+            font-size: 0.875rem;
+        }
+        .code-block {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 16px 20px;
+            border-radius: var(--radius);
+            margin: 16px 0;
+            overflow-x: auto;
+            font-family: 'SF Mono', Monaco, Consolas, monospace;
+            font-size: 0.875rem;
+        }
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--color-text-light);
+            text-decoration: none;
+            margin-bottom: 24px;
+            font-size: 0.9375rem;
+        }
+        .back-link:hover {
+            color: var(--color-primary);
+        }
+        .back-link svg {
+            width: 16px;
+            height: 16px;
+        }
+        .note-box {
+            background: rgba(245, 158, 11, 0.1);
+            border-left: 4px solid #f59e0b;
+            padding: 16px 20px;
+            border-radius: 0 var(--radius) var(--radius) 0;
+            margin: 24px 0;
+        }
+        .note-box strong {
+            color: #d97706;
+        }
+        .info-box {
+            background: rgba(37, 99, 235, 0.1);
+            border-left: 4px solid var(--color-primary);
+            padding: 16px 20px;
+            border-radius: 0 var(--radius) var(--radius) 0;
+            margin: 24px 0;
+        }
+        .info-box strong {
+            color: var(--color-primary);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="../../index.html" class="logo">
+                <img src="../../logo.png" alt="Grand Nasser Enterprises" class="logo-img">
+            </a>
+            <ul class="nav-links">
+                <li><a href="../../index.html#products">Products</a></li>
+                <li><a href="../../docs/keyneg.html">Docs</a></li>
+                <li><a href="../../use-cases.html">Use Cases</a></li>
+                <li><a href="../../index.html#about">About</a></li>
+                <li><a href="../../index.html#contact">Contact</a></li>
+            </ul>
+            <button class="mobile-menu-btn" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <header class="downloads-hero">
+        <div class="container">
+            <a href="../../docs/keyneg-rs.html" class="back-link">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M19 12H5M12 19l-7-7 7-7"/>
+                </svg>
+                Back to KeyNeg-RS Documentation
+            </a>
+            <h1>KeyNeg Models</h1>
+            <p>Sentence embedding models for KeyNeg Enterprise and KeyNeg-RS. Download from HuggingFace and export to ONNX for offline use.</p>
+        </div>
+    </header>
+
+    <!-- Downloads Section -->
+    <section class="downloads-section">
+        <div class="container">
+
+            <div class="info-box">
+                <strong>HuggingFace Hosted:</strong> Models are hosted on HuggingFace for reliable, fast downloads.
+                After downloading, use the export script to convert to ONNX format for use with KeyNeg-RS.
+            </div>
+
+            <!-- MPNet Model -->
+            <div class="model-card">
+                <h2>
+                    all-mpnet-base-v2
+                    <span class="model-badge">Recommended</span>
+                </h2>
+                <p class="model-description">
+                    High-quality sentence embeddings model from Sentence Transformers. Provides excellent semantic understanding
+                    for sentiment analysis and keyword extraction tasks.
+                </p>
+
+                <div class="model-details">
+                    <div class="detail-item">
+                        <span class="detail-label">Embedding Dimension</span>
+                        <span class="detail-value">768</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Max Sequence Length</span>
+                        <span class="detail-value">384 tokens</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">ONNX Model Size</span>
+                        <span class="detail-value">~420 MB</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Quality</span>
+                        <span class="detail-value">Best</span>
+                    </div>
+                </div>
+
+                <a href="https://huggingface.co/sentence-transformers/all-mpnet-base-v2" target="_blank" class="hf-btn">
+                    <svg viewBox="0 0 95 88" fill="currentColor">
+                        <path d="M47.5 0C21.3 0 0 19.6 0 43.8c0 19.4 12.9 35.8 30.6 41.5 2.2.4 3-1 3-2.1v-7.5c-12.4 2.7-15-5.3-15-5.3-2-5.1-5-6.5-5-6.5-4-2.8.3-2.7.3-2.7 4.5.3 6.8 4.6 6.8 4.6 4 6.8 10.4 4.8 13 3.7.4-2.9 1.6-4.8 2.8-5.9-9.9-1.1-20.4-5-20.4-22.1 0-4.9 1.8-8.9 4.6-12-.5-1.1-2-5.7.4-11.8 0 0 3.8-1.2 12.4 4.6 3.6-1 7.5-1.5 11.3-1.5 3.8 0 7.7.5 11.3 1.5 8.6-5.8 12.4-4.6 12.4-4.6 2.4 6.1.9 10.7.4 11.8 2.9 3.1 4.6 7.1 4.6 12 0 17.2-10.5 21-20.5 22.1 1.6 1.4 3 4.1 3 8.3v12.3c0 1.2.8 2.6 3.1 2.1C82.1 79.6 95 63.2 95 43.8 95 19.6 73.7 0 47.5 0z"/>
+                    </svg>
+                    View on HuggingFace
+                </a>
+            </div>
+
+            <!-- MiniLM Model -->
+            <div class="model-card">
+                <h2>
+                    all-MiniLM-L6-v2
+                    <span class="model-badge">Lightweight</span>
+                </h2>
+                <p class="model-description">
+                    Smaller, faster model with good quality embeddings. Ideal for resource-constrained environments
+                    or when speed is prioritized over accuracy.
+                </p>
+
+                <div class="model-details">
+                    <div class="detail-item">
+                        <span class="detail-label">Embedding Dimension</span>
+                        <span class="detail-value">384</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Max Sequence Length</span>
+                        <span class="detail-value">256 tokens</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">ONNX Model Size</span>
+                        <span class="detail-value">~90 MB</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Quality</span>
+                        <span class="detail-value">Good</span>
+                    </div>
+                </div>
+
+                <a href="https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2" target="_blank" class="hf-btn">
+                    <svg viewBox="0 0 95 88" fill="currentColor">
+                        <path d="M47.5 0C21.3 0 0 19.6 0 43.8c0 19.4 12.9 35.8 30.6 41.5 2.2.4 3-1 3-2.1v-7.5c-12.4 2.7-15-5.3-15-5.3-2-5.1-5-6.5-5-6.5-4-2.8.3-2.7.3-2.7 4.5.3 6.8 4.6 6.8 4.6 4 6.8 10.4 4.8 13 3.7.4-2.9 1.6-4.8 2.8-5.9-9.9-1.1-20.4-5-20.4-22.1 0-4.9 1.8-8.9 4.6-12-.5-1.1-2-5.7.4-11.8 0 0 3.8-1.2 12.4 4.6 3.6-1 7.5-1.5 11.3-1.5 3.8 0 7.7.5 11.3 1.5 8.6-5.8 12.4-4.6 12.4-4.6 2.4 6.1.9 10.7.4 11.8 2.9 3.1 4.6 7.1 4.6 12 0 17.2-10.5 21-20.5 22.1 1.6 1.4 3 4.1 3 8.3v12.3c0 1.2.8 2.6 3.1 2.1C82.1 79.6 95 63.2 95 43.8 95 19.6 73.7 0 47.5 0z"/>
+                    </svg>
+                    View on HuggingFace
+                </a>
+            </div>
+
+            <!-- Export Instructions -->
+            <div class="instructions">
+                <h3>Export to ONNX Format</h3>
+                <p style="color: var(--color-text-light); margin-bottom: 16px;">
+                    KeyNeg-RS requires models in ONNX format. Use the built-in export tool to convert HuggingFace models:
+                </p>
+
+                <div class="code-block">
+# Install KeyNeg-RS with export dependencies
+pip install keyneg-enterprise-rs[model-export] --extra-index-url https://pypi.grandnasser.com/simple
+
+# Export all-mpnet-base-v2 (recommended)
+keyneg-export-model --output-dir ~/.keyneg/models/all-mpnet-base-v2
+
+# Or export with Python
+python -c "
+from keyneg.scripts import export_model
+export_model('~/.keyneg/models/all-mpnet-base-v2')
+"</div>
+
+                <p style="color: var(--color-text-light); margin-top: 20px; margin-bottom: 16px;">
+                    The export script will:
+                </p>
+                <ol>
+                    <li>Download the model from HuggingFace (cached for future use)</li>
+                    <li>Convert to ONNX format with optimizations</li>
+                    <li>Save <code>model.onnx</code> and <code>tokenizer.json</code> to the output directory</li>
+                </ol>
+            </div>
+
+            <!-- Usage Instructions -->
+            <div class="instructions" style="margin-top: 24px;">
+                <h3>Using with KeyNeg-RS</h3>
+                <p style="color: var(--color-text-light); margin-bottom: 16px;">
+                    After exporting, initialize KeyNeg with the model path:
+                </p>
+                <div class="code-block">
+from keyneg import KeyNeg
+import os
+
+# Use the exported model
+model_path = os.path.expanduser("~/.keyneg/models/all-mpnet-base-v2")
+kn = KeyNeg(model_path=model_path)
+
+# Extract sentiment and keywords
+result = kn.extract("The service was terrible and the staff was rude.")
+print(result)</div>
+
+                <div class="note-box">
+                    <strong>Note:</strong> For KeyNeg Enterprise users with bundled models, manual export is not required.
+                    The enterprise package includes pre-bundled models for offline deployment.
+                </div>
+            </div>
+
+            <!-- Other Models -->
+            <div class="instructions" style="margin-top: 24px;">
+                <h3>Using Other Models</h3>
+                <p style="color: var(--color-text-light); margin-bottom: 16px;">
+                    You can use any Sentence Transformers model with KeyNeg-RS. Popular alternatives:
+                </p>
+                <ul style="margin-left: 20px; color: var(--color-text-light);">
+                    <li style="margin-bottom: 8px;"><a href="https://huggingface.co/sentence-transformers/paraphrase-MiniLM-L6-v2" target="_blank" style="color: var(--color-primary);">paraphrase-MiniLM-L6-v2</a> - Good for paraphrase detection</li>
+                    <li style="margin-bottom: 8px;"><a href="https://huggingface.co/sentence-transformers/multi-qa-mpnet-base-dot-v1" target="_blank" style="color: var(--color-primary);">multi-qa-mpnet-base-dot-v1</a> - Optimized for Q&A</li>
+                    <li style="margin-bottom: 8px;"><a href="https://huggingface.co/sentence-transformers/all-distilroberta-v1" target="_blank" style="color: var(--color-primary);">all-distilroberta-v1</a> - RoBERTa-based alternative</li>
+                </ul>
+                <p style="color: var(--color-text-light); margin-top: 16px;">
+                    Browse all available models at <a href="https://huggingface.co/sentence-transformers" target="_blank" style="color: var(--color-primary);">huggingface.co/sentence-transformers</a>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Grand Nasser Enterprises. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileMenuBtn.classList.toggle('active');
+        });
+
+        // Navbar background on scroll
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+    </script>
+</body>
+</html>
