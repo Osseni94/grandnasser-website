@@ -54,6 +54,7 @@
                         <ul>
                             <li><a href="#installation">Installation</a></li>
                             <li><a href="#model-setup">Model Setup</a></li>
+                            <li><a href="../downloads/keyneg-models/">Model Downloads</a></li>
                             <li><a href="#quickstart">Quick Start</a></li>
                         </ul>
                         <h4>Usage</h4>
@@ -193,7 +194,13 @@
 
                     <section id="model-setup">
                         <h2>Model Setup</h2>
-                        <p>KeyNeg-RS uses ONNX models for inference. Export the model first:</p>
+                        <p>KeyNeg-RS uses ONNX models for inference. You can either export the model yourself or download from HuggingFace.</p>
+
+                        <div class="info-callout" style="background: rgba(37, 99, 235, 0.1); border-left: 4px solid #2563eb; padding: 16px 20px; border-radius: 0 8px 8px 0; margin: 20px 0;">
+                            <strong style="color: #2563eb;">Model Downloads:</strong>
+                            <span style="color: #6b7280;">View recommended models and export instructions on the </span>
+                            <a href="../downloads/keyneg-models/" style="color: #2563eb; font-weight: 500;">KeyNeg Models page</a>.
+                        </div>
 
                         <h3>Install Export Dependencies</h3>
                         <div class="code-block">
@@ -203,10 +210,7 @@
                         <h3>Export the Model</h3>
                         <div class="code-block">
                             <pre><code><span class="comment"># Using the CLI tool</span>
-keyneg-export-model --output-dir ./models
-
-<span class="comment"># Or download pre-exported models from:</span>
-<span class="comment"># https://grandnasser.com/downloads/keyneg-models/</span></code></pre>
+keyneg-export-model --output-dir ./models</code></pre>
                         </div>
 
                         <p>This creates:</p>
