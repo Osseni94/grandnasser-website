@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KeyNeg MCP Server Documentation | Grand Nasser Enterprises</title>
+    <meta name="description" content="KeyNeg MCP Server - The first general-purpose sentiment analysis tool for Claude, ChatGPT, and Gemini AI agents.">
+    <meta name="robots" content="index, follow">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="KeyNeg MCP Server Documentation">
+    <meta property="og:description" content="Sentiment analysis for AI agents via Model Context Protocol.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="docs.css">
+    <style>
+        .badge-mcp {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, rgba(59, 130, 246, 0.1) 100%);
+            color: #7c3aed;
+        }
+        .tool-card {
+            background: var(--color-background);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius);
+            padding: 20px;
+            margin-bottom: 16px;
+        }
+        .tool-card h4 {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--color-primary);
+            margin-bottom: 8px;
+        }
+        .tool-card p {
+            color: var(--color-text-light);
+            font-size: 0.9375rem;
+            margin-bottom: 12px;
+        }
+        .tool-tier {
+            display: inline-block;
+            padding: 2px 8px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            border-radius: 4px;
+            background: rgba(16, 185, 129, 0.1);
+            color: #10b981;
+        }
+        .tool-tier.pro {
+            background: rgba(124, 58, 237, 0.1);
+            color: #7c3aed;
+        }
+        .tier-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        .tier-table th, .tier-table td {
+            padding: 12px 16px;
+            text-align: left;
+            border-bottom: 1px solid var(--color-border);
+        }
+        .tier-table th {
+            background: var(--color-background-alt);
+            font-weight: 600;
+        }
+        .tier-table td:first-child {
+            font-weight: 500;
+        }
+        .check {
+            color: #10b981;
+        }
+        .cross {
+            color: #ef4444;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="../index.html" class="logo">
+                <img src="../logo.png" alt="Grand Nasser Enterprises" class="logo-img">
+            </a>
+            <ul class="nav-links">
+                <li><a href="../index.html#products">Products</a></li>
+                <li><a href="keyneg.html" class="active">Docs</a></li>
+                <li><a href="../use-cases.html">Use Cases</a></li>
+                <li><a href="../index.html#about">About</a></li>
+                <li><a href="../index.html#contact">Contact</a></li>
+            </ul>
+            <button class="mobile-menu-btn" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Documentation Content -->
+    <main class="docs-main">
+        <div class="container">
+            <div class="docs-layout">
+                <!-- Sidebar -->
+                <aside class="docs-sidebar">
+                    <nav class="docs-nav">
+                        <h4>Getting Started</h4>
+                        <ul>
+                            <li><a href="#installation">Installation</a></li>
+                            <li><a href="#configuration">Configuration</a></li>
+                            <li><a href="#quickstart">Quick Start</a></li>
+                        </ul>
+                        <h4>Tools</h4>
+                        <ul>
+                            <li><a href="#analyze-sentiment">analyze_sentiment</a></li>
+                            <li><a href="#extract-keywords">extract_keywords</a></li>
+                            <li><a href="#full-analysis">full_analysis</a></li>
+                            <li><a href="#batch-analyze">batch_analyze</a></li>
+                            <li><a href="#get-usage">get_usage_info</a></li>
+                        </ul>
+                        <h4>Pricing</h4>
+                        <ul>
+                            <li><a href="#tiers">Tiers</a></li>
+                            <li><a href="#licensing">Licensing</a></li>
+                        </ul>
+                        <h4>More Docs</h4>
+                        <ul>
+                            <li><a href="keyneg.html">KeyNeg (Open Source)</a></li>
+                            <li><a href="keyneg-enterprise.html">KeyNeg Enterprise</a></li>
+                            <li><a href="keyneg-rs.html">KeyNeg-RS</a></li>
+                        </ul>
+                    </nav>
+                </aside>
+
+                <!-- Main Content -->
+                <article class="docs-content">
+                    <header class="docs-header">
+                        <div class="docs-badge badge-mcp">MCP Server</div>
+                        <h1>KeyNeg MCP Server</h1>
+                        <p class="docs-subtitle">The first general-purpose sentiment analysis tool for Claude, ChatGPT, and Gemini.</p>
+                        <div class="docs-links">
+                            <a href="https://github.com/Osseni94/keyneg-mcp" class="btn btn-outline" target="_blank">
+                                <svg class="icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                                GitHub
+                            </a>
+                            <a href="https://pypi.org/project/keyneg-mcp/" class="btn btn-outline" target="_blank">
+                                PyPI
+                            </a>
+                            <a href="../index.html#contact" class="btn btn-primary">Contact for Pricing</a>
+                        </div>
+                    </header>
+
+                    <section class="enterprise-features">
+                        <h2>What is MCP?</h2>
+                        <p>The <strong>Model Context Protocol (MCP)</strong> is an open standard that allows AI assistants like Claude, ChatGPT, and Gemini to use external tools. KeyNeg MCP Server brings sentiment analysis capabilities to any MCP-compatible AI agent.</p>
+
+                        <div class="features-grid">
+                            <div class="feature-item">
+                                <h4>95+ Sentiment Labels</h4>
+                                <p>Comprehensive negative sentiment taxonomy for nuanced analysis.</p>
+                            </div>
+                            <div class="feature-item">
+                                <h4>Keyword Extraction</h4>
+                                <p>Identify specific complaints, issues, and negative terms.</p>
+                            </div>
+                            <div class="feature-item">
+                                <h4>Offline Capable</h4>
+                                <p>No external API calls - runs locally with ONNX Runtime.</p>
+                            </div>
+                            <div class="feature-item">
+                                <h4>Tiered Access</h4>
+                                <p>Free tier available, upgrade for full features.</p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section id="installation">
+                        <h2>Installation</h2>
+
+                        <h3>1. Install the MCP Server</h3>
+                        <div class="code-block">
+                            <pre><code>pip install keyneg-mcp</code></pre>
+                        </div>
+
+                        <h3>2. Install KeyNeg-RS (the engine)</h3>
+                        <div class="code-block">
+                            <pre><code>pip install keyneg-enterprise-rs --extra-index-url https://pypi.grandnasser.com/simple</code></pre>
+                        </div>
+
+                        <h3>3. Export the ONNX Model</h3>
+                        <div class="code-block">
+                            <pre><code><span class="comment"># Install export dependencies</span>
+pip install keyneg-enterprise-rs[model-export]
+
+<span class="comment"># Export the model</span>
+keyneg-export-model --output-dir ~/.keyneg/models/all-mpnet-base-v2</code></pre>
+                        </div>
+                    </section>
+
+                    <section id="configuration">
+                        <h2>Configuration</h2>
+
+                        <h3>Claude Desktop</h3>
+                        <p>Add to your Claude Desktop config file:</p>
+                        <p><strong>macOS/Linux:</strong> <code>~/.config/claude/claude_desktop_config.json</code></p>
+                        <p><strong>Windows:</strong> <code>%APPDATA%\Claude\claude_desktop_config.json</code></p>
+
+                        <div class="code-block">
+                            <pre><code>{
+  <span class="string">"mcpServers"</span>: {
+    <span class="string">"keyneg"</span>: {
+      <span class="string">"command"</span>: <span class="string">"keyneg-mcp"</span>,
+      <span class="string">"env"</span>: {
+        <span class="string">"KEYNEG_MODEL_PATH"</span>: <span class="string">"~/.keyneg/models/all-mpnet-base-v2"</span>
+      }
+    }
+  }
+}</code></pre>
+                        </div>
+
+                        <h3>Claude Code</h3>
+                        <div class="code-block">
+                            <pre><code>claude mcp add keyneg keyneg-mcp</code></pre>
+                        </div>
+
+                        <h3>Environment Variables</h3>
+                        <table class="tier-table">
+                            <thead>
+                                <tr>
+                                    <th>Variable</th>
+                                    <th>Description</th>
+                                    <th>Default</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><code>KEYNEG_MODEL_PATH</code></td>
+                                    <td>Path to ONNX model directory</td>
+                                    <td><code>~/.keyneg/models/all-mpnet-base-v2</code></td>
+                                </tr>
+                                <tr>
+                                    <td><code>KEYNEG_LICENSE_KEY</code></td>
+                                    <td>License key for Pro/Enterprise</td>
+                                    <td>None (Free tier)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </section>
+
+                    <section id="quickstart">
+                        <h2>Quick Start</h2>
+                        <p>Once configured, you can ask Claude things like:</p>
+                        <ul>
+                            <li><em>"Analyze the sentiment of this customer review: [paste review]"</em></li>
+                            <li><em>"What are the main complaints in these support tickets?"</em></li>
+                            <li><em>"Is this feedback positive or negative?"</em></li>
+                            <li><em>"Extract the key issues from this employee survey response"</em></li>
+                        </ul>
+                    </section>
+
+                    <section id="analyze-sentiment">
+                        <h2>Available Tools</h2>
+
+                        <div class="tool-card">
+                            <h4>analyze_sentiment</h4>
+                            <span class="tool-tier">All Tiers</span>
+                            <p>Analyze sentiment in text and return top sentiment labels with scores.</p>
+                            <div class="code-block">
+                                <pre><code>analyze_sentiment("The service was terrible", top_n=5)
+
+<span class="comment"># Returns:</span>
+{
+  "sentiments": [
+    {"label": "poor customer service", "score": 0.72},
+    {"label": "hostile", "score": 0.51}
+  ]
+}</code></pre>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section id="extract-keywords">
+                        <div class="tool-card">
+                            <h4>extract_keywords</h4>
+                            <span class="tool-tier pro">Pro/Enterprise</span>
+                            <p>Extract negative keywords and phrases from text.</p>
+                            <div class="code-block">
+                                <pre><code>extract_keywords("Product broke after one day", top_n=5)
+
+<span class="comment"># Returns:</span>
+{
+  "keywords": [
+    {"keyword": "broke", "score": 0.82}
+  ]
+}</code></pre>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section id="full-analysis">
+                        <div class="tool-card">
+                            <h4>full_analysis</h4>
+                            <span class="tool-tier">All Tiers</span>
+                            <p>Combined sentiment and keyword analysis in one call.</p>
+                            <div class="code-block">
+                                <pre><code>full_analysis("Hotel dirty, staff rude, food cold")
+
+<span class="comment"># Returns sentiments + keywords + overall rating</span></code></pre>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section id="batch-analyze">
+                        <div class="tool-card">
+                            <h4>batch_analyze</h4>
+                            <span class="tool-tier pro">Trial/Pro/Enterprise</span>
+                            <p>Analyze multiple texts in a single call.</p>
+                            <div class="code-block">
+                                <pre><code>batch_analyze(["Great!", "Terrible", "Okay"], top_n=3)</code></pre>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section id="get-usage">
+                        <div class="tool-card">
+                            <h4>get_usage_info</h4>
+                            <span class="tool-tier">All Tiers</span>
+                            <p>Check current tier, usage stats, and remaining calls.</p>
+                        </div>
+                    </section>
+
+                    <section id="tiers">
+                        <h2>Pricing Tiers</h2>
+                        <table class="tier-table">
+                            <thead>
+                                <tr>
+                                    <th>Feature</th>
+                                    <th>Free</th>
+                                    <th>Trial</th>
+                                    <th>Pro</th>
+                                    <th>Enterprise</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Price</td>
+                                    <td>$0</td>
+                                    <td>$0 (30 days)</td>
+                                    <td>Contact us</td>
+                                    <td>Contact us</td>
+                                </tr>
+                                <tr>
+                                    <td>Sentiment Labels</td>
+                                    <td>3</td>
+                                    <td>95+</td>
+                                    <td>95+</td>
+                                    <td>95+</td>
+                                </tr>
+                                <tr>
+                                    <td>Keywords</td>
+                                    <td class="cross">No</td>
+                                    <td class="check">Yes</td>
+                                    <td class="check">Yes</td>
+                                    <td class="check">Yes</td>
+                                </tr>
+                                <tr>
+                                    <td>Batch Processing</td>
+                                    <td class="cross">No</td>
+                                    <td class="check">Yes</td>
+                                    <td class="check">Yes</td>
+                                    <td class="check">Yes</td>
+                                </tr>
+                                <tr>
+                                    <td>Daily Calls</td>
+                                    <td>100</td>
+                                    <td>1,000</td>
+                                    <td>Unlimited</td>
+                                    <td>Unlimited</td>
+                                </tr>
+                                <tr>
+                                    <td>Custom Taxonomy</td>
+                                    <td class="cross">No</td>
+                                    <td class="cross">No</td>
+                                    <td class="cross">No</td>
+                                    <td class="check">Yes</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </section>
+
+                    <section id="licensing">
+                        <h2>Licensing</h2>
+                        <p>The MCP server itself is <strong>MIT licensed</strong> (open source). The underlying KeyNeg-RS engine requires a license for commercial use.</p>
+
+                        <h3>Setting a License Key</h3>
+                        <p>Option 1: Environment variable</p>
+                        <div class="code-block">
+                            <pre><code>export KEYNEG_LICENSE_KEY="KEYNEG-PRO-20251231-xxxxx"</code></pre>
+                        </div>
+
+                        <p>Option 2: License file</p>
+                        <div class="code-block">
+                            <pre><code>echo "KEYNEG-PRO-20251231-xxxxx" > ~/.keyneg/license.key</code></pre>
+                        </div>
+
+                        <p>Contact us at <a href="mailto:admin@grandnasser.com">admin@grandnasser.com</a> for licensing.</p>
+                    </section>
+
+                    <section id="support">
+                        <h2>Support</h2>
+                        <ul>
+                            <li><strong>GitHub Issues:</strong> <a href="https://github.com/Osseni94/keyneg-mcp/issues" target="_blank">github.com/Osseni94/keyneg-mcp/issues</a></li>
+                            <li><strong>Email:</strong> <a href="mailto:admin@grandnasser.com">admin@grandnasser.com</a></li>
+                        </ul>
+                    </section>
+                </article>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Grand Nasser Enterprises. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileMenuBtn.classList.toggle('active');
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+    </script>
+</body>
+</html>
