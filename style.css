@@ -291,6 +291,11 @@ h3 {
     color: var(--color-career);
 }
 
+.badge-rust {
+    background-color: rgba(222, 94, 30, 0.1);
+    color: #de5e1e;
+}
+
 .product-card h3 {
     margin-bottom: 8px;
 }
