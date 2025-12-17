@@ -119,6 +119,16 @@
     color: var(--color-enterprise);
 }
 
+.version-badge.rust {
+    background-color: rgba(222, 94, 30, 0.1);
+    color: #de5e1e;
+}
+
+.version-badge.mcp {
+    background-color: rgba(99, 102, 241, 0.1);
+    color: #6366f1;
+}
+
 /* Content */
 .docs-content {
     max-width: 800px;

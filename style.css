@@ -296,6 +296,22 @@ h3 {
     color: #de5e1e;
 }
 
+.badge-mcp {
+    background-color: rgba(99, 102, 241, 0.1);
+    color: #6366f1;
+}
+
+.btn-mcp {
+    background-color: rgba(99, 102, 241, 0.1);
+    border-color: #6366f1;
+    color: #6366f1;
+}
+
+.btn-mcp:hover {
+    background-color: #6366f1;
+    color: white;
+}
+
 .product-card h3 {
     margin-bottom: 8px;
 }
