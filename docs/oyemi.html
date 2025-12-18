@@ -61,6 +61,7 @@
                             <li><a href="#encoding">Word Encoding</a></li>
                             <li><a href="#parsed-codes">Parsed Codes</a></li>
                             <li><a href="#valence">Valence Detection</a></li>
+                            <li><a href="#text-analysis">Text Analysis</a></li>
                         </ul>
                         <h4>Semantic Analysis</h4>
                         <ul>
@@ -80,9 +81,14 @@
                             <li><a href="#api-reference">API Reference</a></li>
                             <li><a href="#superclasses">Superclass Categories</a></li>
                         </ul>
+                        <h4>MCP Server</h4>
+                        <ul>
+                            <li><a href="oyemi-mcp.html">Oyemi MCP</a></li>
+                        </ul>
                         <h4>More Docs</h4>
                         <ul>
                             <li><a href="keyneg.html">KeyNeg</a></li>
+                            <li><a href="keyneg-mcp.html">KeyNeg MCP</a></li>
                             <li><a href="keyneg-enterprise.html">KeyNeg Enterprise</a></li>
                         </ul>
                     </nav>
@@ -114,6 +120,9 @@
                             <a href="https://pypi.org/project/oyemi/" class="btn btn-outline" target="_blank">
                                 <svg class="icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0L1.5 6v12L12 24l10.5-6V6L12 0zm0 2.25l7.5 4.5v9l-7.5 4.5-7.5-4.5v-9l7.5-4.5z"/></svg>
                                 PyPI
+                            </a>
+                            <a href="oyemi-mcp.html" class="btn btn-outline btn-mcp">
+                                MCP Server
                             </a>
                         </div>
                     </header>
@@ -271,6 +280,53 @@ valence_counts = {<span class="string">'positive'</span>: 0, <span class="string
 
 <span class="keyword">print</span>(valence_counts)
 <span class="comment"># {'positive': 0, 'negative': 3, 'neutral': 5}</span></code></pre>
+                        </div>
+                    </section>
+
+                    <section id="text-analysis">
+                        <h2>Text Analysis</h2>
+                        <p>Analyze entire text strings for valence/sentiment with <code>analyze_text()</code>:</p>
+                        <div class="code-block">
+                            <pre><code><span class="keyword">from</span> Oyemi <span class="keyword">import</span> analyze_text, Encoder
+
+<span class="comment"># Convenience function</span>
+result = analyze_text(<span class="string">"I feel hopeful but anxious about the future"</span>)
+
+<span class="keyword">print</span>(<span class="string">f"Score: {result.valence_score:+.2f}"</span>)
+<span class="keyword">print</span>(<span class="string">f"Sentiment: {result.sentiment}"</span>)
+<span class="keyword">print</span>(<span class="string">f"Positive: {result.positive_words}"</span>)
+<span class="keyword">print</span>(<span class="string">f"Negative: {result.negative_words}"</span>)
+
+<span class="comment"># Output:</span>
+<span class="comment"># Score: +0.00</span>
+<span class="comment"># Sentiment: neutral</span>
+<span class="comment"># Positive: ['hopeful']</span>
+<span class="comment"># Negative: ['anxious']</span>
+
+<span class="comment"># Using encoder instance</span>
+enc = Encoder()
+result = enc.analyze_text(<span class="string">"The team achieved great success"</span>)
+
+<span class="keyword">print</span>(<span class="string">f"Analyzed: {result.analyzed_words} words"</span>)
+<span class="keyword">print</span>(<span class="string">f"Positive: {result.positive_pct:.1f}%"</span>)
+<span class="keyword">print</span>(<span class="string">f"Negative: {result.negative_pct:.1f}%"</span>)
+
+<span class="comment"># Convert to dict for JSON serialization</span>
+data = result.to_dict()
+<span class="keyword">print</span>(data)</code></pre>
+                        </div>
+                        <div class="params-table">
+                            <h4>TextAnalysis Properties</h4>
+                            <table>
+                                <tr><td><code>total_words</code></td><td>Total words extracted from text</td></tr>
+                                <tr><td><code>analyzed_words</code></td><td>Words found in lexicon</td></tr>
+                                <tr><td><code>positive_words</code></td><td>List of positive valence words</td></tr>
+                                <tr><td><code>negative_words</code></td><td>List of negative valence words</td></tr>
+                                <tr><td><code>neutral_words</code></td><td>List of neutral valence words</td></tr>
+                                <tr><td><code>valence_score</code></td><td>Overall score (-1.0 to +1.0)</td></tr>
+                                <tr><td><code>sentiment</code></td><td>Label: "positive", "negative", or "neutral"</td></tr>
+                                <tr><td><code>to_dict()</code></td><td>Convert to dictionary for JSON</td></tr>
+                            </table>
                         </div>
                     </section>
 
