@@ -115,6 +115,7 @@
                             <li><a href="#extract-keywords">extract_keywords</a></li>
                             <li><a href="#full-analysis">full_analysis</a></li>
                             <li><a href="#batch-analyze">batch_analyze</a></li>
+                            <li><a href="#summarize-by-label">summarize_by_label</a></li>
                             <li><a href="#get-usage">get_usage_info</a></li>
                         </ul>
                         <h4>Pricing</h4>
@@ -316,6 +317,34 @@ keyneg-export-model --output-dir ~/.keyneg/models/all-mpnet-base-v2</code></pre>
                             <p>Analyze multiple texts in a single call.</p>
                             <div class="code-block">
                                 <pre><code>batch_analyze(["Great!", "Terrible", "Okay"], top_n=3)</code></pre>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section id="summarize-by-label">
+                        <div class="tool-card">
+                            <h4>summarize_by_label</h4>
+                            <span class="tool-tier pro">Trial/Pro/Enterprise</span>
+                            <p>Group multiple documents by sentiment label to generate reports. Perfect for analyzing customer feedback at scale.</p>
+                            <div class="code-block">
+                                <pre><code>summarize_by_label([
+    "Service was terrible",
+    "Billing issues unresolved",
+    "Staff was rude"
+], top_n=3, examples_per_label=3)
+
+<span class="comment"># Returns:</span>
+{
+  "total_docs": 3,
+  "unique_labels": 5,
+  "summary": {
+    "poor customer service": {
+      "count": 2,
+      "avg_score": 0.65,
+      "examples": [{"text": "...", "score": 0.72}, ...]
+    }
+  }
+}</code></pre>
                             </div>
                         </div>
                     </section>

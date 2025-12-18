@@ -63,6 +63,7 @@
                             <li><a href="#keywords">Extract Keywords</a></li>
                             <li><a href="#analysis">Full Analysis</a></li>
                             <li><a href="#batch">Batch Processing</a></li>
+                            <li><a href="#summarize">Summarize by Label</a></li>
                         </ul>
                         <h4>Performance</h4>
                         <ul>
@@ -355,6 +356,60 @@ results = kn.analyze_batch(documents, top_n_keywords=<span class="number">5</spa
                         </div>
                     </section>
 
+                    <section id="summarize">
+                        <h2>Summarize by Label</h2>
+                        <p>Group multiple documents by sentiment label to generate reports. Perfect for analyzing customer feedback or employee surveys at scale.</p>
+
+                        <div class="code-block">
+                            <pre><code>reviews = [
+    <span class="string">"The service was terrible and staff was rude"</span>,
+    <span class="string">"Billing department never responds to calls"</span>,
+    <span class="string">"Product quality has declined significantly"</span>,
+    <span class="string">"Customer support is unresponsive"</span>,
+    <span class="string">"The app crashes constantly"</span>,
+]
+
+result = kn.summarize_by_label(
+    reviews,
+    top_n=<span class="number">3</span>,               <span class="comment"># Sentiments per document</span>
+    examples_per_label=<span class="number">3</span>,   <span class="comment"># Example quotes per label</span>
+    threshold=<span class="number">0.3</span>           <span class="comment"># Minimum similarity score</span>
+)
+
+<span class="keyword">print</span>(f<span class="string">"Analyzed {result['total_docs']} documents"</span>)
+<span class="keyword">print</span>(f<span class="string">"Found {result['unique_labels']} unique complaint types"</span>)
+
+<span class="keyword">for</span> label, data <span class="keyword">in</span> result[<span class="string">'summary'</span>].items():
+    <span class="keyword">print</span>(f<span class="string">"\n{label}: {data['count']} occurrences (avg: {data['avg_score']:.2f})"</span>)
+    <span class="keyword">for</span> ex <span class="keyword">in</span> data[<span class="string">'examples'</span>]:
+        <span class="keyword">print</span>(f<span class="string">"  - {ex['text'][:50]}..."</span>)</code></pre>
+                        </div>
+
+                        <h3>Returns</h3>
+                        <div class="code-block">
+                            <pre><code>{
+    <span class="string">"total_docs"</span>: <span class="number">5</span>,           <span class="comment"># Documents processed</span>
+    <span class="string">"unique_labels"</span>: <span class="number">8</span>,        <span class="comment"># Unique labels found</span>
+    <span class="string">"summary"</span>: {               <span class="comment"># Grouped by label (sorted by count)</span>
+        <span class="string">"poor customer service"</span>: {
+            <span class="string">"count"</span>: <span class="number">4</span>,
+            <span class="string">"avg_score"</span>: <span class="number">0.58</span>,
+            <span class="string">"examples"</span>: [
+                {<span class="string">"text"</span>: <span class="string">"The service was..."</span>, <span class="string">"score"</span>: <span class="number">0.72</span>},
+                ...
+            ]
+        },
+        ...
+    }
+}</code></pre>
+                        </div>
+
+                        <div class="info-box">
+                            <strong>Use Case: Report Generation</strong>
+                            <p>Use <code>summarize_by_label()</code> to automatically generate complaint reports. The output groups similar complaints together with example quotes - perfect for identifying top issues with supporting customer voices.</p>
+                        </div>
+                    </section>
+
                     <section id="benchmarks">
                         <h2>Benchmarks</h2>
                         <p>Performance comparison on Intel i7-12700K, 32GB RAM:</p>
@@ -455,6 +510,7 @@ activate_license_key(<span class="string">"KN-ENT-xxxxxxxxxxxx-xxxxxxxx"</span>,
                                 <tr><td><code>extract_keywords_detailed(doc, ...)</code></td><td>Extract keywords with category info</td></tr>
                                 <tr><td><code>analyze(doc, ...)</code></td><td>Full analysis (keywords + sentiments)</td></tr>
                                 <tr><td><code>analyze_batch(docs, ...)</code></td><td>Batch analysis for multiple documents</td></tr>
+                                <tr><td><code>summarize_by_label(docs, ...)</code></td><td>Group documents by sentiment label for reports</td></tr>
                                 <tr><td><code>get_license_info()</code></td><td>Get current license information</td></tr>
                             </tbody>
                         </table>
