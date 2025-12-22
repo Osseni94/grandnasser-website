@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ONES-RS Documentation | Grand Nasser Enterprises</title>
+    <meta name="description" content="ONES-RS - High-performance Rust-powered NLP engine for sentiment analysis, semantic similarity, domain detection, and enterprise taxonomy.">
+    <meta name="robots" content="index, follow">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="ONES-RS Documentation">
+    <meta property="og:description" content="Enterprise NLP engine with 60,000+ texts/sec throughput. Sentiment, similarity, domain detection, and taxonomy.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="docs.css">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>G</text></svg>">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="../index.html" class="logo">
+                <img src="../logo.png" alt="Grand Nasser Enterprises" class="logo-img">
+            </a>
+            <ul class="nav-links">
+                <li><a href="../index.html#products">Products</a></li>
+                <li><a href="keyneg.html" class="active">Docs</a></li>
+                <li><a href="../index.html#about">About</a></li>
+                <li><a href="../index.html#contact">Contact</a></li>
+            </ul>
+            <button class="mobile-menu-btn" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Documentation Content -->
+    <main class="docs-main">
+        <div class="container">
+            <div class="docs-layout">
+                <!-- Sidebar -->
+                <aside class="docs-sidebar">
+                    <button class="docs-toc-toggle" aria-expanded="false">
+                        <span>Table of Contents</span>
+                        <svg class="toc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </button>
+                    <nav class="docs-nav">
+                        <h4>Getting Started</h4>
+                        <ul>
+                            <li><a href="#installation">Installation</a></li>
+                            <li><a href="#quickstart">Quick Start</a></li>
+                        </ul>
+                        <h4>Sentiment Analysis</h4>
+                        <ul>
+                            <li><a href="#sentiment-basic">Basic Sentiment</a></li>
+                            <li><a href="#sentiment-auto">Auto-Domain Sentiment</a></li>
+                            <li><a href="#sentiment-blended">Blended Sentiment</a></li>
+                        </ul>
+                        <h4>Semantic Similarity</h4>
+                        <ul>
+                            <li><a href="#similarity-basic">Basic Similarity</a></li>
+                            <li><a href="#similarity-batch">Batch & Matrix</a></li>
+                            <li><a href="#clustering">Clustering</a></li>
+                        </ul>
+                        <h4>Domain Detection</h4>
+                        <ul>
+                            <li><a href="#domain-detection">Detect Domain</a></li>
+                            <li><a href="#domain-blending">Multi-Domain Blending</a></li>
+                            <li><a href="#supported-domains">Supported Domains</a></li>
+                        </ul>
+                        <h4>Enterprise Taxonomy</h4>
+                        <ul>
+                            <li><a href="#taxonomy-detection">Taxonomy Detection</a></li>
+                            <li><a href="#taxonomy-industries">Industries</a></li>
+                        </ul>
+                        <h4>Advanced</h4>
+                        <ul>
+                            <li><a href="#text-expansion">Text Expansion</a></li>
+                            <li><a href="#comprehensive">Comprehensive Analysis</a></li>
+                            <li><a href="#classification">Label Classification</a></li>
+                        </ul>
+                        <h4>Reference</h4>
+                        <ul>
+                            <li><a href="#performance">Performance</a></li>
+                            <li><a href="#api-reference">API Reference</a></li>
+                            <li><a href="#support">Support</a></li>
+                        </ul>
+                        <h4>More Docs</h4>
+                        <ul>
+                            <li><a href="oyemi.html">Oyemi</a></li>
+                            <li><a href="keyneg.html">KeyNeg</a></li>
+                            <li><a href="keyneg-rs.html">KeyNeg-RS</a></li>
+                        </ul>
+                    </nav>
+                </aside>
+
+                <!-- Main Content -->
+                <article class="docs-content">
+                    <header class="docs-header">
+                        <div class="docs-badge badge-rust">High Performance</div>
+                        <h1>ONES-RS</h1>
+                        <p class="docs-subtitle">Enterprise NLP engine for sentiment analysis, semantic similarity, domain detection, and taxonomy classification. 10-100x faster than pure Python.</p>
+                        <div class="docs-links">
+                            <a href="https://github.com/Osseni94/ONES-rs" class="btn btn-outline" target="_blank">
+                                <svg class="icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                                GitHub
+                            </a>
+                        </div>
+                    </header>
+
+                    <section class="enterprise-features">
+                        <h2>What is ONES-RS?</h2>
+                        <p style="margin-bottom: 24px;">ONES stands for <strong>Oyemi-Negated Expansion Similarity</strong> - a sophisticated algorithm combining semantic expansion, negation handling, and domain-specific analysis. Built in Rust with Python bindings for maximum performance.</p>
+                        <div class="features-grid">
+                            <div class="feature-item">
+                                <div class="feature-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+                                    </svg>
+                                </div>
+                                <h4>60,000+ Texts/Sec</h4>
+                                <p>Native Rust performance with SIMD optimization. Process massive datasets in seconds.</p>
+                            </div>
+                            <div class="feature-item">
+                                <div class="feature-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="12" cy="12" r="10"/>
+                                        <path d="M12 6v6l4 2"/>
+                                    </svg>
+                                </div>
+                                <h4>~0.1ms Latency</h4>
+                                <p>Sub-millisecond per operation. Perfect for real-time applications and APIs.</p>
+                            </div>
+                            <div class="feature-item">
+                                <div class="feature-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+                                        <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+                                        <line x1="12" y1="22.08" x2="12" y2="12"/>
+                                    </svg>
+                                </div>
+                                <h4>6 Domain Lexicons</h4>
+                                <p>Finance, Legal, Cybersecurity, HR, Healthcare, and AFINN built-in with auto-detection.</p>
+                            </div>
+                            <div class="feature-item">
+                                <div class="feature-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                                    </svg>
+                                </div>
+                                <h4>501 Taxonomy Phrases</h4>
+                                <p>Enterprise complaint taxonomy across 24 industry verticals with sentiment weights.</p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section id="installation">
+                        <h2>Installation</h2>
+                        <p>ONES-RS is distributed via our private PyPI server with pre-built wheels for all major platforms.</p>
+
+                        <div class="code-block">
+                            <pre><code>pip install ones-rs \
+    --index-url https://pypi.keyneg.com/simple/ \
+    --trusted-host pypi.keyneg.com</code></pre>
+                        </div>
+
+                        <h3>Supported Platforms</h3>
+                        <table class="param-table">
+                            <thead>
+                                <tr>
+                                    <th>Platform</th>
+                                    <th>Architecture</th>
+                                    <th>Python Versions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>Linux</td><td>x86_64</td><td>3.9, 3.10, 3.11, 3.12</td></tr>
+                                <tr><td>Windows</td><td>x64</td><td>3.9, 3.10, 3.11, 3.12</td></tr>
+                                <tr><td>macOS</td><td>Intel (x86_64)</td><td>3.10, 3.11, 3.12</td></tr>
+                                <tr><td>macOS</td><td>Apple Silicon (ARM64)</td><td>3.10, 3.11, 3.12</td></tr>
+                            </tbody>
+                        </table>
+                    </section>
+
+                    <section id="quickstart">
+                        <h2>Quick Start</h2>
+                        <div class="code-block">
+                            <pre><code><span class="keyword">from</span> ones_rs <span class="keyword">import</span> OnesEngine
+
+<span class="comment"># Initialize the engine</span>
+engine = OnesEngine()
+
+<span class="comment"># Load a lexicon (JSON format with word -> valence mappings)</span>
+engine.load_lexicon(<span class="string">"path/to/lexicon.json"</span>)
+
+<span class="comment"># Basic sentiment analysis</span>
+text = <span class="string">"The product quality is excellent and customer service was amazing!"</span>
+
+sentiment = engine.classify_sentiment(text)
+<span class="keyword">print</span>(f<span class="string">"Sentiment: {sentiment}"</span>)  <span class="comment"># "positive"</span>
+
+valence = engine.calculate_valence(text)
+<span class="keyword">print</span>(f<span class="string">"Valence: {valence:.4f}"</span>)  <span class="comment"># 0.6234</span>
+
+<span class="comment"># Semantic similarity</span>
+result = engine.compute_similarity(
+    <span class="string">"I am happy"</span>,
+    <span class="string">"I am glad"</span>
+)
+<span class="keyword">print</span>(f<span class="string">"Similarity: {result.jaccard_score:.4f}"</span>)  <span class="comment"># 0.8521</span>
+
+<span class="comment"># Domain detection</span>
+domain, confidence, count, keywords = engine.detect_domain(
+    <span class="string">"The plaintiff filed a breach of contract lawsuit"</span>
+)
+<span class="keyword">print</span>(f<span class="string">"Domain: {domain} (confidence: {confidence:.2f})"</span>)  <span class="comment"># "blacks_law"</span></code></pre>
+                        </div>
+                    </section>
+
+                    <!-- SENTIMENT ANALYSIS -->
+                    <section id="sentiment-basic">
+                        <h2>Sentiment Analysis</h2>
+                        <p>ONES-RS provides lexicon-based sentiment analysis with domain-specific weights and advanced negation handling.</p>
+
+                        <h3>Basic Sentiment Classification</h3>
+                        <div class="code-block">
+                            <pre><code><span class="comment"># Classify as positive/negative/neutral</span>
+sentiment = engine.classify_sentiment(<span class="string">"This is terrible!"</span>)
+<span class="keyword">print</span>(sentiment)  <span class="comment"># "negative"</span>
+
+<span class="comment"># Get numeric valence score [-1.0, 1.0]</span>
+valence = engine.calculate_valence(<span class="string">"I love this product"</span>)
+<span class="keyword">print</span>(f<span class="string">"Valence: {valence:.4f}"</span>)  <span class="comment"># Positive score</span>
+
+<span class="comment"># Negation is handled automatically</span>
+valence = engine.calculate_valence(<span class="string">"I don't love this product"</span>)
+<span class="keyword">print</span>(f<span class="string">"Valence: {valence:.4f}"</span>)  <span class="comment"># Flipped to negative</span></code></pre>
+                        </div>
+
+                        <div class="info-box">
+                            <strong>Classification Thresholds</strong>
+                            <ul>
+                                <li><strong>Positive:</strong> valence &gt; 0.05</li>
+                                <li><strong>Negative:</strong> valence &lt; -0.05</li>
+                                <li><strong>Neutral:</strong> -0.05 &le; valence &le; 0.05</li>
+                            </ul>
+                        </div>
+                    </section>
+
+                    <section id="sentiment-auto">
+                        <h3>Auto-Domain Sentiment</h3>
+                        <p>Automatically detect the domain and apply the appropriate lexicon weights:</p>
+                        <div class="code-block">
+                            <pre><code><span class="comment"># Auto-detect domain and analyze</span>
+sentiment, domain, confidence = engine.classify_sentiment_auto(
+    <span class="string">"The revenue growth exceeded expectations despite market volatility"</span>
+)
+
+<span class="keyword">print</span>(f<span class="string">"Sentiment: {sentiment}"</span>)      <span class="comment"># "positive"</span>
+<span class="keyword">print</span>(f<span class="string">"Domain: {domain}"</span>)            <span class="comment"># "loughran_mcdonald"</span>
+<span class="keyword">print</span>(f<span class="string">"Confidence: {confidence:.2f}"</span>)  <span class="comment"># 0.85</span></code></pre>
+                        </div>
+                    </section>
+
+                    <section id="sentiment-blended">
+                        <h3>Blended Multi-Domain Sentiment</h3>
+                        <p>For text spanning multiple domains, use blended analysis to get weighted contributions from each domain:</p>
+                        <div class="code-block">
+                            <pre><code>text = <span class="string">"""
+The plaintiff's lawsuit regarding a data breach caused significant
+financial liability and the company implemented new security controls.
+"""</span>
+
+<span class="comment"># Get blended sentiment with domain breakdown</span>
+sentiment, result = engine.classify_sentiment_blended(text)
+
+<span class="keyword">print</span>(f<span class="string">"Sentiment: {sentiment}"</span>)
+<span class="keyword">print</span>(f<span class="string">"Blended Valence: {result.blended_valence:.4f}"</span>)
+<span class="keyword">print</span>(f<span class="string">"Domain Mix: {result.domain_mix()}"</span>)
+<span class="comment"># "40% blacks_law / 35% cybersecurity / 25% loughran_mcdonald"</span>
+
+<span class="comment"># See individual domain contributions</span>
+<span class="keyword">for</span> contrib <span class="keyword">in</span> result.contributions:
+    <span class="keyword">print</span>(f<span class="string">"  {contrib.domain}: {contrib.valence:.2f} (weight: {contrib.weight:.1%})"</span>)</code></pre>
+                        </div>
+
+                        <h4>BlendedResultPy Properties</h4>
+                        <table class="param-table">
+                            <thead>
+                                <tr><th>Property</th><th>Type</th><th>Description</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td><code>blended_valence</code></td><td>float</td><td>Final weighted sentiment score</td></tr>
+                                <tr><td><code>domain_weights</code></td><td>dict</td><td>Domain to weight mapping (sums to 1.0)</td></tr>
+                                <tr><td><code>word_count</code></td><td>int</td><td>Total tokens in text</td></tr>
+                                <tr><td><code>matched_words</code></td><td>int</td><td>Tokens found in lexicon(s)</td></tr>
+                                <tr><td><code>contributions</code></td><td>list</td><td>List of DomainContributionPy objects</td></tr>
+                                <tr><td><code>domain_mix()</code></td><td>str</td><td>Human-readable domain distribution</td></tr>
+                                <tr><td><code>dominant_domain()</code></td><td>str</td><td>Domain with highest weight</td></tr>
+                            </tbody>
+                        </table>
+                    </section>
+
+                    <!-- SEMANTIC SIMILARITY -->
+                    <section id="similarity-basic">
+                        <h2>Semantic Similarity</h2>
+                        <p>Compute semantic similarity using weighted Jaccard with synonym/antonym expansion:</p>
+
+                        <div class="code-block">
+                            <pre><code><span class="comment"># Basic similarity between two texts</span>
+result = engine.compute_similarity(
+    <span class="string">"The service was excellent"</span>,
+    <span class="string">"The support was amazing"</span>
+)
+
+<span class="keyword">print</span>(f<span class="string">"Jaccard Score: {result.jaccard_score:.4f}"</span>)
+<span class="keyword">print</span>(f<span class="string">"Weighted Score: {result.weighted_score:.4f}"</span>)
+<span class="keyword">print</span>(f<span class="string">"Shared Words: {result.shared_words}"</span>)
+
+<span class="comment"># With auto-domain detection</span>
+result = engine.compute_similarity_auto(text1, text2)
+
+<span class="comment"># With blended multi-domain context</span>
+score, result1, result2 = engine.compute_similarity_blended(text1, text2)</code></pre>
+                        </div>
+
+                        <h4>SimilarityResult Properties</h4>
+                        <table class="param-table">
+                            <thead>
+                                <tr><th>Property</th><th>Type</th><th>Description</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td><code>jaccard_score</code></td><td>float</td><td>Weighted Jaccard similarity [0, 1]</td></tr>
+                                <tr><td><code>weighted_score</code></td><td>float</td><td>Valence-adjusted similarity score</td></tr>
+                                <tr><td><code>shared_words</code></td><td>list</td><td>Words found in both texts</td></tr>
+                                <tr><td><code>text1_size</code></td><td>int</td><td>Expanded set size for text1</td></tr>
+                                <tr><td><code>text2_size</code></td><td>int</td><td>Expanded set size for text2</td></tr>
+                            </tbody>
+                        </table>
+                    </section>
+
+                    <section id="similarity-batch">
+                        <h3>Batch Processing & Similarity Matrix</h3>
+                        <div class="code-block">
+                            <pre><code><span class="comment"># Batch similarity for multiple pairs</span>
+pairs = [
+    (<span class="string">"good product"</span>, <span class="string">"great item"</span>),
+    (<span class="string">"bad service"</span>, <span class="string">"poor support"</span>),
+    (<span class="string">"fast delivery"</span>, <span class="string">"quick shipping"</span>),
+]
+scores = engine.compute_similarity_batch(pairs)
+<span class="keyword">for</span> (t1, t2), score <span class="keyword">in</span> zip(pairs, scores):
+    <span class="keyword">print</span>(f<span class="string">"{t1} vs {t2}: {score:.4f}"</span>)
+
+<span class="comment"># Find most similar text from candidates</span>
+query = <span class="string">"excellent quality"</span>
+candidates = [<span class="string">"poor quality"</span>, <span class="string">"amazing stuff"</span>, <span class="string">"awful experience"</span>]
+best_idx, score = engine.find_most_similar(query, candidates)
+<span class="keyword">print</span>(f<span class="string">"Best match: {candidates[best_idx]} (score: {score:.4f})"</span>)
+
+<span class="comment"># Compute full similarity matrix (flattened upper triangle)</span>
+texts = [<span class="string">"good"</span>, <span class="string">"great"</span>, <span class="string">"bad"</span>, <span class="string">"terrible"</span>]
+matrix = engine.similarity_matrix(texts)
+<span class="comment"># Returns: [good-great, good-bad, good-terrible, great-bad, great-terrible, bad-terrible]</span></code></pre>
+                        </div>
+                    </section>
+
+                    <section id="clustering">
+                        <h3>Clustering by Similarity</h3>
+                        <div class="code-block">
+                            <pre><code><span class="comment"># Group texts by similarity threshold</span>
+texts = [
+    <span class="string">"good product"</span>,
+    <span class="string">"great item"</span>,
+    <span class="string">"excellent purchase"</span>,
+    <span class="string">"bad service"</span>,
+    <span class="string">"poor experience"</span>,
+    <span class="string">"terrible support"</span>,
+]
+
+groups = engine.group_by_similarity(texts, threshold=<span class="number">0.5</span>)
+<span class="keyword">print</span>(groups)  <span class="comment"># [0, 0, 0, 1, 1, 1] - two clusters</span>
+
+<span class="comment"># Visualize clusters</span>
+<span class="keyword">from</span> collections <span class="keyword">import</span> defaultdict
+clusters = defaultdict(list)
+<span class="keyword">for</span> text, group <span class="keyword">in</span> zip(texts, groups):
+    clusters[group].append(text)
+
+<span class="keyword">for</span> group_id, members <span class="keyword">in</span> clusters.items():
+    <span class="keyword">print</span>(f<span class="string">"Cluster {group_id}: {members}"</span>)</code></pre>
+                        </div>
+                    </section>
+
+                    <!-- DOMAIN DETECTION -->
+                    <section id="domain-detection">
+                        <h2>Domain Detection</h2>
+                        <p>Automatically detect the domain of text using keyword-based Aho-Corasick matching:</p>
+
+                        <div class="code-block">
+                            <pre><code><span class="comment"># Detect primary domain</span>
+domain, confidence, keyword_count, keywords = engine.detect_domain(
+    <span class="string">"The vulnerability in the firewall allowed unauthorized access to the database"</span>
+)
+
+<span class="keyword">print</span>(f<span class="string">"Domain: {domain}"</span>)              <span class="comment"># "cybersecurity"</span>
+<span class="keyword">print</span>(f<span class="string">"Confidence: {confidence:.2f}"</span>)  <span class="comment"># 0.92</span>
+<span class="keyword">print</span>(f<span class="string">"Keywords found: {keywords}"</span>)    <span class="comment"># ["vulnerability", "firewall", "unauthorized", "access"]</span>
+
+<span class="comment"># Get scores for all domains</span>
+scores = engine.get_domain_scores(text)
+<span class="keyword">for</span> domain, score <span class="keyword">in</span> sorted(scores.items(), key=<span class="keyword">lambda</span> x: -x[<span class="number">1</span>]):
+    <span class="keyword">print</span>(f<span class="string">"  {domain}: {score:.4f}"</span>)
+
+<span class="comment"># Batch domain detection</span>
+texts = [<span class="string">"lawsuit filed"</span>, <span class="string">"revenue growth"</span>, <span class="string">"data breach"</span>]
+results = engine.detect_domain_batch(texts)
+<span class="keyword">for</span> text, (domain, conf, count, kw) <span class="keyword">in</span> zip(texts, results):
+    <span class="keyword">print</span>(f<span class="string">"{text}: {domain}"</span>)</code></pre>
+                        </div>
+                    </section>
+
+                    <section id="domain-blending">
+                        <h3>Multi-Domain Blending</h3>
+                        <p>For complex text spanning multiple domains, get weighted analysis from all relevant domains:</p>
+
+                        <div class="code-block">
+                            <pre><code><span class="comment"># Standard blended valence</span>
+result = engine.compute_blended_valence(text)
+
+<span class="keyword">print</span>(f<span class="string">"Blended Valence: {result.blended_valence:.4f}"</span>)
+<span class="keyword">print</span>(f<span class="string">"Domain Mix: {result.domain_mix()}"</span>)
+<span class="keyword">print</span>(f<span class="string">"Dominant Domain: {result.dominant_domain()}"</span>)
+
+<span class="comment"># Custom blending parameters</span>
+result = engine.compute_blended_valence_custom(
+    text,
+    min_confidence=<span class="number">0.1</span>,   <span class="comment"># Include domains above this confidence</span>
+    max_domains=<span class="number">4</span>         <span class="comment"># Maximum domains to blend</span>
+)
+
+<span class="comment"># Just get the domain mix string</span>
+mix = engine.get_domain_mix(text)
+<span class="keyword">print</span>(mix)  <span class="comment"># "70% Finance / 30% Legal"</span>
+
+<span class="comment"># Batch blended analysis</span>
+results = engine.compute_blended_batch(texts)</code></pre>
+                        </div>
+                    </section>
+
+                    <section id="supported-domains">
+                        <h3>Supported Domains</h3>
+                        <table class="param-table">
+                            <thead>
+                                <tr><th>Domain ID</th><th>Description</th><th>Use Case</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td><code>loughran_mcdonald</code></td><td>Financial sentiment</td><td>10-K filings, earnings reports, financial news</td></tr>
+                                <tr><td><code>blacks_law</code></td><td>Legal terminology</td><td>Contracts, lawsuits, legal documents</td></tr>
+                                <tr><td><code>cybersecurity</code></td><td>Security & threats</td><td>Incident reports, vulnerability assessments</td></tr>
+                                <tr><td><code>hr_workforce</code></td><td>HR & employment</td><td>Employee reviews, HR documents</td></tr>
+                                <tr><td><code>healthcare</code></td><td>Medical terminology</td><td>Clinical notes, patient feedback</td></tr>
+                                <tr><td><code>afinn</code></td><td>General sentiment</td><td>Social media, reviews (fallback domain)</td></tr>
+                            </tbody>
+                        </table>
+
+                        <div class="code-block">
+                            <pre><code><span class="comment"># Load custom domain lexicon</span>
+engine.load_domain_lexicon(<span class="string">"custom_finance.json"</span>, <span class="string">"custom_finance"</span>)
+
+<span class="comment"># Set active domain manually</span>
+engine.set_domain(<span class="string">"loughran_mcdonald"</span>)
+sentiment = engine.classify_sentiment(text)  <span class="comment"># Uses financial lexicon</span>
+
+<span class="comment"># Reset to auto-detection</span>
+engine.set_domain(<span class="keyword">None</span>)
+
+<span class="comment"># Check available domains</span>
+domains = engine.available_domains()
+<span class="keyword">print</span>(domains)  <span class="comment"># ["loughran_mcdonald", "blacks_law", ...]</span></code></pre>
+                        </div>
+                    </section>
+
+                    <!-- ENTERPRISE TAXONOMY -->
+                    <section id="taxonomy-detection">
+                        <h2>Enterprise Taxonomy</h2>
+                        <p>Detect complaint phrases from a built-in taxonomy of 501 phrases across 24 industry verticals:</p>
+
+                        <div class="code-block">
+                            <pre><code>text = <span class="string">"The rating downgrade methodology was flawed and the credit assessment was unfair"</span>
+
+result = engine.detect_taxonomy(text)
+
+<span class="keyword">print</span>(f<span class="string">"Total matches: {result.total_matches}"</span>)
+<span class="keyword">print</span>(f<span class="string">"Primary industry: {result.dominant_industry}"</span>)
+<span class="keyword">print</span>(f<span class="string">"Primary category: {result.dominant_category}"</span>)
+<span class="keyword">print</span>(f<span class="string">"Aggregate sentiment: {result.aggregate_sentiment:.2f}"</span>)
+
+<span class="comment"># List all matches</span>
+<span class="keyword">for</span> match <span class="keyword">in</span> result.matches:
+    <span class="keyword">print</span>(f<span class="string">"  '{match.phrase}' - {match.industry}"</span>)
+    <span class="keyword">print</span>(f<span class="string">"    Category: {match.category_path}"</span>)
+    <span class="keyword">print</span>(f<span class="string">"    Sentiment: {match.sentiment_weight:.2f}"</span>)
+
+<span class="comment"># Get industry distribution</span>
+distribution = result.industry_percentages()
+<span class="keyword">for</span> industry, pct <span class="keyword">in</span> distribution.items():
+    <span class="keyword">print</span>(f<span class="string">"  {industry}: {pct:.1%}"</span>)</code></pre>
+                        </div>
+
+                        <h4>TaxonomyResultPy Properties</h4>
+                        <table class="param-table">
+                            <thead>
+                                <tr><th>Property</th><th>Type</th><th>Description</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td><code>matches</code></td><td>list</td><td>List of TaxonomyMatchPy objects</td></tr>
+                                <tr><td><code>total_matches</code></td><td>int</td><td>Number of phrases matched</td></tr>
+                                <tr><td><code>dominant_industry</code></td><td>str</td><td>Most common industry</td></tr>
+                                <tr><td><code>dominant_category</code></td><td>str</td><td>Most common category</td></tr>
+                                <tr><td><code>aggregate_sentiment</code></td><td>float</td><td>Average sentiment of matches</td></tr>
+                                <tr><td><code>industry_counts</code></td><td>dict</td><td>Industry to count mapping</td></tr>
+                                <tr><td><code>category_counts</code></td><td>dict</td><td>Category to count mapping</td></tr>
+                                <tr><td><code>industry_percentages()</code></td><td>dict</td><td>Industry to percentage mapping</td></tr>
+                            </tbody>
+                        </table>
+                    </section>
+
+                    <section id="taxonomy-industries">
+                        <h3>Industry-Specific Detection</h3>
+                        <div class="code-block">
+                            <pre><code><span class="comment"># Filter taxonomy detection by industry</span>
+result = engine.detect_taxonomy_for_industry(text, <span class="string">"financial_intelligence"</span>)
+
+<span class="comment"># Check if text has specific industry complaints</span>
+has_finance = engine.has_taxonomy_industry(text, <span class="string">"financial_intelligence"</span>)
+<span class="keyword">print</span>(f<span class="string">"Has financial complaints: {has_finance}"</span>)
+
+<span class="comment"># Get best category match for an industry</span>
+category, matches = engine.classify_taxonomy_category(text, <span class="string">"financial_intelligence"</span>)
+<span class="keyword">print</span>(f<span class="string">"Category: {category}"</span>)
+
+<span class="comment"># List all available industries</span>
+industries = engine.available_taxonomy_industries()
+<span class="keyword">for</span> industry <span class="keyword">in</span> industries:
+    desc = engine.get_taxonomy_industry_description(industry)
+    <span class="keyword">print</span>(f<span class="string">"  {industry}: {desc}"</span>)
+
+<span class="comment"># Total phrases in taxonomy</span>
+count = engine.taxonomy_phrase_count()
+<span class="keyword">print</span>(f<span class="string">"Total taxonomy phrases: {count}"</span>)  <span class="comment"># 501</span></code></pre>
+                        </div>
+
+                        <h4>Supported Industries (24 Total)</h4>
+                        <div class="taxonomy-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-top: 16px;">
+                            <div style="background: #f9fafb; padding: 8px 12px; border-radius: 6px; font-size: 0.875rem;">Financial Intelligence</div>
+                            <div style="background: #f9fafb; padding: 8px 12px; border-radius: 6px; font-size: 0.875rem;">Banking & Capital Markets</div>
+                            <div style="background: #f9fafb; padding: 8px 12px; border-radius: 6px; font-size: 0.875rem;">Insurance Claims</div>
+                            <div style="background: #f9fafb; padding: 8px 12px; border-radius: 6px; font-size: 0.875rem;">Healthcare Providers</div>
+                            <div style="background: #f9fafb; padding: 8px 12px; border-radius: 6px; font-size: 0.875rem;">Pharmaceutical</div>
+                            <div style="background: #f9fafb; padding: 8px 12px; border-radius: 6px; font-size: 0.875rem;">Telecommunications</div>
+                            <div style="background: #f9fafb; padding: 8px 12px; border-radius: 6px; font-size: 0.875rem;">Retail & E-commerce</div>
+                            <div style="background: #f9fafb; padding: 8px 12px; border-radius: 6px; font-size: 0.875rem;">Hospitality & Travel</div>
+                            <div style="background: #f9fafb; padding: 8px 12px; border-radius: 6px; font-size: 0.875rem;">Government Services</div>
+                            <div style="background: #f9fafb; padding: 8px 12px; border-radius: 6px; font-size: 0.875rem;">Legal Services</div>
+                            <div style="background: #f9fafb; padding: 8px 12px; border-radius: 6px; font-size: 0.875rem;">Technology Services</div>
+                            <div style="background: #f9fafb; padding: 8px 12px; border-radius: 6px; font-size: 0.875rem;">Manufacturing</div>
+                            <div style="background: #f9fafb; padding: 8px 12px; border-radius: 6px; font-size: 0.875rem;">Real Estate</div>
+                            <div style="background: #f9fafb; padding: 8px 12px; border-radius: 6px; font-size: 0.875rem;">Transportation & Logistics</div>
+                            <div style="background: #f9fafb; padding: 8px 12px; border-radius: 6px; font-size: 0.875rem;">Energy & Utilities</div>
+                            <div style="background: #f9fafb; padding: 8px 12px; border-radius: 6px; font-size: 0.875rem;">Education</div>
+                            <div style="background: #f9fafb; padding: 8px 12px; border-radius: 6px; font-size: 0.875rem;">ESG & Sustainable Finance</div>
+                            <div style="background: #f9fafb; padding: 8px 12px; border-radius: 6px; font-size: 0.875rem;">Private Equity</div>
+                            <div style="background: #f9fafb; padding: 8px 12px; border-radius: 6px; font-size: 0.875rem;">HR & Workforce</div>
+                            <div style="background: #f9fafb; padding: 8px 12px; border-radius: 6px; font-size: 0.875rem;">Cybersecurity</div>
+                            <div style="background: #f9fafb; padding: 8px 12px; border-radius: 6px; font-size: 0.875rem;">Environmental Services</div>
+                            <div style="background: #f9fafb; padding: 8px 12px; border-radius: 6px; font-size: 0.875rem;">Consumer Products</div>
+                            <div style="background: #f9fafb; padding: 8px 12px; border-radius: 6px; font-size: 0.875rem;">Media & Entertainment</div>
+                            <div style="background: #f9fafb; padding: 8px 12px; border-radius: 6px; font-size: 0.875rem;">Financial Services</div>
+                        </div>
+                    </section>
+
+                    <!-- ADVANCED FEATURES -->
+                    <section id="text-expansion">
+                        <h2>Text Expansion</h2>
+                        <p>See how text is expanded with synonyms, antonyms, and negation detection:</p>
+
+                        <div class="code-block">
+                            <pre><code>expanded = engine.expand_text(<span class="string">"I don't like the terrible service"</span>)
+
+<span class="keyword">print</span>(f<span class="string">"Original words: {expanded.original_words}"</span>)
+<span class="keyword">print</span>(f<span class="string">"Synonyms: {expanded.synonyms}"</span>)
+<span class="keyword">print</span>(f<span class="string">"Antonyms: {expanded.antonyms}"</span>)
+<span class="keyword">print</span>(f<span class="string">"Negated words: {expanded.negated_words}"</span>)
+<span class="keyword">print</span>(f<span class="string">"Has positive modal: {expanded.has_positive_modal}"</span>)
+<span class="keyword">print</span>(f<span class="string">"Has negative modal: {expanded.has_negative_modal}"</span>)</code></pre>
+                        </div>
+
+                        <div class="info-box">
+                            <strong>Negation Handling Features</strong>
+                            <ul>
+                                <li><strong>NegEx-style window:</strong> 4-word negation scope</li>
+                                <li><strong>60+ negation markers:</strong> not, never, no, neither, etc.</li>
+                                <li><strong>Verbal negators:</strong> fail, refuse, prevent, deny, reject, miss, lose</li>
+                                <li><strong>Double negation:</strong> Cancellation of negation effects</li>
+                                <li><strong>Negation walls:</strong> but, however, although reset scope</li>
+                                <li><strong>Prefix negation:</strong> un-, in-, im-, dis-, ir-, il- (250+ words)</li>
+                            </ul>
+                        </div>
+                    </section>
+
+                    <section id="comprehensive">
+                        <h3>Comprehensive Analysis</h3>
+                        <p>Get everything in one call - sentiment, domain, blending, and taxonomy:</p>
+
+                        <div class="code-block">
+                            <pre><code>analysis = engine.analyze_comprehensive(text)
+
+<span class="comment"># Sentiment</span>
+<span class="keyword">print</span>(f<span class="string">"Sentiment: {analysis.sentiment}"</span>)
+<span class="keyword">print</span>(f<span class="string">"Valence: {analysis.valence:.4f}"</span>)
+
+<span class="comment"># Domain Detection</span>
+<span class="keyword">print</span>(f<span class="string">"Detected Domain: {analysis.detected_domain}"</span>)
+<span class="keyword">print</span>(f<span class="string">"Domain Confidence: {analysis.domain_confidence:.2f}"</span>)
+<span class="keyword">print</span>(f<span class="string">"Domain Keywords: {analysis.domain_keywords}"</span>)
+
+<span class="comment"># Blending</span>
+<span class="keyword">print</span>(f<span class="string">"Blended Valence: {analysis.blended_valence:.4f}"</span>)
+<span class="keyword">print</span>(f<span class="string">"Domain Mix: {analysis.domain_mix}"</span>)
+
+<span class="comment"># Taxonomy</span>
+<span class="keyword">print</span>(f<span class="string">"Taxonomy Matches: {analysis.taxonomy_matches}"</span>)
+<span class="keyword">print</span>(f<span class="string">"Taxonomy Industry: {analysis.taxonomy_industry}"</span>)
+<span class="keyword">print</span>(f<span class="string">"Taxonomy Category: {analysis.taxonomy_category}"</span>)
+<span class="keyword">print</span>(f<span class="string">"Taxonomy Sentiment: {analysis.taxonomy_sentiment:.2f}"</span>)</code></pre>
+                        </div>
+
+                        <h4>Batch Auto-Analysis</h4>
+                        <div class="code-block">
+                            <pre><code><span class="comment"># Process multiple texts with auto-domain per text</span>
+texts = [
+    <span class="string">"The lawsuit was dismissed"</span>,
+    <span class="string">"Revenue exceeded expectations"</span>,
+    <span class="string">"Security vulnerability detected"</span>,
+]
+
+results = engine.analyze_batch_auto(texts)
+<span class="keyword">for</span> idx, domain, sentiment, valence <span class="keyword">in</span> results:
+    <span class="keyword">print</span>(f<span class="string">"Text {idx}: {domain} - {sentiment} ({valence:.2f})"</span>)</code></pre>
+                        </div>
+                    </section>
+
+                    <section id="classification">
+                        <h3>Label Classification</h3>
+                        <p>Classify text to the best matching label from a set of descriptions:</p>
+
+                        <div class="code-block">
+                            <pre><code><span class="comment"># Define labels with descriptions</span>
+labels = [
+    (<span class="string">"positive_feedback"</span>, <span class="string">"positive customer feedback expressing satisfaction"</span>),
+    (<span class="string">"negative_feedback"</span>, <span class="string">"negative customer feedback expressing dissatisfaction"</span>),
+    (<span class="string">"feature_request"</span>, <span class="string">"customer requesting new features or improvements"</span>),
+    (<span class="string">"bug_report"</span>, <span class="string">"customer reporting a bug or technical issue"</span>),
+]
+
+text = <span class="string">"The app keeps crashing when I try to save my work"</span>
+label, score = engine.classify_to_label(text, labels)
+<span class="keyword">print</span>(f<span class="string">"Classification: {label} (confidence: {score:.4f})"</span>)
+<span class="comment"># "bug_report"</span>
+
+<span class="comment"># Batch classification</span>
+texts = [<span class="string">"Love this product!"</span>, <span class="string">"Please add dark mode"</span>, <span class="string">"Error on checkout"</span>]
+results = engine.classify_batch(texts, labels)
+<span class="keyword">for</span> text, (label, score) <span class="keyword">in</span> zip(texts, results):
+    <span class="keyword">print</span>(f<span class="string">"{text}: {label}"</span>)</code></pre>
+                        </div>
+                    </section>
+
+                    <!-- PERFORMANCE -->
+                    <section id="performance">
+                        <h2>Performance</h2>
+                        <p>Benchmarks on Intel i7-12700K, 32GB RAM:</p>
+
+                        <table class="param-table">
+                            <thead>
+                                <tr>
+                                    <th>Operation</th>
+                                    <th>Throughput</th>
+                                    <th>Latency</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>Sentiment Classification</td><td>60,000+ texts/sec</td><td>~0.02ms</td></tr>
+                                <tr><td>Similarity Computation</td><td>10,000+ pairs/sec</td><td>~0.1ms</td></tr>
+                                <tr><td>Domain Detection</td><td>100,000+ texts/sec</td><td>~0.01ms</td></tr>
+                                <tr><td>Taxonomy Detection</td><td>50,000+ texts/sec</td><td>~0.02ms</td></tr>
+                                <tr><td>Comprehensive Analysis</td><td>20,000+ texts/sec</td><td>~0.05ms</td></tr>
+                            </tbody>
+                        </table>
+
+                        <div class="info-box">
+                            <strong>Why is it fast?</strong>
+                            <ul>
+                                <li>Native Rust with zero-copy memory operations</li>
+                                <li>Aho-Corasick O(n) multi-pattern matching</li>
+                                <li>SIMD-optimized hashbrown HashMap</li>
+                                <li>Rayon parallel processing for batch operations</li>
+                                <li>Lazy static initialization for global structures</li>
+                            </ul>
+                        </div>
+                    </section>
+
+                    <!-- API REFERENCE -->
+                    <section id="api-reference">
+                        <h2>API Reference</h2>
+
+                        <h3>OnesEngine Class</h3>
+                        <table class="param-table">
+                            <thead>
+                                <tr><th>Method</th><th>Description</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td colspan="2" style="background: #f9fafb; font-weight: 600;">Initialization</td></tr>
+                                <tr><td><code>OnesEngine()</code></td><td>Create new engine instance</td></tr>
+                                <tr><td><code>load_lexicon(path)</code></td><td>Load JSON lexicon file</td></tr>
+                                <tr><td><code>load_domain_lexicon(path, domain)</code></td><td>Load domain-specific lexicon</td></tr>
+                                <tr><td><code>set_domain(domain)</code></td><td>Set active domain (None for auto)</td></tr>
+                                <tr><td><code>get_domain()</code></td><td>Get current active domain</td></tr>
+                                <tr><td><code>available_domains()</code></td><td>List all loaded domains</td></tr>
+                                <tr><td><code>lexicon_size()</code></td><td>Get lexicon entry count</td></tr>
+
+                                <tr><td colspan="2" style="background: #f9fafb; font-weight: 600;">Sentiment Analysis</td></tr>
+                                <tr><td><code>classify_sentiment(text)</code></td><td>Returns "positive"/"negative"/"neutral"</td></tr>
+                                <tr><td><code>calculate_valence(text)</code></td><td>Returns numeric score [-1, 1]</td></tr>
+                                <tr><td><code>classify_sentiment_auto(text)</code></td><td>Returns (sentiment, domain, confidence)</td></tr>
+                                <tr><td><code>classify_sentiment_blended(text)</code></td><td>Returns (sentiment, BlendedResultPy)</td></tr>
+
+                                <tr><td colspan="2" style="background: #f9fafb; font-weight: 600;">Similarity</td></tr>
+                                <tr><td><code>compute_similarity(t1, t2)</code></td><td>Returns SimilarityResult</td></tr>
+                                <tr><td><code>compute_similarity_auto(t1, t2)</code></td><td>Similarity with auto-domain</td></tr>
+                                <tr><td><code>compute_similarity_blended(t1, t2)</code></td><td>Returns (score, result1, result2)</td></tr>
+                                <tr><td><code>compute_similarity_batch(pairs)</code></td><td>Returns list of scores</td></tr>
+                                <tr><td><code>find_most_similar(text, candidates)</code></td><td>Returns (index, score)</td></tr>
+                                <tr><td><code>similarity_matrix(texts)</code></td><td>Returns flattened upper triangle</td></tr>
+                                <tr><td><code>group_by_similarity(texts, threshold)</code></td><td>Returns cluster assignments</td></tr>
+
+                                <tr><td colspan="2" style="background: #f9fafb; font-weight: 600;">Domain Detection</td></tr>
+                                <tr><td><code>detect_domain(text)</code></td><td>Returns (domain, conf, count, keywords)</td></tr>
+                                <tr><td><code>get_domain_scores(text)</code></td><td>Returns dict of all domain scores</td></tr>
+                                <tr><td><code>detect_domain_batch(texts)</code></td><td>Batch domain detection</td></tr>
+
+                                <tr><td colspan="2" style="background: #f9fafb; font-weight: 600;">Domain Blending</td></tr>
+                                <tr><td><code>compute_blended_valence(text)</code></td><td>Returns BlendedResultPy</td></tr>
+                                <tr><td><code>compute_blended_valence_custom(text, min_conf, max_domains)</code></td><td>Custom blending params</td></tr>
+                                <tr><td><code>get_domain_mix(text)</code></td><td>Returns string like "70% Finance / 30% Legal"</td></tr>
+                                <tr><td><code>compute_blended_batch(texts)</code></td><td>Batch blended analysis</td></tr>
+
+                                <tr><td colspan="2" style="background: #f9fafb; font-weight: 600;">Taxonomy</td></tr>
+                                <tr><td><code>detect_taxonomy(text)</code></td><td>Returns TaxonomyResultPy</td></tr>
+                                <tr><td><code>detect_taxonomy_for_industry(text, industry)</code></td><td>Industry-filtered detection</td></tr>
+                                <tr><td><code>has_taxonomy_industry(text, industry)</code></td><td>Returns bool</td></tr>
+                                <tr><td><code>get_taxonomy_industry_distribution(text)</code></td><td>Returns percentage dict</td></tr>
+                                <tr><td><code>classify_taxonomy_category(text, industry)</code></td><td>Returns (category, matches)</td></tr>
+                                <tr><td><code>available_taxonomy_industries()</code></td><td>List all 24 industries</td></tr>
+                                <tr><td><code>get_taxonomy_industry_description(industry)</code></td><td>Get industry description</td></tr>
+                                <tr><td><code>taxonomy_phrase_count()</code></td><td>Returns 501</td></tr>
+                                <tr><td><code>detect_taxonomy_batch(texts)</code></td><td>Batch taxonomy detection</td></tr>
+
+                                <tr><td colspan="2" style="background: #f9fafb; font-weight: 600;">Advanced</td></tr>
+                                <tr><td><code>expand_text(text)</code></td><td>Returns ExpandedSetPy</td></tr>
+                                <tr><td><code>analyze_comprehensive(text)</code></td><td>Returns ComprehensiveAnalysisPy</td></tr>
+                                <tr><td><code>analyze_batch_auto(texts)</code></td><td>Batch with auto-domain</td></tr>
+                                <tr><td><code>classify_to_label(text, labels)</code></td><td>Returns (label, score)</td></tr>
+                                <tr><td><code>classify_batch(texts, labels)</code></td><td>Batch classification</td></tr>
+                            </tbody>
+                        </table>
+                    </section>
+
+                    <section id="support">
+                        <h2>Support</h2>
+                        <ul class="support-list">
+                            <li><strong>Email:</strong> <a href="mailto:admin@grandnasser.com">admin@grandnasser.com</a></li>
+                            <li><strong>GitHub:</strong> <a href="https://github.com/Osseni94/ONES-rs" target="_blank">Issue Tracker</a></li>
+                            <li><strong>Response Time:</strong> Within 24-48 hours</li>
+                        </ul>
+                    </section>
+
+                    <section class="docs-cta">
+                        <h2>Ready to Get Started?</h2>
+                        <p>Install ONES-RS and start analyzing text at enterprise scale.</p>
+                        <div class="code-block" style="margin-top: 16px;">
+                            <pre><code>pip install ones-rs --index-url https://pypi.keyneg.com/simple/</code></pre>
+                        </div>
+                    </section>
+                </article>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Grand Nasser Enterprises. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileMenuBtn.classList.toggle('active');
+        });
+
+        // TOC toggle for mobile
+        const tocToggle = document.querySelector('.docs-toc-toggle');
+        const docsNav = document.querySelector('.docs-nav');
+
+        if (tocToggle) {
+            tocToggle.addEventListener('click', () => {
+                const isExpanded = tocToggle.getAttribute('aria-expanded') === 'true';
+                tocToggle.setAttribute('aria-expanded', !isExpanded);
+                docsNav.classList.toggle('expanded');
+            });
+        }
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    navLinks.classList.remove('active');
+                    mobileMenuBtn.classList.remove('active');
+                    if (window.innerWidth <= 968) {
+                        tocToggle.setAttribute('aria-expanded', 'false');
+                        docsNav.classList.remove('expanded');
+                    }
+                }
+            }
+        });
+
+        // Navbar background on scroll
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Highlight active sidebar link on scroll
+        const sections = document.querySelectorAll('section[id]');
+        const sidebarLinks = document.querySelectorAll('.docs-nav a');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (scrollY >= sectionTop - 100) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            sidebarLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
