@@ -88,6 +88,7 @@
                         <ul>
                             <li><a href="#performance">Performance</a></li>
                             <li><a href="#api-reference">API Reference</a></li>
+                            <li><a href="#licensing">Licensing</a></li>
                             <li><a href="#support">Support</a></li>
                         </ul>
                         <h4>More Docs</h4>
@@ -780,6 +781,49 @@ results = engine.classify_batch(texts, labels)
                                 <tr><td><code>classify_batch(texts, labels)</code></td><td>Batch classification</td></tr>
                             </tbody>
                         </table>
+                    </section>
+
+                    <section id="licensing">
+                        <h2>Licensing</h2>
+                        <p>ONES-RS includes a <strong>30-day free trial</strong>. After the trial, activate an enterprise license to continue using the library.</p>
+
+                        <h3>Check Trial Status</h3>
+                        <div class="code-block">
+                            <pre><code><span class="keyword">from</span> ones_rs <span class="keyword">import</span> check_trial_status
+
+status = check_trial_status()
+<span class="keyword">print</span>(f<span class="string">"License: {status.license_type}"</span>)
+<span class="keyword">print</span>(f<span class="string">"Days remaining: {status.days_remaining}"</span>)
+<span class="keyword">print</span>(f<span class="string">"Valid: {status.valid}"</span>)</code></pre>
+                        </div>
+
+                        <h3>Activate Enterprise License</h3>
+                        <div class="code-block">
+                            <pre><code><span class="keyword">from</span> ones_rs <span class="keyword">import</span> activate_license
+
+<span class="comment"># Activate with your license key</span>
+status = activate_license(<span class="string">"ONES-eyJjb21wYW55IjogIll..."</span>)
+<span class="keyword">print</span>(f<span class="string">"Activated: {status.company}"</span>)
+<span class="keyword">print</span>(f<span class="string">"Expires in: {status.days_remaining} days"</span>)</code></pre>
+                        </div>
+
+                        <h3>Skip License Check (Evaluation Mode)</h3>
+                        <p>For restricted environments like Snowflake where license validation may fail, use evaluation mode:</p>
+                        <div class="code-block">
+                            <pre><code><span class="keyword">from</span> ones_rs <span class="keyword">import</span> OnesEngine
+
+<span class="comment"># Skip license check for evaluation in restricted environments</span>
+engine = OnesEngine(skip_license_check=<span class="keyword">True</span>)
+
+<span class="comment"># Use normally</span>
+result = engine.classify_sentiment(<span class="string">"Revenue exceeded expectations"</span>)</code></pre>
+                        </div>
+
+                        <div class="info-box">
+                            <strong>License Key Format</strong>
+                            <p>Enterprise license keys are bound to your company domain and have format: <code>ONES-{encoded_data}-{signature}</code></p>
+                            <p>Contact <a href="mailto:admin@grandnasser.com">admin@grandnasser.com</a> for pricing and to request a license key.</p>
+                        </div>
                     </section>
 
                     <section id="support">
