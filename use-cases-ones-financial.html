@@ -271,8 +271,8 @@ domain = engine.detect_domain(text)
                     <div class="output-header">Output</div>
                     <pre>Text: Operating profit rose to EUR 13.1 mn from EUR 8.7 mn in 2007.
 Sentiment: positive
-Valence Score: 0.4000
-Detected Domain: loughran-mcdonald</pre>
+Valence Score: 0.7000
+Detected Domain: loughran_mcdonald</pre>
                 </div>
             </div>
 
@@ -392,9 +392,9 @@ test_texts = [
 
                 <div class="output-block">
                     <div class="output-header">Output</div>
-                    <pre>[bullish ] (0.027) Revenue grew 25% and exceeded all analyst expectations.
-[bearish ] (0.054) The company reported a significant quarterly loss.
-[neutral ] (0.578) Operations continued as normal with stable margins.</pre>
+                    <pre>[bullish ] (0.021) Revenue grew 25% and exceeded all analyst expectations.
+[bearish ] (0.046) The company reported a significant quarterly loss.
+[neutral ] (0.516) Operations continued as normal with stable margins.</pre>
                 </div>
             </div>
 
@@ -433,9 +433,9 @@ groups = engine.group_by_similarity(texts, <span class="number">0.2</span>)
                     <pre>Clustering Results:
   Cluster 0: Revenue increased significantly
   Cluster 1: Revenue grew strongly
-  Cluster 0: Sales declined sharply
+  Cluster 2: Sales declined sharply
   Cluster 0: Sales dropped significantly
-  Cluster 2: Earnings were stable</pre>
+  Cluster 3: Earnings were stable</pre>
                 </div>
             </div>
 
