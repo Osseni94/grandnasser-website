@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financial Sentiment Analysis | ONES-RS - Grand Nasser Enterprises</title>
+    <meta name="description" content="See ONES-RS analyzing the Financial PhraseBank dataset - High-performance sentiment analysis for financial text at 780K+ texts/second">
+    <meta name="robots" content="index, follow">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="ONES-RS Financial Sentiment Analysis">
+    <meta property="og:description" content="Benchmark results on Financial PhraseBank - 63% accuracy, 780K texts/sec throughput">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="use-cases.css">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>G</text></svg>">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <img src="logo.png" alt="Grand Nasser Enterprises" class="logo-img">
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html#products">Products</a></li>
+                <li><a href="docs/keyneg.html">Docs</a></li>
+                <li><a href="use-cases.html">Use Cases</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+            <button class="mobile-menu-btn" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <header class="usecase-hero">
+        <div class="container">
+            <h1>ONES-RS Financial Analysis</h1>
+            <p class="hero-subtitle">High-performance financial sentiment analysis using the Loughran-McDonald lexicon at 780K+ texts/second</p>
+            <!-- Use Case Navigation -->
+            <div class="usecase-nav">
+                <a href="use-cases-ones-financial.html" class="usecase-nav-link active">Financial Sentiment</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Tutorial Section -->
+    <section class="case-study">
+        <div class="container">
+            <div class="case-header">
+                <span class="case-badge">Tutorial</span>
+                <h2>Financial PhraseBank Sentiment Analysis</h2>
+                <p>Learn how to analyze financial news sentences using ONES-RS with the Loughran-McDonald financial lexicon</p>
+            </div>
+
+            <!-- Step 1: The Dataset -->
+            <div class="tutorial-step">
+                <div class="step-header">
+                    <span class="step-number">1</span>
+                    <h3>The Dataset</h3>
+                </div>
+                <p class="step-desc">We're using the Financial PhraseBank dataset from HuggingFace, containing 4,840 sentences from financial news articles annotated by 16 experts. We use the "sentences_allagree" subset where all annotators agreed on the sentiment label.</p>
+
+                <div class="data-sample">
+                    <div class="sample-header">
+                        <span class="sample-badge">Sample Data</span>
+                        <span class="sample-file">Financial PhraseBank (AllAgree)</span>
+                    </div>
+                    <div class="sample-table-wrapper">
+                        <table class="sample-table">
+                            <thead>
+                                <tr>
+                                    <th>Sentence</th>
+                                    <th>Label</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Operating profit rose to EUR 13.1 mn from EUR 8.7 mn in the corresponding period in 2007.</td>
+                                    <td>positive</td>
+                                </tr>
+                                <tr>
+                                    <td>Sales in Finland decreased by 10.5% in January, while sales outside Finland dropped by 17%.</td>
+                                    <td>negative</td>
+                                </tr>
+                                <tr>
+                                    <td>The company has its own operations in Finland, Sweden and Norway.</td>
+                                    <td>neutral</td>
+                                </tr>
+                                <tr>
+                                    <td>Net sales increased to EUR 1.4 bn from EUR 1.3 bn in 2005.</td>
+                                    <td>positive</td>
+                                </tr>
+                                <tr>
+                                    <td>The situation of coated magazine printing paper is expected to remain weak.</td>
+                                    <td>negative</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Dataset Stats -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <span class="stat-value">2,264</span>
+                        <span class="stat-label">Total Sentences</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-value">1,391</span>
+                        <span class="stat-label">Neutral (61%)</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-value">570</span>
+                        <span class="stat-label">Positive (25%)</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-value">303</span>
+                        <span class="stat-label">Negative (13%)</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2: Install ONES-RS -->
+            <div class="tutorial-step">
+                <div class="step-header">
+                    <span class="step-number">2</span>
+                    <h3>Install ONES-RS</h3>
+                </div>
+                <p class="step-desc">Install the ONES-RS library via pip. The library is built in Rust for maximum performance with Python bindings via PyO3:</p>
+
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-lang">Bash</span>
+                        <span class="code-file">installation</span>
+                    </div>
+                    <pre><code><span class="comment"># Install from wheel (enterprise version)</span>
+pip install ones_rs-1.1.0-cp311-cp311-win_amd64.whl
+
+<span class="comment"># Verify installation</span>
+python -c "from ones_rs.ones_rs import version; print(version())"</code></pre>
+                </div>
+
+                <div class="output-block">
+                    <div class="output-header">Output</div>
+                    <pre>1.1.0</pre>
+                </div>
+            </div>
+
+            <!-- Step 3: Initialize Engine -->
+            <div class="tutorial-step">
+                <div class="step-header">
+                    <span class="step-number">3</span>
+                    <h3>Initialize the ONES Engine</h3>
+                </div>
+                <p class="step-desc">Initialize the OnesEngine and load the Loughran-McDonald financial lexicon containing 1,425 domain-specific terms:</p>
+
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-lang">Python</span>
+                        <span class="code-file">initialize_engine.py</span>
+                    </div>
+                    <pre><code><span class="keyword">from</span> ones_rs.ones_rs <span class="keyword">import</span> OnesEngine, version
+<span class="keyword">from</span> pathlib <span class="keyword">import</span> Path
+
+<span class="comment"># Initialize the ONES engine</span>
+engine = OnesEngine()
+
+<span class="comment"># Load the Loughran-McDonald financial lexicon</span>
+lexicon_path = Path(<span class="string">"data/domain_lexicons/loughran_mcdonald_lexicon.json"</span>)
+num_terms = engine.load_lexicon(<span class="keyword">str</span>(lexicon_path))
+
+<span class="keyword">print</span>(<span class="string">f"ONES-RS Version: {version()}"</span>)
+<span class="keyword">print</span>(<span class="string">f"Lexicon loaded: {num_terms} financial terms"</span>)
+<span class="keyword">print</span>(<span class="string">f"Engine ready for analysis"</span>)</code></pre>
+                </div>
+
+                <div class="output-block">
+                    <div class="output-header">Output</div>
+                    <pre>ONES-RS Version: 1.1.0
+Lexicon loaded: 1425 financial terms
+Engine ready for analysis</pre>
+                </div>
+            </div>
+
+            <!-- Step 4: Load Dataset -->
+            <div class="tutorial-step">
+                <div class="step-header">
+                    <span class="step-number">4</span>
+                    <h3>Load the Financial PhraseBank Dataset</h3>
+                </div>
+                <p class="step-desc">Load the dataset and parse the sentence@label format:</p>
+
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-lang">Python</span>
+                        <span class="code-file">load_dataset.py</span>
+                    </div>
+                    <pre><code><span class="keyword">import</span> pandas <span class="keyword">as</span> pd
+<span class="keyword">from</span> pathlib <span class="keyword">import</span> Path
+
+<span class="comment"># Load the AllAgree subset</span>
+data_path = Path(<span class="string">"data/FinancialPhraseBank-v1.0/Sentences_AllAgree.txt"</span>)
+
+sentences = []
+labels = []
+
+<span class="keyword">with</span> <span class="keyword">open</span>(data_path, <span class="string">'r'</span>, encoding=<span class="string">'latin-1'</span>) <span class="keyword">as</span> f:
+    <span class="keyword">for</span> line <span class="keyword">in</span> f:
+        <span class="keyword">if</span> <span class="string">'@'</span> <span class="keyword">in</span> line:
+            parts = line.strip().rsplit(<span class="string">'@'</span>, <span class="number">1</span>)
+            <span class="keyword">if</span> <span class="keyword">len</span>(parts) == <span class="number">2</span>:
+                sentences.append(parts[<span class="number">0</span>])
+                labels.append(parts[<span class="number">1</span>])
+
+df = pd.DataFrame({<span class="string">'sentence'</span>: sentences, <span class="string">'label'</span>: labels})
+
+<span class="keyword">print</span>(<span class="string">f"Total sentences: {len(df)}"</span>)
+<span class="keyword">print</span>(<span class="string">f"Label distribution:"</span>)
+<span class="keyword">print</span>(df[<span class="string">'label'</span>].value_counts())</code></pre>
+                </div>
+
+                <div class="output-block">
+                    <div class="output-header">Output</div>
+                    <pre>Total sentences: 2264
+Label distribution:
+neutral     1391
+positive     570
+negative     303</pre>
+                </div>
+            </div>
+
+            <!-- Step 5: Single Analysis -->
+            <div class="tutorial-step">
+                <div class="step-header">
+                    <span class="step-number">5</span>
+                    <h3>Analyze a Single Sentence</h3>
+                </div>
+                <p class="step-desc">Let's analyze a single financial sentence to understand the output:</p>
+
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-lang">Python</span>
+                        <span class="code-file">single_analysis.py</span>
+                    </div>
+                    <pre><code><span class="comment"># Sample financial sentence</span>
+text = <span class="string">"Operating profit rose to EUR 13.1 mn from EUR 8.7 mn in 2007."</span>
+
+<span class="comment"># Get sentiment classification</span>
+sentiment = engine.classify_sentiment(text)
+valence = engine.calculate_valence(text)
+domain = engine.detect_domain(text)
+
+<span class="keyword">print</span>(<span class="string">f"Text: {text}"</span>)
+<span class="keyword">print</span>(<span class="string">f"Sentiment: {sentiment}"</span>)
+<span class="keyword">print</span>(<span class="string">f"Valence Score: {valence:.4f}"</span>)
+<span class="keyword">print</span>(<span class="string">f"Detected Domain: {domain}"</span>)</code></pre>
+                </div>
+
+                <div class="output-block">
+                    <div class="output-header">Output</div>
+                    <pre>Text: Operating profit rose to EUR 13.1 mn from EUR 8.7 mn in 2007.
+Sentiment: positive
+Valence Score: 0.4000
+Detected Domain: loughran-mcdonald</pre>
+                </div>
+            </div>
+
+            <!-- Step 6: Batch Analysis -->
+            <div class="tutorial-step">
+                <div class="step-header">
+                    <span class="step-number">6</span>
+                    <h3>High-Performance Batch Analysis</h3>
+                </div>
+                <p class="step-desc">ONES-RS uses Rayon for parallel processing, achieving 780K+ texts per second. Let's analyze all 2,264 sentences:</p>
+
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-lang">Python</span>
+                        <span class="code-file">batch_analysis.py</span>
+                    </div>
+                    <pre><code><span class="keyword">import</span> time
+
+<span class="comment"># Get all sentences</span>
+all_sentences = df[<span class="string">'sentence'</span>].tolist()
+
+<span class="comment"># Batch analysis with automatic parallelization</span>
+start_time = time.time()
+results = engine.analyze_batch_auto(all_sentences)
+elapsed = time.time() - start_time
+
+<span class="comment"># Results format: (index, domain, sentiment, valence)</span>
+df[<span class="string">'ones_sentiment'</span>] = [r[<span class="number">2</span>] <span class="keyword">for</span> r <span class="keyword">in</span> results]
+df[<span class="string">'ones_valence'</span>] = [r[<span class="number">3</span>] <span class="keyword">for</span> r <span class="keyword">in</span> results]
+
+<span class="comment"># Calculate throughput</span>
+throughput = <span class="keyword">len</span>(all_sentences) / elapsed
+
+<span class="keyword">print</span>(<span class="string">f"Processed {len(all_sentences):,} texts in {elapsed:.4f} seconds"</span>)
+<span class="keyword">print</span>(<span class="string">f"Throughput: {throughput:,.0f} texts/second"</span>)</code></pre>
+                </div>
+
+                <div class="output-block">
+                    <div class="output-header">Output</div>
+                    <pre>Processed 2,264 texts in 0.0029 seconds
+Throughput: 782,389 texts/second</pre>
+                </div>
+            </div>
+
+            <!-- Step 7: Accuracy Calculation -->
+            <div class="tutorial-step">
+                <div class="step-header">
+                    <span class="step-number">7</span>
+                    <h3>Calculate Accuracy Metrics</h3>
+                </div>
+                <p class="step-desc">Compare ONES-RS predictions against ground truth labels:</p>
+
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-lang">Python</span>
+                        <span class="code-file">calculate_metrics.py</span>
+                    </div>
+                    <pre><code><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> accuracy_score, classification_report
+
+<span class="comment"># Calculate overall accuracy</span>
+accuracy = accuracy_score(df[<span class="string">'label'</span>], df[<span class="string">'ones_sentiment'</span>])
+
+<span class="keyword">print</span>(<span class="string">f"Overall Accuracy: {accuracy:.2%}"</span>)
+<span class="keyword">print</span>()
+<span class="keyword">print</span>(<span class="string">"Classification Report:"</span>)
+<span class="keyword">print</span>(classification_report(df[<span class="string">'label'</span>], df[<span class="string">'ones_sentiment'</span>]))</code></pre>
+                </div>
+
+                <div class="output-block">
+                    <div class="output-header">Output</div>
+                    <pre>Overall Accuracy: 63.12%
+
+Classification Report:
+              precision    recall  f1-score   support
+
+    negative       0.21      0.09      0.12       303
+     neutral       0.77      0.76      0.76      1391
+    positive       0.46      0.62      0.53       570
+
+    accuracy                           0.63      2264
+   macro avg       0.48      0.49      0.47      2264
+weighted avg       0.62      0.63      0.62      2264</pre>
+                </div>
+            </div>
+
+            <!-- Step 8: Custom Label Classification -->
+            <div class="tutorial-step">
+                <div class="step-header">
+                    <span class="step-number">8</span>
+                    <h3>Custom Label Classification</h3>
+                </div>
+                <p class="step-desc">ONES-RS supports classification to custom labels using keyword matching:</p>
+
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-lang">Python</span>
+                        <span class="code-file">custom_labels.py</span>
+                    </div>
+                    <pre><code><span class="comment"># Define custom financial labels</span>
+custom_labels = [
+    (<span class="string">"bullish"</span>, <span class="string">"strong growth, positive outlook, exceeds expectations, profitable, increase"</span>),
+    (<span class="string">"bearish"</span>, <span class="string">"decline, loss, negative outlook, underperform, weak, decrease"</span>),
+    (<span class="string">"neutral"</span>, <span class="string">"stable, unchanged, maintains, as expected"</span>)
+]
+
+<span class="comment"># Classify sample texts</span>
+test_texts = [
+    <span class="string">"Revenue grew 25% and exceeded all analyst expectations."</span>,
+    <span class="string">"The company reported a significant quarterly loss."</span>,
+    <span class="string">"Operations continued as normal with stable margins."</span>
+]
+
+<span class="keyword">for</span> text <span class="keyword">in</span> test_texts:
+    label, score = engine.classify_to_label(text, custom_labels)
+    <span class="keyword">print</span>(<span class="string">f"[{label:8}] ({score:.3f}) {text}"</span>)</code></pre>
+                </div>
+
+                <div class="output-block">
+                    <div class="output-header">Output</div>
+                    <pre>[bullish ] (0.027) Revenue grew 25% and exceeded all analyst expectations.
+[bearish ] (0.054) The company reported a significant quarterly loss.
+[neutral ] (0.578) Operations continued as normal with stable margins.</pre>
+                </div>
+            </div>
+
+            <!-- Step 9: Similarity Grouping -->
+            <div class="tutorial-step">
+                <div class="step-header">
+                    <span class="step-number">9</span>
+                    <h3>Group Similar Texts</h3>
+                </div>
+                <p class="step-desc">ONES-RS can group texts by lexical similarity using Jaccard-based clustering:</p>
+
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-lang">Python</span>
+                        <span class="code-file">similarity_grouping.py</span>
+                    </div>
+                    <pre><code><span class="comment"># Texts to cluster</span>
+texts = [
+    <span class="string">"Revenue increased significantly"</span>,
+    <span class="string">"Revenue grew strongly"</span>,
+    <span class="string">"Sales declined sharply"</span>,
+    <span class="string">"Sales dropped significantly"</span>,
+    <span class="string">"Earnings were stable"</span>
+]
+
+<span class="comment"># Group by similarity (threshold 0.2)</span>
+groups = engine.group_by_similarity(texts, <span class="number">0.2</span>)
+
+<span class="keyword">print</span>(<span class="string">"Clustering Results:"</span>)
+<span class="keyword">for</span> text, cluster <span class="keyword">in</span> <span class="keyword">zip</span>(texts, groups):
+    <span class="keyword">print</span>(<span class="string">f"  Cluster {cluster}: {text}"</span>)</code></pre>
+                </div>
+
+                <div class="output-block">
+                    <div class="output-header">Output</div>
+                    <pre>Clustering Results:
+  Cluster 0: Revenue increased significantly
+  Cluster 1: Revenue grew strongly
+  Cluster 0: Sales declined sharply
+  Cluster 0: Sales dropped significantly
+  Cluster 2: Earnings were stable</pre>
+                </div>
+            </div>
+
+            <!-- Results Visualization -->
+            <div class="results-section">
+                <h3>Performance Results</h3>
+                <p class="section-desc">ONES-RS achieves impressive throughput while maintaining competitive accuracy:</p>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <span class="stat-value">782K+</span>
+                        <span class="stat-label">Texts/Second</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-value">63.12%</span>
+                        <span class="stat-label">Overall Accuracy</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-value">0.471</span>
+                        <span class="stat-label">Macro F1</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-value">1,425</span>
+                        <span class="stat-label">Lexicon Terms</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Per-Class Results -->
+            <div class="results-section">
+                <h3>Per-Class Performance</h3>
+                <p class="section-desc">F1 scores by sentiment class:</p>
+
+                <div class="sentiment-chart">
+                    <div class="sentiment-bar">
+                        <span class="sentiment-label">Neutral</span>
+                        <div class="bar-container">
+                            <div class="bar" style="width: 76%"></div>
+                            <span class="bar-value">F1: 0.760</span>
+                        </div>
+                    </div>
+                    <div class="sentiment-bar">
+                        <span class="sentiment-label">Positive</span>
+                        <div class="bar-container">
+                            <div class="bar" style="width: 53%"></div>
+                            <span class="bar-value">F1: 0.529</span>
+                        </div>
+                    </div>
+                    <div class="sentiment-bar">
+                        <span class="sentiment-label">Negative</span>
+                        <div class="bar-container">
+                            <div class="bar" style="width: 12%"></div>
+                            <span class="bar-value">F1: 0.124</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Key Insights -->
+            <div class="insights-section">
+                <h3>Key Insights</h3>
+                <div class="insights-grid">
+                    <div class="insight-card">
+                        <div class="insight-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                            </svg>
+                        </div>
+                        <h4>Extreme Speed</h4>
+                        <p>Processing 780K+ texts per second, ONES-RS is ideal for real-time financial data feeds, high-frequency trading signals, and bulk document processing.</p>
+                    </div>
+                    <div class="insight-card">
+                        <div class="insight-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M12 6v6l4 2"/>
+                            </svg>
+                        </div>
+                        <h4>No ML Overhead</h4>
+                        <p>Pure lexicon-based approach means no model loading, no GPU requirements, and deterministic results every time.</p>
+                    </div>
+                    <div class="insight-card">
+                        <div class="insight-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                            </svg>
+                        </div>
+                        <h4>Domain Optimized</h4>
+                        <p>The Loughran-McDonald lexicon is specifically designed for financial text, capturing terms like "impairment", "litigation", and "restructuring".</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Feature Summary -->
+            <div class="results-section">
+                <h3>ONES-RS Features</h3>
+                <p class="section-desc">Capabilities demonstrated in this tutorial:</p>
+
+                <div class="company-grid">
+                    <div class="company-card">
+                        <h4>Sentiment Analysis</h4>
+                        <p style="color: var(--color-text-light); font-size: 0.875rem; margin: 0;">classify_sentiment(), calculate_valence(), classify_sentiment_blended()</p>
+                    </div>
+                    <div class="company-card">
+                        <h4>Batch Processing</h4>
+                        <p style="color: var(--color-text-light); font-size: 0.875rem; margin: 0;">analyze_batch_auto() with Rayon parallel processing</p>
+                    </div>
+                    <div class="company-card">
+                        <h4>Custom Labels</h4>
+                        <p style="color: var(--color-text-light); font-size: 0.875rem; margin: 0;">classify_to_label(), classify_batch() with custom categories</p>
+                    </div>
+                    <div class="company-card">
+                        <h4>Similarity Clustering</h4>
+                        <p style="color: var(--color-text-light); font-size: 0.875rem; margin: 0;">group_by_similarity(), compute_similarity(), similarity_matrix()</p>
+                    </div>
+                    <div class="company-card">
+                        <h4>Domain Detection</h4>
+                        <p style="color: var(--color-text-light); font-size: 0.875rem; margin: 0;">detect_domain(), get_domain_scores(), get_domain_mix()</p>
+                    </div>
+                    <div class="company-card">
+                        <h4>Multi-Domain Lexicons</h4>
+                        <p style="color: var(--color-text-light); font-size: 0.875rem; margin: 0;">Financial, Healthcare, Legal, Technology domains</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CTA -->
+            <div class="case-cta">
+                <h3>Analyze Your Financial Data</h3>
+                <p>Use ONES-RS for high-performance sentiment analysis on earnings calls, SEC filings, financial news, and analyst reports.</p>
+                <div class="cta-buttons">
+                    <a href="index.html#contact" class="btn btn-primary">Request Enterprise License</a>
+                    <a href="docs/ones-rs.html" class="btn btn-secondary">View Documentation</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dataset Attribution -->
+    <section class="attribution">
+        <div class="container">
+            <p>Dataset: <a href="https://huggingface.co/datasets/takala/financial_phrasebank" target="_blank">Financial PhraseBank</a> by Malo et al. on HuggingFace (4,840 sentences)</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Grand Nasser Enterprises. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileMenuBtn.classList.toggle('active');
+        });
+
+        // Navbar background on scroll
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+    </script>
+</body>
+</html>
