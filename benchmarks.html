@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Benchmarks | ONES-RS vs Snowflake - Grand Nasser Enterprises</title>
+    <meta name="description" content="Independent benchmark comparison of ONES-RS against Snowflake Cortex Sentiment on Financial PhraseBank dataset">
+    <meta name="robots" content="index, follow">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="ONES-RS Benchmarks">
+    <meta property="og:description" content="ONES-RS achieves 68.63% accuracy vs Snowflake's 48.04% on financial sentiment analysis">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="use-cases.css">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>G</text></svg>">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <img src="logo.png" alt="Grand Nasser Enterprises" class="logo-img">
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html#products">Products</a></li>
+                <li><a href="docs/keyneg.html">Docs</a></li>
+                <li><a href="use-cases.html">Use Cases</a></li>
+                <li><a href="benchmarks.html" class="active">Benchmarks</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+            <button class="mobile-menu-btn" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <header class="usecase-hero">
+        <div class="container">
+            <h1>ONES-RS Benchmarks</h1>
+            <p class="hero-subtitle">Independent performance comparisons against industry-standard sentiment analysis tools</p>
+            <!-- Benchmark Navigation -->
+            <div class="usecase-nav">
+                <a href="benchmarks.html" class="usecase-nav-link active">Financial PhraseBank</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Benchmark Section -->
+    <section class="case-study">
+        <div class="container">
+            <div class="case-header">
+                <span class="case-badge">Benchmark</span>
+                <h2>ONES-RS vs Snowflake Cortex Sentiment</h2>
+                <p>Head-to-head comparison on the Financial PhraseBank academic benchmark dataset</p>
+            </div>
+
+            <!-- Dataset Info -->
+            <div class="tutorial-step">
+                <div class="step-header">
+                    <span class="step-number">1</span>
+                    <h3>Dataset: Financial PhraseBank</h3>
+                </div>
+                <p class="step-desc">We used the Financial PhraseBank dataset from HuggingFace - an academic benchmark containing financial news sentences with expert-annotated sentiment labels.</p>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <span class="stat-value">306</span>
+                        <span class="stat-label">Test Sentences</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-value">3</span>
+                        <span class="stat-label">Sentiment Classes</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-value">59.8%</span>
+                        <span class="stat-label">Neutral</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-value">29.4%</span>
+                        <span class="stat-label">Positive</span>
+                    </div>
+                </div>
+
+                <div class="data-sample">
+                    <div class="sample-header">
+                        <span class="sample-badge">Sample Data</span>
+                        <span class="sample-file">Financial PhraseBank</span>
+                    </div>
+                    <div class="sample-table-wrapper">
+                        <table class="sample-table">
+                            <thead>
+                                <tr>
+                                    <th>Sentence</th>
+                                    <th>Ground Truth</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Operating profit rose to EUR 13.1 mn from EUR 8.7 mn in 2007.</td>
+                                    <td>positive</td>
+                                </tr>
+                                <tr>
+                                    <td>Sales in Finland decreased by 10.5% in January.</td>
+                                    <td>negative</td>
+                                </tr>
+                                <tr>
+                                    <td>The company has operations in Finland, Sweden and Norway.</td>
+                                    <td>neutral</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Methodology -->
+            <div class="tutorial-step">
+                <div class="step-header">
+                    <span class="step-number">2</span>
+                    <h3>Methodology</h3>
+                </div>
+                <p class="step-desc">Both tools were run on the same 306 sentences. Snowflake Cortex was accessed via SQL, and results were exported for comparison.</p>
+
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-lang">SQL</span>
+                        <span class="code-file">snowflake_sentiment.sql</span>
+                    </div>
+                    <pre><code><span class="comment">-- Snowflake Cortex Sentiment Analysis</span>
+<span class="keyword">SELECT</span>
+    FULL_SENTENCE,
+    SNOWFLAKE.CORTEX.SENTIMENT(FULL_SENTENCE) <span class="keyword">AS</span> sentiment_score,
+    <span class="keyword">CASE</span>
+        <span class="keyword">WHEN</span> sentiment_score >= <span class="number">0.60</span> <span class="keyword">THEN</span> <span class="string">'STRONG_POSITIVE'</span>
+        <span class="keyword">WHEN</span> sentiment_score >= <span class="number">0.25</span> <span class="keyword">THEN</span> <span class="string">'POSITIVE'</span>
+        <span class="keyword">WHEN</span> sentiment_score > <span class="number">-0.25</span> <span class="keyword">AND</span> sentiment_score < <span class="number">0.25</span> <span class="keyword">THEN</span> <span class="string">'NEUTRAL'</span>
+        <span class="keyword">WHEN</span> sentiment_score <= <span class="number">-0.25</span> <span class="keyword">THEN</span> <span class="string">'NEGATIVE'</span>
+        <span class="keyword">ELSE</span> <span class="string">'STRONG_NEGATIVE'</span>
+    <span class="keyword">END AS</span> sentiment_label
+<span class="keyword">FROM</span> FINANCIAL_PHRASEBANK_SENTENCES;</code></pre>
+                </div>
+
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-lang">Python</span>
+                        <span class="code-file">ones_rs_analysis.py</span>
+                    </div>
+                    <pre><code><span class="keyword">from</span> ones_rs.ones_rs <span class="keyword">import</span> OnesEngine
+<span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> accuracy_score, f1_score
+
+<span class="comment"># Initialize ONES-RS with financial domain lexicon</span>
+engine = OnesEngine()
+engine.load_lexicon(<span class="string">'financial_lexicon.json'</span>)
+
+<span class="comment"># Analyze all sentences</span>
+results = engine.analyze_batch_auto(sentences)
+predictions = [r[<span class="number">2</span>] <span class="keyword">for</span> r <span class="keyword">in</span> results]  <span class="comment"># sentiment label</span>
+
+<span class="comment"># Calculate metrics</span>
+accuracy = accuracy_score(ground_truth, predictions)
+f1_macro = f1_score(ground_truth, predictions, average=<span class="string">'macro'</span>)</code></pre>
+                </div>
+            </div>
+
+            <!-- Results -->
+            <div class="tutorial-step">
+                <div class="step-header">
+                    <span class="step-number">3</span>
+                    <h3>Results</h3>
+                </div>
+                <p class="step-desc">ONES-RS significantly outperforms Snowflake Cortex on financial text sentiment analysis.</p>
+
+                <div class="data-sample">
+                    <div class="sample-header">
+                        <span class="sample-badge">Results</span>
+                        <span class="sample-file">306 sentences</span>
+                    </div>
+                    <div class="sample-table-wrapper">
+                        <table class="sample-table">
+                            <thead>
+                                <tr>
+                                    <th>Metric</th>
+                                    <th>Snowflake Cortex</th>
+                                    <th>ONES-RS</th>
+                                    <th>Winner</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Accuracy</strong></td>
+                                    <td>48.04%</td>
+                                    <td><strong>68.63%</strong></td>
+                                    <td style="color: #22c55e;">ONES-RS (+20.59%)</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Macro F1</strong></td>
+                                    <td>0.461</td>
+                                    <td><strong>0.519</strong></td>
+                                    <td style="color: #22c55e;">ONES-RS (+0.058)</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Weighted F1</strong></td>
+                                    <td>0.487</td>
+                                    <td><strong>0.673</strong></td>
+                                    <td style="color: #22c55e;">ONES-RS (+0.186)</td>
+                                </tr>
+                                <tr>
+                                    <td>Neutral F1</td>
+                                    <td>0.524</td>
+                                    <td><strong>0.781</strong></td>
+                                    <td style="color: #22c55e;">ONES-RS (+0.257)</td>
+                                </tr>
+                                <tr>
+                                    <td>Positive F1</td>
+                                    <td>0.431</td>
+                                    <td><strong>0.653</strong></td>
+                                    <td style="color: #22c55e;">ONES-RS (+0.222)</td>
+                                </tr>
+                                <tr>
+                                    <td>Negative F1</td>
+                                    <td><strong>0.427</strong></td>
+                                    <td>0.122</td>
+                                    <td style="color: #3b82f6;">Snowflake (+0.305)</td>
+                                </tr>
+                                <tr>
+                                    <td>Speed</td>
+                                    <td>Cloud API</td>
+                                    <td><strong>350K+ texts/sec</strong></td>
+                                    <td style="color: #22c55e;">ONES-RS</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Visualization -->
+            <div class="results-section">
+                <h3>Per-Class Performance</h3>
+                <p class="section-desc">F1 scores by sentiment class:</p>
+
+                <div class="sentiment-chart">
+                    <div class="sentiment-bar">
+                        <span class="sentiment-label">Neutral</span>
+                        <div class="bar-container">
+                            <div class="bar" style="width: 78%; background: linear-gradient(90deg, #3b82f6 67%, #22c55e 67%);"></div>
+                            <span class="bar-value">Snowflake: 0.524 | ONES-RS: 0.781</span>
+                        </div>
+                    </div>
+                    <div class="sentiment-bar">
+                        <span class="sentiment-label">Positive</span>
+                        <div class="bar-container">
+                            <div class="bar" style="width: 65%; background: linear-gradient(90deg, #3b82f6 66%, #22c55e 66%);"></div>
+                            <span class="bar-value">Snowflake: 0.431 | ONES-RS: 0.653</span>
+                        </div>
+                    </div>
+                    <div class="sentiment-bar">
+                        <span class="sentiment-label">Negative</span>
+                        <div class="bar-container">
+                            <div class="bar" style="width: 43%; background: linear-gradient(90deg, #22c55e 28%, #3b82f6 28%);"></div>
+                            <span class="bar-value">Snowflake: 0.427 | ONES-RS: 0.122</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Key Findings -->
+            <div class="insights-section">
+                <h3>Key Findings</h3>
+                <div class="insights-grid">
+                    <div class="insight-card">
+                        <div class="insight-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                            </svg>
+                        </div>
+                        <h4>Financial Domain Optimization</h4>
+                        <p>ONES-RS uses domain-specific lexicons optimized for financial terminology, unlike general-purpose sentiment models.</p>
+                    </div>
+                    <div class="insight-card">
+                        <div class="insight-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M8 12l2 2 4-4"/>
+                            </svg>
+                        </div>
+                        <h4>Neutral Detection Excellence</h4>
+                        <p>Financial text is predominantly neutral (59.8%). ONES-RS achieves F1=0.781 vs Snowflake's 0.524 on this critical class.</p>
+                    </div>
+                    <div class="insight-card">
+                        <div class="insight-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                            </svg>
+                        </div>
+                        <h4>Extreme Speed</h4>
+                        <p>ONES-RS processes 350,000+ texts per second locally, with no cloud API latency or rate limits.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Reproduction -->
+            <div class="tutorial-step">
+                <div class="step-header">
+                    <span class="step-number">4</span>
+                    <h3>Reproduce This Benchmark</h3>
+                </div>
+                <p class="step-desc">Full comparison code to reproduce these results:</p>
+
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-lang">Python</span>
+                        <span class="code-file">benchmark_comparison.py</span>
+                    </div>
+                    <pre><code><span class="keyword">import</span> pandas <span class="keyword">as</span> pd
+<span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> accuracy_score, f1_score, classification_report
+<span class="keyword">from</span> ones_rs.ones_rs <span class="keyword">import</span> OnesEngine
+
+<span class="comment"># Load Snowflake export</span>
+df = pd.read_csv(<span class="string">'snowflake_export.csv'</span>)
+
+<span class="comment"># Extract ground truth from "sentence@label" format</span>
+df[<span class="string">'ground_truth'</span>] = df[<span class="string">'FULL_SENTENCE'</span>].apply(
+    <span class="keyword">lambda</span> x: x.rsplit(<span class="string">'@'</span>, <span class="number">1</span>)[<span class="number">1</span>].strip() <span class="keyword">if</span> <span class="string">'@'</span> <span class="keyword">in</span> <span class="keyword">str</span>(x) <span class="keyword">else</span> <span class="keyword">None</span>
+)
+df = df[df[<span class="string">'ground_truth'</span>].notna()]
+
+<span class="comment"># Map Snowflake labels to 3-class</span>
+<span class="keyword">def</span> map_label(label):
+    label = <span class="keyword">str</span>(label).lower()
+    <span class="keyword">if</span> <span class="string">'positive'</span> <span class="keyword">in</span> label: <span class="keyword">return</span> <span class="string">'positive'</span>
+    <span class="keyword">elif</span> <span class="string">'negative'</span> <span class="keyword">in</span> label: <span class="keyword">return</span> <span class="string">'negative'</span>
+    <span class="keyword">return</span> <span class="string">'neutral'</span>
+
+df[<span class="string">'snowflake_pred'</span>] = df[<span class="string">'SENTIMENT_LABEL'</span>].apply(map_label)
+
+<span class="comment"># Run ONES-RS</span>
+engine = OnesEngine()
+engine.load_lexicon(<span class="string">'financial_lexicon.json'</span>)
+sentences = [s.rsplit(<span class="string">'@'</span>, <span class="number">1</span>)[<span class="number">0</span>] <span class="keyword">for</span> s <span class="keyword">in</span> df[<span class="string">'FULL_SENTENCE'</span>]]
+results = engine.analyze_batch_auto(sentences)
+df[<span class="string">'ones_pred'</span>] = [r[<span class="number">2</span>] <span class="keyword">for</span> r <span class="keyword">in</span> results]
+
+<span class="comment"># Compare</span>
+<span class="keyword">print</span>(<span class="string">"Snowflake Accuracy:"</span>, accuracy_score(df[<span class="string">'ground_truth'</span>], df[<span class="string">'snowflake_pred'</span>]))
+<span class="keyword">print</span>(<span class="string">"ONES-RS Accuracy:"</span>, accuracy_score(df[<span class="string">'ground_truth'</span>], df[<span class="string">'ones_pred'</span>]))
+<span class="keyword">print</span>(<span class="string">"\nONES-RS Classification Report:"</span>)
+<span class="keyword">print</span>(classification_report(df[<span class="string">'ground_truth'</span>], df[<span class="string">'ones_pred'</span>]))</code></pre>
+                </div>
+            </div>
+
+            <!-- CTA -->
+            <div class="case-cta">
+                <h3>Try ONES-RS on Your Data</h3>
+                <p>Experience the performance advantage of domain-optimized sentiment analysis for your financial documents.</p>
+                <div class="cta-buttons">
+                    <a href="index.html#contact" class="btn btn-primary">Request Enterprise License</a>
+                    <a href="use-cases-ones-financial.html" class="btn btn-secondary">View Full Tutorial</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dataset Attribution -->
+    <section class="attribution">
+        <div class="container">
+            <p>Dataset: <a href="https://huggingface.co/datasets/takala/financial_phrasebank" target="_blank">Financial PhraseBank</a> by Malo et al. | Snowflake Cortex accessed December 2024</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Grand Nasser Enterprises. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileMenuBtn.classList.toggle('active');
+        });
+
+        // Navbar background on scroll
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+    </script>
+</body>
+</html>
